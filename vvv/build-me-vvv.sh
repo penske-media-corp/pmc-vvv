@@ -57,11 +57,12 @@ vagrant ssh -- -t 'if ! grep -q PMC_PHPUNIT_BOOTSTRAP ~/.bashrc; then echo expor
 echo -e "\nDetecting PMC sites..."
 for i in $(ls -d www/pmc-* | xargs -n1 basename)
   do
+  # VIPGO specific but doesn't hurt to have same login everywhere
+  vagrant ssh -- -t "cd /srv/www/$i/public_html && wp user create pmc pmc@pmc.test --user_pass=pmc --role=administrator"
   if [ ! -d www/$i/public_html/wp-content/themes/$i ]; then git clone https://bitbucket.org/penskemediacorp/$i.git www/$i/public_html/wp-content/themes/$i; fi
   echo -e "\nIs $i go or wpcom?"
   select yn in "go" "wpcom"; do case $yn in
     go ) \
-      vagrant ssh -- -t "cd /srv/www/$i/public_html && wp user create pmc pmc@pmc.test --user_pass=pmc --role=administrator"
       CONSTANTS="WP_DEBUG DISALLOW_FILE_MODS DISALLOW_FILE_EDIT AUTOMATIC_UPDATER_DISABLED"
       for constant in $CONSTANTS; do vagrant ssh -- -t "cd /srv/www/$i/public_html && wp config set $constant true --raw"; done
       vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins"
