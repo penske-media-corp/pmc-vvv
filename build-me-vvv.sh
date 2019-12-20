@@ -49,8 +49,9 @@ select yn in "yes" "no"; do case $yn in
   esac
 done
 
-
 vagrant ssh -- -t 'if ! grep PMC_PHPUNIT_BOOTSTRAP ~/.bashrc; then echo export PMC_PHPUNIT_BOOTSTRAP="/srv/www/pmc/public_html/wp-content/plugins/pmc-plugins/pmc-unit-test/bootstrap.php" >> ~/.bashrc; fi'
+vagrant ssh -- -t 'cd /srv/www/pmc/pmc-vip-go-plugins/amp && composer install && npm install && npm run build'
+vagrant ssh -- -t 'cd /srv/www/pmc/vip-wpcom-mu-plugins/amp-wp && composer install && npm install && npm run build'
 
 for i in $(ls -d www/pmc-* | xargs -n1 basename)
   do
