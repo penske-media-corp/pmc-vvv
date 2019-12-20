@@ -36,10 +36,15 @@ git clone https://bitbucket.org/penskemediacorp/pmc-core-v2.git www/pmc/pmc-core
 git clone https://bitbucket.org/penskemediacorp/pmc-plugins.git www/pmc/pmc-plugins
 git clone https://bitbucket.org/penskemediacorp/pmc-vip-go-plugins.git www/pmc/pmc-vip-go-plugins
 git clone https://bitbucket.org/penskemediacorp/wordpress-vip-plugins.git www/pmc/wordpress-vip-plugins
-git clone https://github.com/automattic/vip-go-mu-plugins-built.git www/pmc/vip-go-mu-plugins-built
+
+# According to https://wpvip.com/documentation/vip-go/local-vip-go-development-environment/#vvv-for-vip-go-development
+git clone https://github.com/automattic/vip-go-mu-plugins.git www/pmc/vip-go-mu-plugins
+git -C www/pmc/vip-go-mu-plugins pull origin master
+git -C www/pmc/vip-go-mu-plugins submodule update --init --recursive
+
 git clone https://github.com/automattic/vip-wpcom-mu-plugins.git www/pmc/vip-wpcom-mu-plugins
 git -C www/pmc/vip-wpcom-mu-plugins submodule init
-git -C www/pmc/vip-wpcom-mu-plugins submodule update
+git -C www/pmc/vip-wpcom-mu-plugins submodule update --init --recursive
 
 echo "Start the vagrant machine i.e. vagrant up --provision?"
 select yn in "yes" "no"; do case $yn in
@@ -62,7 +67,7 @@ select yn in "yes" "no"; do case $yn in
   esac
 done
 
-vagrant ssh -- -t 'if ! grep PMC_PHPUNIT_BOOTSTRAP ~/.bashrc; then echo export PMC_PHPUNIT_BOOTSTRAP="/srv/www/pmc/public_html/wp-content/plugins/pmc-plugins/pmc-unit-test/bootstrap.php" >> ~/.bashrc; fi'
+vagrant ssh -- -t 'if ! grep PMC_PHPUNIT_BOOTSTRAP ~/.bashrc; then echo export PMC_PHPUNIT_BOOTSTRAP="/srv/www/pmc/public_html/wp-content/alugins/pmc-plugins/pmc-unit-test/bootstrap.php" >> ~/.bashrc; fi'
 
 for i in $(ls -d www/pmc-* | xargs -n1 basename)
   do
@@ -70,7 +75,7 @@ for i in $(ls -d www/pmc-* | xargs -n1 basename)
   vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins && ln -sfv /srv/www/pmc/pmc-plugins /srv/www/$i/public_html/wp-content/plugins && ln -sfv /srv/www/pmc/pmc-vip-go-plugins/* /srv/www/$i/public_html/wp-content/plugins"
   echo "Is $i go or wpcom?"
   select yn in "go" "wpcom"; do case $yn in
-    go ) vagrant ssh -- -t "ln -sfv /srv/www/pmc/vip-go-mu-plugins-built/* /srv/www/$i/public_html/wp-content/mu-plugins" && break;;
+    go ) vagrant ssh -- -t "ln -sfv /srv/www/pmc/vip-go-mu-plugins/* /srv/www/$i/public_html/wp-content/mu-plugins" && break;;
     wpcom ) vagrant ssh -- -t "ln -sfv /srv/www/pmc/vip-wpcom-mu-plugins/* /srv/www/$i/public_html/wp-content/mu-plugins" && break;;
     esac
   done
