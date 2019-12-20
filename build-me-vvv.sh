@@ -49,7 +49,7 @@ for i in $(ls -d www/pmc-* | xargs -n1 basename)
   do
   git clone https://bitbucket.org/penskemediacorp/$i.git www/$i/public_html/wp-content/themes/$i
   vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins && ln -sf /srv/www/pmc/pmc-plugins /srv/www/$i/public_html/wp-content/plugins && ln -sf /srv/www/pmc/pmc-vip-go-plugins/* /srv/www/$i/public_html/wp-content/plugins"
-  echo "Is this site $i go or wpcom"
+  echo "Is $i go or wpcom?"
   select yn in "go" "wpcom"; do case $yn in
     go ) vagrant ssh -- -t "ln -sf /srv/www/pmc/vip-go-mu-plugins-built/* /srv/www/$i/public_html/wp-content/mu-plugins" && break;;
     wpcom ) vagrant ssh -- -t "ln -sf /srv/www/pmc/vip-wpcom-mu-plugins/* /srv/www/$i/public_html/wp-content/mu-plugins" && break;;
