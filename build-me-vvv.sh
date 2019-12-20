@@ -42,8 +42,15 @@ git -C www/pmc/vip-wpcom-mu-plugins submodule init
 git -C www/pmc/vip-wpcom-mu-plugins submodule update
 
 # Start the machine
-vagrant up --provision
-vagrant ssh -- -t 'if ! grep PMC_PHPUNIT_BOOTSTRAP ~/.bashrc; then echo export PMC_PHPUNIT_BOOTSTRAP="/srv/www/vip/public_html/wp-content/themes/vip/pmc-plugins/pmc-unit-test/bootstrap.php" >> ~/.bashrc; fi'
+echo "Start the vagrant machine i.e. vagrant up --provision?"
+select yn in "yes" "no"; do case $yn in
+  yes ) vagrant up --provision && break;;
+  no ) break;;
+  esac
+done
+
+
+vagrant ssh -- -t 'if ! grep PMC_PHPUNIT_BOOTSTRAP ~/.bashrc; then echo export PMC_PHPUNIT_BOOTSTRAP="/srv/www/pmc/public_html/wp-content/plugins/pmc-plugins/pmc-unit-test/bootstrap.php" >> ~/.bashrc; fi'
 
 for i in $(ls -d www/pmc-* | xargs -n1 basename)
   do
