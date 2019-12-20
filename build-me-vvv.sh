@@ -62,3 +62,6 @@ for i in $(ls -d www/pmc-* | xargs -n1 basename)
     esac
   done
 done;
+
+echo "You should now have PMC sites setup in vagrant"
+echo "Go To: vvv.test in your browser to see what you can do"
