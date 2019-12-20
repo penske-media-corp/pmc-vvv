@@ -1,33 +1,17 @@
 #!/bin/sh
 echo "Make sure you've cloned the VVV repo and you are in the root of it"
-echo ".... git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git"
-echo "it looks like you're in `pwd`"
-
-echo -e "\nCONTINUE?"
-select yn in "yes" "no"; do case $yn in
-  yes ) break;;
-  no ) exit;;
+echo "It looks like you're in `pwd`"
+echo -e "\nClone VVV or CONTINUE without cloning?"
+select yn in "clone" "continue"; do case $yn in
+  clone ) git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git && cd VVV && break;;
+  continue ) break;;
 	esac
 done
-echo "Copy config/default-config.yml -> config/config.yml"
-echo ".... cp config/default-config.yml config/config.yml"
-echo "Add in the sites you need according to the docs here:"
-echo "https://varyingvagrantvagrants.org/docs/en-US/adding-a-new-site/"
-echo "At the bare minimum you should add this config per site"
-echo "==================="
-echo "pmc-your-site:"
-echo "  skip_provisioning: false"
-echo "  description: 'pmc-your-site'"
-echo "  repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git"
-echo "  hosts:"
-echo "    - pmc-your-site.test"
-echo "==================="
-echo "Then come back to this script and we'll download the plugins and themes we need for each entry that you added to the config"
 
-echo -e "\nCONTINUE?"
+echo -e "\nCopy the config.yml for VVV into config/config.yml ( this will overwrite if existing ) or continue without copying?"
 select yn in "yes" "no"; do case $yn in
-  yes ) break;;
-  no ) exit;;
+  yes ) curl -o config/config.yml https://raw.githubusercontent.com/penske-media-corp/httpatterns/master/vvv/config.yml && break;;
+  no ) break;;
 	esac
 done
 
