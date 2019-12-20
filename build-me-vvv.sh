@@ -48,16 +48,16 @@ vagrant ssh -- -t 'if ! grep PMC_PHPUNIT_BOOTSTRAP ~/.bashrc; then echo export P
 for i in $(ls -d www/pmc-* | xargs -n1 basename)
   do
   git clone https://bitbucket.org/penskemediacorp/$i.git www/$i/public_html/wp-content/themes/$i
-  vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins && ln -svf /srv/www/pmc/pmc-plugins /srv/www/$i/public_html/wp-content/plugins && ln -svf /srv/www/pmc/pmc-vip-go-plugins/* /srv/www/$i/public_html/wp-content/plugins"
+  vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins && ln -sf /srv/www/pmc/pmc-plugins /srv/www/$i/public_html/wp-content/plugins && ln -sf /srv/www/pmc/pmc-vip-go-plugins/* /srv/www/$i/public_html/wp-content/plugins"
   echo "Is this site $i go or wpcom"
   select yn in "go" "wpcom"; do case $yn in
-    go ) vagrant ssh -- -t "ln -svf /srv/www/pmc/vip-go-mu-plugins-built/* /srv/www/$i/public_html/wp-content/mu-plugins" && break;;
-    wpcom ) vagrant ssh -- -t "ln -svf /srv/www/pmc/vip-wpcom-mu-plugins/* /srv/www/$i/public_html/wp-content/mu-plugins" && break;;
+    go ) vagrant ssh -- -t "ln -sf /srv/www/pmc/vip-go-mu-plugins-built/* /srv/www/$i/public_html/wp-content/mu-plugins" && break;;
+    wpcom ) vagrant ssh -- -t "ln -sf /srv/www/pmc/vip-wpcom-mu-plugins/* /srv/www/$i/public_html/wp-content/mu-plugins" && break;;
     esac
   done
   echo "Does $i use pmc-core-v2?"
   select yn in "yes" "no"; do case $yn in
-    yes ) vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/themes/vip && ln -svf /srv/www/pmc/pmc-core-v2 /srv/www/$i/public_html/wp-content/themes/vip" && break;;
+    yes ) vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/themes/vip && ln -sf /srv/www/pmc/pmc-core-v2 /srv/www/$i/public_html/wp-content/themes/vip" && break;;
     no ) break;;
     esac
   done
