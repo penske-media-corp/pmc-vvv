@@ -27,6 +27,7 @@ echo -e "\nInstalling pmc core tech..."
 if [ ! -d "www/phpcs/CodeSniffer/Standards/pmc-codesniffer" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-codesniffer.git www/phpcs/CodeSniffer/Standards/pmc-codesniffer && echo "phpcs usage: phpcs --standard=/srv/www/phpcs/CodeSniffer/pmc-codesniffer/... some.php"; fi
 
 if [ ! -d "www/pmc/coretech/pmc-core" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-core-v2.git www/pmc/coretech/pmc-core; fi
+if [ ! -d "www/pmc/coretech/pmc-core-2017" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-core-2017.git www/pmc/coretech/pmc-core-2017; fi
 if [ ! -d "www/pmc/coretech/pmc-core-v2" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-core-v2.git www/pmc/coretech/pmc-core-v2; fi
 if [ ! -d "www/pmc/coretech/pmc-plugins" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-plugins.git www/pmc/coretech/pmc-plugins; fi
 
@@ -52,36 +53,54 @@ select yn in "yes" "no"; do case $yn in
   esac
 done
 
-vagrant ssh -- -t 'if ! grep -q PMC_PHPUNIT_BOOTSTRAP ~/.bashrc; then echo export PMC_PHPUNIT_BOOTSTRAP="/srv/www/pmc/coretech/pmc-plugins/pmc-unit-test/bootstrap.php" >> ~/.bashrc; fi'
+echo -e "\nDo you have npx and jq installed?"
+echo -e "if the answer is no please install them both and continue..."
+echo -e "https://www.npmjs.com/package/npx"
+echo -e "https://stedolan.github.io/jq/"
+select yn in "continue" "exit"; do case $yn in
+  continue ) \
+    wpcom_sites=$(npx -q coolaj86/yaml2json config/config.yml | jq -r '.sites.wpcom.hosts[]')
+    echo $wpcom_sites
+    break;;
+  exit ) exit;;
+  esac
+done
 
-echo -e "\nDetecting PMC sites..."
+echo -e "\nDetecting PMC VIP-GO sites..."
 for i in $(ls -d www/pmc-* | xargs -n1 basename)
   do
-  # VIPGO specific but doesn't hurt to have same login everywhere
-  vagrant ssh -- -t "cd /srv/www/$i/public_html && wp user create pmc pmc@pmc.test --user_pass=pmc --role=administrator"
+  CONSTANTS="DISALLOW_FILE_MODS DISALLOW_FILE_EDIT AUTOMATIC_UPDATER_DISABLED"
+  for constant in $CONSTANTS; do vagrant ssh -- -t "cd /srv/www/$i/public_html && wp config set $constant true --raw"; done
   if [ ! -d www/$i/public_html/wp-content/themes/$i ]; then git clone https://bitbucket.org/penskemediacorp/$i.git www/$i/public_html/wp-content/themes/$i; fi
-  echo -e "\nIs $i go or wpcom?"
-  select yn in "go" "wpcom"; do case $yn in
-    go ) \
-      CONSTANTS="WP_DEBUG DISALLOW_FILE_MODS DISALLOW_FILE_EDIT AUTOMATIC_UPDATER_DISABLED"
-      for constant in $CONSTANTS; do vagrant ssh -- -t "cd /srv/www/$i/public_html && wp config set $constant true --raw"; done
-      vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins"
-      vagrant ssh -- -t "ln -sf /srv/www/pmc/coretech/pmc-plugins /srv/www/$i/public_html/wp-content/plugins"
-      vagrant ssh -- -t "ln -sf /srv/www/pmc/vipgo/pmc-vip-go-plugins/* /srv/www/$i/public_html/wp-content/plugins"
-      vagrant ssh -- -t "ln -sf /srv/www/pmc/vipgo/vip-go-mu-plugins-built/* /srv/www/$i/public_html/wp-content/mu-plugins"
-      break;;
-    wpcom ) \
-      vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins /srv/www/$i/public_html/wp-content/themes/vip/plugins"
-      vagrant ssh -- -t "ln -sf /srv/www/pmc/coretech/pmc-plugins /srv/www/$i/public_html/wp-content/themes/vip"
-      vagrant ssh -- -t "ln -sf /srv/www/pmc/wpcom/vip-wpcom-mu-plugins/* /srv/www/$i/public_html/wp-content/mu-plugins"
-      vagrant ssh -- -t "ln -sf /srv/www/pmc/wpcom/wordpress-vip-plugins/* /srv/www/$i/public_html/wp-content/themes/vip/plugins"
-      #@TODO: svn checkout stuff
-        break;;
-    esac
-  done
+  vagrant ssh -- -t "cd /srv/www/$i/public_html && wp user create pmc pmc@pmc.test --user_pass=pmc --role=administrator"
+  vagrant ssh -- -t "cd /srv/www/$i/public_html && wp config set PMC_PHPUNIT_BOOTSTRAP /srv/www/$i/public_html/wp-content/plugins/pmc-plugins/pmc-unit-test/bootstrap.php"
+  vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins"
+  vagrant ssh -- -t "ln -sf /srv/www/pmc/coretech/pmc-plugins /srv/www/$i/public_html/wp-content/plugins"
+  vagrant ssh -- -t "ln -sf /srv/www/pmc/vipgo/pmc-vip-go-plugins/* /srv/www/$i/public_html/wp-content/plugins"
+  vagrant ssh -- -t "ln -sf /srv/www/pmc/vipgo/vip-go-mu-plugins-built/* /srv/www/$i/public_html/wp-content/mu-plugins"
   if grep -q pmc-core www/$i/public_html/wp-content/themes/$i/style.css; then vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/themes/vip && ln -sf /srv/www/pmc/coretech/pmc-core /srv/www/$i/public_html/wp-content/themes/vip"; fi
   if grep -q pmc-core-v2 www/$i/public_html/wp-content/themes/$i/style.css; then vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/themes/vip && ln -sf /srv/www/pmc/coretech/pmc-core-v2 /srv/www/$i/public_html/wp-content/themes/vip"; fi
+  vagrant ssh -- -t "cd /srv/www/$i/public_html && wp theme activate $i"
 done;
+
+  # echo -e "\nIs $i go or wpcom?"
+  # select yn in "go" "wpcom"; do case $yn in
+    # go ) \
+      # CONSTANTS="DISALLOW_FILE_MODS DISALLOW_FILE_EDIT AUTOMATIC_UPDATER_DISABLED"
+      # for constant in $CONSTANTS; do vagrant ssh -- -t "cd /srv/www/$i/public_html && wp config set $constant true --raw"; done
+      # vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins"
+      # vagrant ssh -- -t "ln -sf /srv/www/pmc/coretech/pmc-plugins /srv/www/$i/public_html/wp-content/plugins"
+      # vagrant ssh -- -t "ln -sf /srv/www/pmc/vipgo/pmc-vip-go-plugins/* /srv/www/$i/public_html/wp-content/plugins"
+      # vagrant ssh -- -t "ln -sf /srv/www/pmc/vipgo/vip-go-mu-plugins-built/* /srv/www/$i/public_html/wp-content/mu-plugins"
+      # break;;
+    # wpcom ) \
+      # vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins /srv/www/$i/public_html/wp-content/themes/vip/plugins"
+      # vagrant ssh -- -t "ln -sf /srv/www/pmc/coretech/pmc-plugins /srv/www/$i/public_html/wp-content/themes/vip"
+      # vagrant ssh -- -t "ln -sf /srv/www/pmc/wpcom/vip-wpcom-mu-plugins/* /srv/www/$i/public_html/wp-content/mu-plugins"
+      # vagrant ssh -- -t "ln -sf /srv/www/pmc/wpcom/wordpress-vip-plugins/* /srv/www/$i/public_html/wp-content/themes/vip/plugins"
+      # break;;
+    # esac
+  # done
 
 echo -e "\nYou should now have PMC sites setup in vagrant"
 echo -e "\nGo To: vvv.test in your browser to see what you can do"
