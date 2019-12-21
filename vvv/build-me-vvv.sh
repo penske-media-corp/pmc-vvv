@@ -41,6 +41,7 @@ if [ ! -d "www/pmc/wpcom/vip-wpcom-mu-plugins" ]; then git clone https://github.
 
 echo -e "\nBuild amp for go?"
 select yn in "yes" "no"; do case $yn in
+  #@NOTE: --force is needed so amp can actually build itself
   yes ) vagrant ssh -- -t 'cd /srv/www/pmc/vipgo/pmc-vip-go-plugins/amp && composer install && npm install && npm run build --force' && break;;
   no ) break;;
   esac
@@ -48,6 +49,7 @@ done
 
 echo -e "\nBuild amp for wpcom?"
 select yn in "yes" "no"; do case $yn in
+  #@NOTE: --force is needed so amp can actually build itself
   yes ) vagrant ssh -- -t 'cd /srv/www/pmc/wpcom/vip-wpcom-mu-plugins/amp-wp && composer install && npm install && npm run build --force' && break;;
   no ) break;;
   esac
@@ -60,7 +62,7 @@ echo -e "https://stedolan.github.io/jq/"
 select yn in "continue" "exit"; do case $yn in
   continue ) \
     wpcom_sites=$(npx -q coolaj86/yaml2json config/config.yml | jq -r '.sites.wpcom.hosts[]')
-    echo $wpcom_sites
+    for site in $wpcom_sites; do echo "${site%%.*}"; done
     break;;
   exit ) exit;;
   esac
