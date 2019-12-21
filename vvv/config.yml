@@ -54,9 +54,8 @@ sites:
       - pmc-deadline-2019.pmc.test
       - pmc-footwearnews-2018.pmc.test
       - pmc-hollywoodlife-2017.pmc.test
-      - pmc-sheknows.pmc.test
+      - pmc-sheknows-2018.pmc.test
       - pmc-spy.pmc.test
-      - pmc-stylecaster.pmc.test
       - pmc-summits-rr1.pmc.test
       - pmc-summits-variety.pmc.test
       - pmc-summits-wwd.pmc.test
@@ -64,7 +63,6 @@ sites:
       - pmc-tvline.pmc.test
       - pmc-variety-2017.pmc.test
       - pmc-wwd-2016.pmc.test
-      - pmcstaging.pmc.test
     custom:
       wp_type: subdomain # or subdirectory
 

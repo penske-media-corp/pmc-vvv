@@ -1,6 +1,9 @@
 #!/bin/sh
-echo "Make sure you've cloned the VVV repo and you are in the root of it"
-echo "It looks like you're in `pwd`"
+echo -e "If you are on windows then you need to install wsl"
+echo -e "https://docs.microsoft.com/en-us/windows/wsl/install-win10"
+echo -e "\nMake sure you've cloned the VVV repo and you are in the root of it"
+
+echo -e "\nIt looks like you're in `pwd`"
 echo -e "\nClone VVV or CONTINUE without cloning?"
 select yn in "clone" "continue"; do case $yn in
   clone ) git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git && cd VVV && break;;
@@ -24,6 +27,8 @@ done
 
 # Clone the repos
 echo -e "\nInstalling pmc core tech..."
+git config --global credential.helper cache
+git config --global credential.helper 'cache --timeout=999999'
 if [ ! -d "www/phpcs/CodeSniffer/Standards/pmc-codesniffer" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-codesniffer.git www/phpcs/CodeSniffer/Standards/pmc-codesniffer && echo "phpcs usage: phpcs --standard=/srv/www/phpcs/CodeSniffer/pmc-codesniffer/... some.php"; fi
 
 if [ ! -d "www/pmc/coretech/pmc-core" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-core-v2.git www/pmc/coretech/pmc-core; fi
@@ -55,18 +60,18 @@ select yn in "yes" "no"; do case $yn in
   esac
 done
 
-echo -e "\nDo you have npx and jq installed?"
-echo -e "if the answer is no please install them both and continue..."
-echo -e "https://www.npmjs.com/package/npx"
-echo -e "https://stedolan.github.io/jq/"
-select yn in "continue" "exit"; do case $yn in
-  continue ) \
-    wpcom_sites=$(npx -q coolaj86/yaml2json config/config.yml | jq -r '.sites.wpcom.hosts[]')
-    for site in $wpcom_sites; do echo "${site%%.*}"; done
-    break;;
-  exit ) exit;;
+echo -e "\nInstal vagrant-scp plugin? ( you pretty much have to say yes if it's not already installed)"
+select yn in "yes" "no"; do case $yn in
+  yes ) vagrant plugin install vagrant-scp && break;;
+  no ) break;;
   esac
 done
+
+vagrant ssh -- -t "sudo npm install -g coolaj86/yaml2json && sudo apt-get update && sudo apt-get install jq neovim vifm ranger"
+#@NOTE: if more than one vagrant default then we may have to specify before : in scp command
+vagrant scp config/config.yml :/tmp/config.yml
+wpcom_sites=$(vagrant ssh -- -t "yaml2json /tmp/config.yml | jq -r '.sites.wpcom.hosts[]'")
+for site in $wpcom_sites; do if [ ! -d "www/wpcom/public_html/wp-content/themes/${site%%.*}" ]; then git clone "https://bitbucket.org/penskemediacorp/${site%%.*}" "www/wpcom/public_html/wp-content/themes/${site%%.*}"; fi done
 
 echo -e "\nDetecting PMC VIP-GO sites..."
 for i in $(ls -d www/pmc-* | xargs -n1 basename)
