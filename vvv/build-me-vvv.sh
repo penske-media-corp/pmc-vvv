@@ -91,7 +91,7 @@ for site in $wpcom_sites
     vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/pmc-plugins /srv/www/wpcom/public_html/wp-content/themes/vip"
     vagrant ssh -- -t "ln -svf /srv/www/pmc/wpcom/vip-wpcom-mu-plugins/* /srv/www/wpcom/public_html/wp-content/mu-plugins"
     vagrant ssh -- -t "ln -svf /srv/www/pmc/wpcom/wordpress-vip-plugins/* /srv/www/wpcom/public_html/wp-content/themes/vip/plugins"
-    vagrant ssh -- -t "cd /srv/www/wpcom/public_html && wp theme activate ${site%%.*} --url $site"
+    vagrant ssh -- -t "cd /srv/www/wpcom/public_html && wp theme activate ${site%%.*} --url=$site"
 done
 
 echo -e "\nDetecting PMC VIP-GO sites..."
