@@ -28,7 +28,9 @@ done
 echo -e "\nInstalling pmc core tech..."
 git config --global credential.helper cache
 git config --global credential.helper 'cache --timeout=999999'
-if [ ! -d "www/phpcs/CodeSniffer/Standards/pmc-codesniffer" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-codesniffer.git www/phpcs/CodeSniffer/Standards/pmc-codesniffer && echo "phpcs usage: phpcs --standard=/srv/www/phpcs/CodeSniffer/pmc-codesniffer/... some.php"; fi
+if [ ! -d "www/phpcs/CodeSniffer/Standards/pmc-codesniffer" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-codesniffer.git www/phpcs/CodeSniffer/Standards/pmc-codesniffer; fi
+# cd /srv/provision/phpcs
+# vagrant ssh -- -t "phpcs --config-set installed_paths ./CodeSniffer/Standards/WordPress/,./CodeSniffer/Standards/VIP-Coding-Standards/,./CodeSniffer/Standards/PHPCompatibility/,./CodeSniffer/Standards/PHPCompatibilityParagonie/,./CodeSniffer/Standards/PHPCompatibilityWP/"
 
 if [ ! -d "www/pmc/coretech/pmc-core" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-core-v2.git www/pmc/coretech/pmc-core; fi
 if [ ! -d "www/pmc/coretech/pmc-core-2017" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-core-2017.git www/pmc/coretech/pmc-core-2017; fi
@@ -84,12 +86,12 @@ for site in $wpcom_sites
     if [ ! -d "www/wpcom/public_html/wp-content/themes/${site%%.*}" ]; then git clone "https://bitbucket.org/penskemediacorp/${site%%.*}" "www/wpcom/public_html/wp-content/themes/${site%%.*}"; fi
     vagrant ssh -- -t "mkdir -p /srv/www/wpcom/public_html/wp-content/mu-plugins"
     vagrant ssh -- -t "mkdir -p /srv/www/wpcom/public_html/wp-content/mu-plugins /srv/www/wpcom/public_html/wp-content/themes/vip/plugins"
-    vagrant ssh -- -t "cd /srv/www/wpcom/public_html && wp user create pmc pmc@pmc.test --user_pass=pmc --role=administrator"
+    vagrant ssh -- -t "cd /srv/www/wpcom/public_html && wp user create pmcdev pmc@pmc.test --user_pass=pmcdev --role=administrator"
     vagrant ssh -- -t "cd /srv/www/wpcom/public_html && wp config set PMC_PHPUNIT_BOOTSTRAP /srv/www/wpcom/public_html/wp-content/plugins/pmc-plugins/pmc-unit-test/bootstrap.php"
     vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/pmc-plugins /srv/www/wpcom/public_html/wp-content/themes/vip"
     vagrant ssh -- -t "ln -svf /srv/www/pmc/wpcom/vip-wpcom-mu-plugins/* /srv/www/wpcom/public_html/wp-content/mu-plugins"
     vagrant ssh -- -t "ln -svf /srv/www/pmc/wpcom/wordpress-vip-plugins/* /srv/www/wpcom/public_html/wp-content/themes/vip/plugins"
-    vagrant ssh -- -t "cd /srv/www/wpcom/public_html && wp theme activate $site"
+    vagrant ssh -- -t "cd /srv/www/wpcom/public_html && wp theme activate ${site%%.*} --url $site"
 done
 
 echo -e "\nDetecting PMC VIP-GO sites..."
@@ -99,7 +101,7 @@ for i in $(ls -d www/pmc-* | xargs -n1 basename)
   for constant in $WP_CONFIG_CONSTANTS; do vagrant ssh -- -t "cd /srv/www/$i/public_html && wp config set $constant true --raw"; done
   if [ ! -d www/$i/public_html/wp-content/themes/$i ]; then git clone https://bitbucket.org/penskemediacorp/$i.git www/$i/public_html/wp-content/themes/$i; fi
   vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins"
-  vagrant ssh -- -t "cd /srv/www/$i/public_html && wp user create pmc pmc@pmc.test --user_pass=pmc --role=administrator"
+  vagrant ssh -- -t "cd /srv/www/$i/public_html && wp user create pmcdev pmc@pmc.test --user_pass=pmcdev --role=administrator"
   vagrant ssh -- -t "cd /srv/www/$i/public_html && wp config set PMC_PHPUNIT_BOOTSTRAP /srv/www/$i/public_html/wp-content/plugins/pmc-plugins/pmc-unit-test/bootstrap.php"
   vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/pmc-plugins /srv/www/$i/public_html/wp-content/plugins"
   vagrant ssh -- -t "ln -svf /srv/www/pmc/vipgo/pmc-vip-go-plugins/* /srv/www/$i/public_html/wp-content/plugins"
