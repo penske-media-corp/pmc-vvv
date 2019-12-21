@@ -49,20 +49,21 @@ sites:
     skip_provisioning: false
     repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
     hosts:
-      - bgr.pmc.test
-      - pmc-corporate-2018.pmc.test
-      - pmc-deadline-2019.pmc.test
-      - pmc-footwearnews-2018.pmc.test
-      - pmc-hollywoodlife-2017.pmc.test
-      - pmc-sheknows-2018.pmc.test
-      - pmc-spy.pmc.test
-      - pmc-summits-rr1.pmc.test
-      - pmc-summits-variety.pmc.test
-      - pmc-summits-wwd.pmc.test
-      - pmc-summits.pmc.test
-      - pmc-tvline.pmc.test
-      - pmc-variety-2017.pmc.test
-      - pmc-wwd-2016.pmc.test
+      - bgr.wpcom.test
+      - pmc-corporate-2018.wpcom.test
+      - pmc-deadline-2019.wpcom.test
+      - pmc-footwearnews-2018.wpcom.test
+      - pmc-hollywoodlife-2017.wpcom.test
+      - pmc-sheknows-2018.wpcom.test
+      - pmc-spy.wpcom.test
+      - pmc-summits-rr1.wpcom.test
+      - pmc-summits-variety.wpcom.test
+      - pmc-summits-wwd.wpcom.test
+      - pmc-summits.wpcom.test
+      - pmc-tvline.wpcom.test
+      - pmc-variety-2017.wpcom.test
+      - pmc-wwd-2016.wpcom.test
+      - wpcom.test
     custom:
       wp_type: subdomain # or subdirectory
 
