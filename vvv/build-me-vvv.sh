@@ -40,7 +40,6 @@ echo -e "\nInstalling coretech..."
 if [ ! -d "www/pmc/coretech/pmc-core" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-core.git www/pmc/coretech/pmc-core; fi
 if [ ! -d "www/pmc/coretech/pmc-core-2017" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-core-2017.git www/pmc/coretech/pmc-core-2017; fi
 if [ ! -d "www/pmc/coretech/pmc-core-v2" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-core-v2.git www/pmc/coretech/pmc-core-v2; fi
-if [ ! -d "www/pmc/coretech/pmc-robbreport-2017-v2" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-robbreport-2017-v2.git www/pmc/coretech/pmc-robbreport-2017-v2; fi
 if [ ! -d "www/pmc/coretech/pmc-plugins" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-plugins.git www/pmc/coretech/pmc-plugins; fi
 
 echo -e "\nInstalling go plugins... According to https://wpvip.com/documentation/vip-go/local-vip-go-development-environment/#vvv-for-vip-go-development"
@@ -106,7 +105,7 @@ select yn in "yes" "no"; do case $yn in
 
     # coretech symlink
     vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/* /srv/www/wpcom/public_html/wp-content/themes/vip"
-    vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/pmc-core-* /srv/www/wpcom/public_html/wp-content/themes"
+    vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/pmc-core* /srv/www/wpcom/public_html/wp-content/themes"
 
     # install primary theme
     wpcom_sites=$(vagrant ssh -- -t "yaml2json /tmp/config.yml | jq -r '.sites.wpcom.hosts[]'") # pull directly from config
@@ -152,7 +151,9 @@ select yn in "yes" "no"; do case $yn in
       vagrant ssh -- -t "ln -svf /srv/www/pmc/vipgo/vip-go-mu-plugins-built/* /srv/www/$i/public_html/wp-content/mu-plugins"
 
       # coretech symlink
-      vagrant ssh -- -t "ln -sf /srv/www/pmc/coretech/* /srv/www/$i/public_html/wp-content/themes/vip"
+      vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/* /srv/www/$i/public_html/wp-content/themes/vip"
+      vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/pmc-core* /srv/www/$i/public_html/wp-content/themes"
+      vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/pmc-plugins /srv/www/$i/public_html/wp-content/plugins"
 
       # install primary theme
       if [ ! -d www/$i/public_html/wp-content/themes/$i ]; then git clone https://bitbucket.org/penskemediacorp/$i.git www/$i/public_html/wp-content/themes/$i; fi
