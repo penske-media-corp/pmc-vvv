@@ -91,41 +91,56 @@ select yn in "yes" "no"; do case $yn in
   no ) break;;
   esac
 done
-#@NOTE: if more than one vagrant default then we may have to specify before : in scp command
+
+#@NOTE: if more than one vagrant default then we may have to specify location before : in scp command
 vagrant scp config/config.yml :/tmp/config.yml
 
-# echo -e "\nInstall wpcom sites?"
-# select yn in "yes" "no"; do case $yn in
-#   yes )
-# https://github.com/Varying-Vagrant-Vagrants/custom-site-template/blob/aa1680b3cb93b5f38055e56118f697a19128b78b/provision/vvv-init.sh#L61
-# install content from s3
-#     vagrant ssh -- -t "mkdir -p /srv/www/wpcom/public_html/wp-content/mu-plugins"
-#     vagrant ssh -- -t "mkdir -p /srv/www/wpcom/public_html/wp-content/mu-plugins /srv/www/wpcom/public_html/wp-content/themes/vip/plugins"
-#     vagrant ssh -- -t "cd /srv/www/wpcom/public_html && wp user create pmcdev pmc@pmc.test --user_pass=pmcdev --role=administrator"
-#     vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/* /srv/www/wpcom/public_html/wp-content/themes/vip"
-#     vagrant ssh -- -t "ln -svf /srv/www/pmc/wpcom/vip-wpcom-mu-plugins/* /srv/www/wpcom/public_html/wp-content/mu-plugins"
-#     vagrant ssh -- -t "ln -svf /srv/www/pmc/wpcom/wordpress-vip-plugins/* /srv/www/wpcom/public_html/wp-content/themes/vip/plugins"
-#     # Pull directly from config
-#     wpcom_sites=$(vagrant ssh -- -t "yaml2json /tmp/config.yml | jq -r '.sites.wpcom.hosts[]'")
-#     for site in $wpcom_sites
-#       do
-#         #@DEL?
-#         if [[ ! -d "www/wpcom/public_html/wp-content/themes/${site%%.*}" && "wpcom.test" != $site ]]; then git clone "https://bitbucket.org/penskemediacorp/${site%%.*}" "www/wpcom/public_html/wp-content/themes/${site%%.*}"; fi
-#           # vagrant ssh -- -t 'cd /srv/www/wpcom/public_html && wp theme activate ${site%%.*} --url=$site'
-#     done
-#     break;;
-#   no ) break;;
-#   esac
-# done
-#
+echo -e "\nInstall wpcom sites?"
+select yn in "yes" "no"; do case $yn in
+  yes )
+    # mkdirs
+    vagrant ssh -- -t "mkdir -p /srv/www/wpcom/public_html/wp-content/mu-plugins /srv/www/wpcom/public_html/wp-content/themes/vip /srv/www/wpcom/public_html/wp-content/themes/vip/plugins"
+
+    # wpcom-plugins symlink
+    vagrant ssh -- -t "ln -svf /srv/www/pmc/wpcom/wordpress-vip-plugins/* /srv/www/wpcom/public_html/wp-content/themes/vip/plugins"
+
+    # mu-plugins symlink
+    vagrant ssh -- -t "ln -svf /srv/www/pmc/wpcom/vip-wpcom-mu-plugins/* /srv/www/wpcom/public_html/wp-content/mu-plugins"
+
+    # coretech symlink
+    vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/* /srv/www/wpcom/public_html/wp-content/themes/vip"
+
+    # install primary theme
+    wpcom_sites=$(vagrant ssh -- -t "yaml2json /tmp/config.yml | jq -r '.sites.wpcom.hosts[]'") # pull directly from config
+    for site in $wpcom_sites
+      do
+        # cleanup on sting \r maybe a @TODO later into the wpcom_sites var instead
+        site=`echo $site | sed 's/\\r//g'`
+        # Clone the theme
+        if [[ "wpcom" != ${site%%.*} && ! -d "www/wpcom/public_html/wp-content/themes/${site%%.*}" ]]; then git clone "https://bitbucket.org/penskemediacorp/${site%%.*}" "www/wpcom/public_html/wp-content/themes/${site%%.*}"; fi
+
+        # create sites
+        vagrant ssh -- -t "wp site create --slug=${site%%.*} --path=/srv/www/wpcom/public_html"
+
+        # activate themes on sites
+        vagrant ssh -- -t "wp theme activate ${site%%.*} --url=$site --path=/srv/www/wpcom/public_html"
+    done
+    # @TODO:
+    # https://github.com/Varying-Vagrant-Vagrants/custom-site-template/blob/aa1680b3cb93b5f38055e56118f697a19128b78b/provision/vvv-init.sh#L61
+    # install content from s3
+    break;;
+  no ) break;;
+  esac
+done
+
 echo -e "\nInstall vipgo sites?"
 select yn in "yes" "no"; do case $yn in
   yes )
     echo -e "\nDetecting PMC VIP-GO sites in www/pmc-* ..."
     for i in $(ls -d www/pmc-* | xargs -n1 basename)
       do
-      # install primary theme
-      if [ ! -d www/$i/public_html/wp-content/themes/$i ]; then git clone https://bitbucket.org/penskemediacorp/$i.git www/$i/public_html/wp-content/themes/$i; fi
+      # mkdirs
+      vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins /srv/www/$i/public_html/wp-content/themes/vip"
 
       # delete wordpress-importer as it's installed by provisioner and causes fatal on mu-plugins installation
       vagrant ssh -- -t "wp plugin delete wordpress-importer --path=/srv/www/$i/public_html"
@@ -137,18 +152,19 @@ select yn in "yes" "no"; do case $yn in
       vagrant ssh -- -t "ln -svf /srv/www/pmc/vipgo/pmc-vip-go-plugins/* /srv/www/$i/public_html/wp-content/plugins"
 
       # mu-plugins symlink
-      vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/mu-plugins"
       vagrant ssh -- -t "ln -svf /srv/www/pmc/vipgo/vip-go-mu-plugins-built/* /srv/www/$i/public_html/wp-content/mu-plugins"
 
       # coretech symlink
-      vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/pmc-plugins /srv/www/$i/public_html/wp-content/plugins"
-      if grep -q pmc-core www/$i/public_html/wp-content/themes/$i/style.css; then vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/themes/vip && ln -sf /srv/www/pmc/coretech/pmc-core /srv/www/$i/public_html/wp-content/themes/vip"; fi
-      if grep -q pmc-core-2017 www/$i/public_html/wp-content/themes/$i/style.css; then vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/themes/vip && ln -sf /srv/www/pmc/coretech/pmc-core-2017 /srv/www/$i/public_html/wp-content/themes/vip"; fi
-      if grep -q pmc-core-v2 www/$i/public_html/wp-content/themes/$i/style.css; then vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/themes/vip && ln -sf /srv/www/pmc/coretech/pmc-core-v2 /srv/www/$i/public_html/wp-content/themes && ln -sf /srv/www/pmc/coretech/pmc-core-v2 /srv/www/$i/public_html/wp-content/themes/vip"; fi
-      if grep -q pmc-robbreport-2017-v2 www/$i/public_html/wp-content/themes/$i/style.css; then vagrant ssh -- -t "mkdir -p /srv/www/$i/public_html/wp-content/themes/vip && ln -sf /srv/www/pmc/coretech/pmc-robbreport-2017-v2 /srv/www/$i/public_html/wp-content/themes/vip"; fi
+      vagrant ssh -- -t "ln -sf /srv/www/pmc/coretech/* /srv/www/$i/public_html/wp-content/themes/vip"
+
+      # install primary theme
+      if [ ! -d www/$i/public_html/wp-content/themes/$i ]; then git clone https://bitbucket.org/penskemediacorp/$i.git www/$i/public_html/wp-content/themes/$i; fi
 
       # Activate our main theme
       vagrant ssh -- -t "wp theme activate $i --path=/srv/www/$i/public_html"
+      #@TODO:
+      # https://github.com/Varying-Vagrant-Vagrants/custom-site-template/blob/aa1680b3cb93b5f38055e56118f697a19128b78b/provision/vvv-init.sh#L61
+      # install content from s3
     done;
     break;;
   no ) break;;

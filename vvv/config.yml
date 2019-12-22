@@ -1,27 +1,27 @@
 ---
 sites:
-  # wpcom:
-    # skip_provisioning: false
-    # repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
-    # hosts:
-      # - bgr.wpcom.test
-      # - pmc-corporate-2018.wpcom.test
-      # - pmc-deadline-2019.wpcom.test
-      # - pmc-footwearnews-2018.wpcom.test
-      # - pmc-hollywoodlife-2017.wpcom.test
-      # - pmc-robbreport-2017-v2.test
-      # - pmc-sheknows-2018.wpcom.test
-      # - pmc-spy.wpcom.test
-      # - pmc-summits-rr1.wpcom.test
-      # - pmc-summits-variety.wpcom.test
-      # - pmc-summits-wwd.wpcom.test
-      # - pmc-summits.wpcom.test
-      # - pmc-tvline.wpcom.test
-      # - pmc-variety-2017.wpcom.test
-      # - pmc-wwd-2016.wpcom.test
-      # - wpcom.test
-    # custom:
-      # wp_type: subdomain
+  wpcom:
+    skip_provisioning: false
+    repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
+    hosts:
+      - wpcom.test
+      - bgr.wpcom.test
+      - pmc-corporate-2018.wpcom.test
+      - pmc-deadline-2019.wpcom.test
+      - pmc-footwearnews-2018.wpcom.test
+      - pmc-hollywoodlife-2017.wpcom.test
+      - pmc-robbreport-2017-v2.test
+      - pmc-sheknows-2018.wpcom.test
+      - pmc-spy.wpcom.test
+      - pmc-summits-rr1.wpcom.test
+      - pmc-summits-variety.wpcom.test
+      - pmc-summits-wwd.wpcom.test
+      - pmc-summits.wpcom.test
+      - pmc-tvline.wpcom.test
+      - pmc-variety-2017.wpcom.test
+      - pmc-wwd-2016.wpcom.test
+    custom:
+      wp_type: subdomain
 
 # VIPGO sites:
 # @NOTE: name === theme-name && host
