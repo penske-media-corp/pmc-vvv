@@ -10,9 +10,9 @@ sites:
       - pmc-deadline-2019.wpcom.test
       - pmc-footwearnews-2018.wpcom.test
       - pmc-hollywoodlife-2017.wpcom.test
-      - pmc-robbreport-2017-v2.test
       - pmc-sheknows-2018.wpcom.test
       - pmc-spy.wpcom.test
+      - pmc-summits.wpcom.test
       - pmc-summits-rr1.wpcom.test
       - pmc-summits-variety.wpcom.test
       - pmc-summits-wwd.wpcom.test

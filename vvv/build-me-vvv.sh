@@ -53,22 +53,19 @@ if [ ! -d "www/pmc/wpcom/vip-wpcom-mu-plugins" ]; then git clone https://github.
 
 echo -e "\nBuild amp for go?"
 select yn in "yes" "no"; do case $yn in
-  #@NOTE: --force is needed so amp can actually build itself
-  yes ) vagrant ssh -- -t 'cd /srv/www/pmc/vipgo/pmc-vip-go-plugins/amp && composer install && npm install && npm run build --force' && break;;
+  yes ) vagrant ssh -- -t 'cd /srv/www/pmc/vipgo/pmc-vip-go-plugins/amp && composer install && npm install && npm run build --force' && break;; #@NOTE: --force is needed so amp can actually build itself
   no ) break;;
   esac
 done
 
 echo -e "\nBuild amp for wpcom?"
 select yn in "yes" "no"; do case $yn in
-  #@NOTE: --force is needed so amp can actually build itself
-  yes ) vagrant ssh -- -t 'cd /srv/www/pmc/wpcom/vip-wpcom-mu-plugins/amp-wp && composer install && npm install && npm run build --force' && break;;
+  yes ) vagrant ssh -- -t 'cd /srv/www/pmc/wpcom/vip-wpcom-mu-plugins/amp-wp && composer install && npm install && npm run build --force' && break;; #@NOTE: --force is needed so amp can actually build itself
   no ) break;;
   esac
 done
 
-# @NOTE: Not all of these tools are needed but are useful to have inside of the dev machine feel free to submit a PR if you think any new tools should be added/removed from this list
-echo -e "\nInstall dev tools into vagrant?"
+echo -e "\nInstall dev tools into vagrant?" # @NOTE: Not all of these tools are needed but are useful to have inside of the dev machine feel free to submit a PR if you think any new tools should be added/removed from this list
 select yn in "yes" "no"; do case $yn in
   yes ) vagrant ssh -- -t "sudo npm install -g coolaj86/yaml2json && \
     sudo apt-get update && sudo apt-get install -y \
@@ -78,6 +75,7 @@ select yn in "yes" "no"; do case $yn in
     jq \
     neovim \
     ranger \
+    siege \
     tig \
     vifm" && break;;
   no ) break;;
@@ -92,8 +90,7 @@ select yn in "yes" "no"; do case $yn in
   esac
 done
 
-#@NOTE: if more than one vagrant default then we may have to specify location before : in scp command
-vagrant scp config/config.yml :/tmp/config.yml
+vagrant scp config/config.yml :/tmp/config.yml #@NOTE: if more than one vagrant default then we may have to specify location before : in scp command
 
 echo -e "\nInstall wpcom sites?"
 select yn in "yes" "no"; do case $yn in
@@ -109,13 +106,13 @@ select yn in "yes" "no"; do case $yn in
 
     # coretech symlink
     vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/* /srv/www/wpcom/public_html/wp-content/themes/vip"
+    vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/pmc-core-* /srv/www/wpcom/public_html/wp-content/themes"
 
     # install primary theme
     wpcom_sites=$(vagrant ssh -- -t "yaml2json /tmp/config.yml | jq -r '.sites.wpcom.hosts[]'") # pull directly from config
     for site in $wpcom_sites
       do
-        # cleanup on sting \r maybe a @TODO later into the wpcom_sites var instead
-        site=`echo $site | sed 's/\\r//g'`
+        site=`echo $site | sed 's/\\r//g'` # cleanup on sting \r maybe a @TODO later into the wpcom_sites var instead
         # Clone the theme
         if [[ "wpcom" != ${site%%.*} && ! -d "www/wpcom/public_html/wp-content/themes/${site%%.*}" ]]; then git clone "https://bitbucket.org/penskemediacorp/${site%%.*}" "www/wpcom/public_html/wp-content/themes/${site%%.*}"; fi
 
@@ -125,7 +122,7 @@ select yn in "yes" "no"; do case $yn in
         # activate themes on sites
         vagrant ssh -- -t "wp theme activate ${site%%.*} --url=$site --path=/srv/www/wpcom/public_html"
     done
-    # @TODO:
+      # @TODO:
     # https://github.com/Varying-Vagrant-Vagrants/custom-site-template/blob/aa1680b3cb93b5f38055e56118f697a19128b78b/provision/vvv-init.sh#L61
     # install content from s3
     break;;
@@ -162,9 +159,7 @@ select yn in "yes" "no"; do case $yn in
 
       # Activate our main theme
       vagrant ssh -- -t "wp theme activate $i --path=/srv/www/$i/public_html"
-      #@TODO:
-      # https://github.com/Varying-Vagrant-Vagrants/custom-site-template/blob/aa1680b3cb93b5f38055e56118f697a19128b78b/provision/vvv-init.sh#L61
-      # install content from s3
+      #@TODO: # https://github.com/Varying-Vagrant-Vagrants/custom-site-template/blob/aa1680b3cb93b5f38055e56118f697a19128b78b/provision/vvv-init.sh#L61 # install content from s3
     done;
     break;;
   no ) break;;
