@@ -43,7 +43,7 @@ git config --global credential.helper cache
 git config --global credential.helper 'cache --timeout=999999'
 if [ ! -d "www/phpcs/CodeSniffer/Standards/pmc-codesniffer" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-codesniffer.git www/phpcs/CodeSniffer/Standards/pmc-codesniffer; fi
 # Takes the current standard defined in provisioner here: https://github.com/Varying-Vagrant-Vagrants/VVV/blob/develop/provision/provision.sh#L852 and adds pmc standards
-vagrant ssh -- -t "phpcs --config-show | grep installed_paths | sed 's/\://g'|sed 's/.*/\0,.\/CodeSniffer\/Standards\/pmc-codesniffer\/PmcWpVip\/,.\/CodeSniffer\/Standards\/pmc-codesniffer\/PmcLaravel\//'"
+vagrant ssh -- -t "phpcs --config-show | grep installed_paths | sed 's/\://g'|sed 's/.*/\0,.\/CodeSniffer\/Standards\/pmc-codesniffer\/PmcWpVip\/,.\/CodeSniffer\/Standards\/pmc-codesniffer\/PmcLaravel\//' | xargs phpcs --config-set"
 # This standard is overwritable obviously at the project level
 vagrant ssh -- -t "phpcs --config-set default_standard PmcWpVip" # PmcWpVip rules inherit WP VIP standard see the repo for more information or to add a new rule by submitting a PR
 
