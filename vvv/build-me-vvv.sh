@@ -20,6 +20,7 @@ echo -e "`git remote -v`"
 # Make sure vagrant is installed
 if hash vagrant 2>/dev/null; then
     echo -e "✔ Vagrant installed ($(vagrant --version))\n"
+    echo -e "If you have issues with the vagrant version please check the software requirements: https://varyingvagrantvagrants.org/docs/en-US/installation/software-requirements/"
 else
     echo -e "Vagrant not found."
     echo -e "Download Vagrant at https://www.vagrantup.com/downloads.html and run again."
