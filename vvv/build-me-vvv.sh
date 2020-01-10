@@ -1,4 +1,5 @@
 #!/bin/sh
+
 echo -e " ____  __  __  ____  __     ____     ____     __"
 echo -e "|  _ \|  \/  |/ ___| \ \   / /\ \   / /\ \   / /"
 echo -e "| |_) | |\/| | |      \ \ / /  \ \ / /  \ \ / / "
@@ -16,6 +17,16 @@ echo -e "\nIf re-running this script you can skip the install of VVV"
 echo -e "\nIt looks like you're in `pwd`"
 echo -e "\nYour current repo is:"
 echo -e "`git remote -v`"
+
+# Make sure vagrant is installed
+if hash vagrant 2>/dev/null; then
+    echo -e "✔ Vagrant installed ($(vagrant --version))\n"
+else
+    echo -e "Vagrant not found."
+    echo -e "Download Vagrant at https://www.vagrantup.com/downloads.html and run again."
+    exit 1
+fi
+
 echo -e "\nClone VVV or CONTINUE without cloning?"
 select yn in "clone" "continue"; do case $yn in
   clone ) git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git && cd VVV && break;;
@@ -32,7 +43,15 @@ done
 
 echo -e "\nProvision vagrant machine i.e. vagrant up --provision?"
 select yn in "yes" "no"; do case $yn in
-  yes ) vagrant up --provision && break;;
+  yes )
+    vagrant up --provision
+    if [ $? -eq 0 ]; then
+        break;
+    else
+        echo "Vagrant provisioning failed or needs to run again."
+        echo "Exiting now."
+        exit 1
+    fi;;
   no ) break;;
   esac
 done
