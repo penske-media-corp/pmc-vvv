@@ -1,4 +1,14 @@
 #!/bin/sh
+
+# Make sure vagrant is installed
+if hash vagrant 2>/dev/null; then
+    echo -e "✔ Vagrant installed ($(vagrant --version))\n"
+else
+    echo -e "Vagrant not found."
+    echo -e "Download Vagrant at https://www.vagrantup.com/downloads.html and run again."
+    exit 1
+fi
+
 echo -e "If you are on windows then you need to install wsl"
 echo -e "https://docs.microsoft.com/en-us/windows/wsl/install-win10"
 echo -e "Please make sure you're connected to the internet with a good connection this will take a while"
