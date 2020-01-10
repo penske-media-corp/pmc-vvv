@@ -2,7 +2,9 @@
 echo -e "If you are on windows then you need to install wsl"
 echo -e "https://docs.microsoft.com/en-us/windows/wsl/install-win10"
 echo -e "Please make sure you're connected to the internet with a good connection this will take a while"
-echo -e "\nMake sure you've cloned the VVV repo and you are in the root of it"
+echo -e "Most answers will be 1 for yes or 2 for no"
+echo -e "\nIf running this script for the first time it will download VVV and provision it for you automatically"
+echo -e "\nIf re-running this script you can skip the install of VVV"
 echo -e "\nIt looks like you're in `pwd`"
 echo -e "\nYour current repo is:"
 echo -e "`git remote -v`"
@@ -89,7 +91,6 @@ select yn in "yes" "no"; do case $yn in
   esac
 done
 
-vagrant scp config/config.yml :/tmp/config.yml #@NOTE: if more than one vagrant default then we may have to specify location before : in scp command
 
 echo -e "\nInstall wpcom sites?"
 select yn in "yes" "no"; do case $yn in
@@ -106,6 +107,8 @@ select yn in "yes" "no"; do case $yn in
     # coretech symlink
     vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/* /srv/www/wpcom/public_html/wp-content/themes/vip"
     vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/pmc-core* /srv/www/wpcom/public_html/wp-content/themes"
+
+    vagrant scp config/config.yml :/tmp/config.yml #@NOTE: if more than one vagrant default then we may have to specify location before : in scp command
 
     # install primary theme
     wpcom_sites=$(vagrant ssh -- -t "yaml2json /tmp/config.yml | jq -r '.sites.wpcom.hosts[]'") # pull directly from config
