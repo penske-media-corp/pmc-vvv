@@ -34,9 +34,9 @@ select yn in "clone" "continue"; do case $yn in
 done
 
 echo -e "\nCopy the config.yml for VVV into config/config.yml ( this will overwrite if existing ) or continue without copying?"
-select yn in "yes" "no"; do case $yn in
+select yn in "yes" "continue"; do case $yn in
   yes ) curl -o config/config.yml https://raw.githubusercontent.com/penske-media-corp/httpatterns/master/vvv/config.yml && break;;
-  no ) break;;
+  continue ) break;;
 	esac
 done
 
