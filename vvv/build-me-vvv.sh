@@ -1,5 +1,23 @@
 #!/bin/sh
 
+echo -e " ____  __  __  ____  __     ____     ____     __"
+echo -e "|  _ \|  \/  |/ ___| \ \   / /\ \   / /\ \   / /"
+echo -e "| |_) | |\/| | |      \ \ / /  \ \ / /  \ \ / / "
+echo -e "|  __/| |  | | |___    \ V /    \ V /    \ V /  "
+echo -e "|_|   |_|  |_|\____|    \_/      \_/      \_/   "
+echo -e "                                                "
+echo -e "\nThis script will install the PMC WP environment inside of a virtual machine using VVV"
+
+echo -e "\nIf you are on windows then you need to install wsl"
+echo -e "https://docs.microsoft.com/en-us/windows/wsl/install-win10"
+echo -e "\nPlease make sure you're connected to the internet with a good connection this will take a while"
+echo -e "\nMost answers will be 1 for yes or 2 for no"
+echo -e "\nIf running this script for the first time it will download VVV and provision it for you automatically"
+echo -e "\nIf re-running this script you can skip the install of VVV"
+echo -e "\nIt looks like you're in `pwd`"
+echo -e "\nYour current repo is:"
+echo -e "`git remote -v`"
+
 # Make sure vagrant is installed
 if hash vagrant 2>/dev/null; then
     echo -e "✔ Vagrant installed ($(vagrant --version))\n"
@@ -9,13 +27,6 @@ else
     exit 1
 fi
 
-echo -e "If you are on windows then you need to install wsl"
-echo -e "https://docs.microsoft.com/en-us/windows/wsl/install-win10"
-echo -e "Please make sure you're connected to the internet with a good connection this will take a while"
-echo -e "\nMake sure you've cloned the VVV repo and you are in the root of it"
-echo -e "\nIt looks like you're in `pwd`"
-echo -e "\nYour current repo is:"
-echo -e "`git remote -v`"
 echo -e "\nClone VVV or CONTINUE without cloning?"
 select yn in "clone" "continue"; do case $yn in
   clone ) git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git && cd VVV && break;;
@@ -50,9 +61,10 @@ echo -e "\nInstalling pmc core tech..."
 git config --global credential.helper cache
 git config --global credential.helper 'cache --timeout=999999'
 if [ ! -d "www/phpcs/CodeSniffer/Standards/pmc-codesniffer" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-codesniffer.git www/phpcs/CodeSniffer/Standards/pmc-codesniffer; fi
-#@TODO: Configure phpcs standards
-# cd /srv/provision/phpcs
-# vagrant ssh -- -t "phpcs --config-set installed_paths ./CodeSniffer/Standards/WordPress/,./CodeSniffer/Standards/VIP-Coding-Standards/,./CodeSniffer/Standards/PHPCompatibility/,./CodeSniffer/Standards/PHPCompatibilityParagonie/,./CodeSniffer/Standards/PHPCompatibilityWP/"
+# Takes the current standard defined in provisioner here: https://github.com/Varying-Vagrant-Vagrants/VVV/blob/develop/provision/provision.sh#L852 and adds pmc standards
+vagrant ssh -- -t "phpcs --config-show | grep installed_paths | sed 's/\://g'|sed 's/.*/\0,.\/CodeSniffer\/Standards\/pmc-codesniffer\/PmcWpVip\/,.\/CodeSniffer\/Standards\/pmc-codesniffer\/PmcLaravel\//' | xargs phpcs --config-set"
+# This standard is overwritable obviously at the project level
+vagrant ssh -- -t "phpcs --config-set default_standard PmcWpVip" # PmcWpVip rules inherit WP VIP standard see the repo for more information or to add a new rule by submitting a PR
 
 echo -e "\nInstalling coretech..."
 if [ ! -d "www/pmc/coretech/pmc-core" ]; then git clone https://bitbucket.org/penskemediacorp/pmc-core.git www/pmc/coretech/pmc-core; fi
@@ -107,7 +119,6 @@ select yn in "yes" "no"; do case $yn in
   esac
 done
 
-vagrant scp config/config.yml :/tmp/config.yml #@NOTE: if more than one vagrant default then we may have to specify location before : in scp command
 
 echo -e "\nInstall wpcom sites?"
 select yn in "yes" "no"; do case $yn in
@@ -124,6 +135,8 @@ select yn in "yes" "no"; do case $yn in
     # coretech symlink
     vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/* /srv/www/wpcom/public_html/wp-content/themes/vip"
     vagrant ssh -- -t "ln -svf /srv/www/pmc/coretech/pmc-core* /srv/www/wpcom/public_html/wp-content/themes"
+
+    vagrant scp config/config.yml :/tmp/config.yml #@NOTE: if more than one vagrant default then we may have to specify location before : in scp command
 
     # install primary theme
     wpcom_sites=$(vagrant ssh -- -t "yaml2json /tmp/config.yml | jq -r '.sites.wpcom.hosts[]'") # pull directly from config
