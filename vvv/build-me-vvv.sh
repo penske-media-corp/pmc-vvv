@@ -32,7 +32,15 @@ done
 
 echo -e "\nProvision vagrant machine i.e. vagrant up --provision?"
 select yn in "yes" "no"; do case $yn in
-  yes ) vagrant up --provision && break;;
+  yes )
+    vagrant up --provision
+    if [ $? -eq 0 ]; then
+        break;
+    else
+        echo "Vagrant provisioning failed or needs to run again."
+        echo "Exiting now."
+        exit 1
+    fi;;
   no ) break;;
   esac
 done
