@@ -16,10 +16,13 @@ echo -e "- If re-running this script you can skip the install of VVV"
 echo -e "\nIt looks like you're in `pwd`"
 echo -e "\nYour current repo is:"
 echo -e "`git remote -v`"
+echo -e "ruby version with vagrant will NOT work with 2.7+ until this is merged https://github.com/hashicorp/vagrant/pull/11307"
+echo -e "please ensure 2.6 is installed instead"
+echo -e "Your current ruby version is `ruby --version`"
 
 # Make sure vagrant is installed
 if hash vagrant 2>/dev/null; then
-    echo -e "✔ Vagrant installed ($(vagrant --version))\n"
+    echo -e "✔ Vagrant installed ($(vagrant --version))"
     echo -e "If you have issues with the vagrant version please check the software requirements: https://varyingvagrantvagrants.org/docs/en-US/installation/software-requirements/"
 else
     echo -e "Vagrant not found."
