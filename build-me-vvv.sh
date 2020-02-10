@@ -1,5 +1,4 @@
 #!/bin/sh
-
 echo -e "\e[1;31m ____  __  __  ____  __     ____     ____     __"
 echo -e "\e[1;32m|  _ \|  \/  |/ ___| \ \   / /\ \   / /\ \   / /"
 echo -e "\e[1;33m| |_) | |\/| | |      \ \ / /  \ \ / /  \ \ / / "
@@ -8,55 +7,55 @@ echo -e "\e[1;35m|_|   |_|  |_|\____|    \_/      \_/      \_/   "
 echo -e "\e[0m"
 echo -e "\n\e[1;31mThis script will install the pmc wp environment inside of a virtual machine using vvv \e[0m"
 echo -e "\n\e[1;33m@NOTES\e[0m:"
-echo -e "- If you are on windows then you need to install wsl ( https://docs.microsoft.com/en-us/windows/wsl/install-win10 )"
-echo -e "- Please make sure you're connected to the internet with a good connection this will take a while"
-echo -e "- Most answers will be 1 for yes or 2 for no"
+echo -e "- If re-running this script you can skip the clone/install of VVV"
 echo -e "- If running this script for the first time it will download VVV and provision it for you automatically"
-echo -e "- If re-running this script you can skip the install of VVV"
+echo -e "- If you are on windows then you need to install wsl ( https://docs.microsoft.com/en-us/windows/wsl/install-win10 )"
+echo -e "- Most answers will be 1 for yes or 2 for no"
+echo -e "- Please make sure you're connected to the internet with a good connection this will take a while"
+echo -e "- When prompted for a password this is to auth git repositories. Enter an app password for that step"
 echo -e "\nIt looks like you're in `pwd`"
 echo -e "\nYour current repo is:"
 echo -e "`git remote -v`"
-echo -e "ruby version with vagrant will NOT work with 2.7+ until this is merged https://github.com/hashicorp/vagrant/pull/11307"
-echo -e "please ensure 2.6 is installed instead"
-echo -e "Your current ruby version is `ruby --version`"
 
 # Make sure vagrant is installed
 if hash vagrant 2>/dev/null; then
-    echo -e "✔ Vagrant installed ($(vagrant --version))"
-    echo -e "If you have issues with the vagrant version please check the software requirements: https://varyingvagrantvagrants.org/docs/en-US/installation/software-requirements/"
+  echo -e "✔ Vagrant installed ($(vagrant --version))"
+  echo -e "If you have issues with the vagrant version please check the software requirements: https://varyingvagrantvagrants.org/docs/en-US/installation/software-requirements/"
 else
-    echo -e "Vagrant not found."
-    echo -e "Download Vagrant at https://www.vagrantup.com/downloads.html and run again."
-    exit 1
+  echo -e "Vagrant not found."
+  echo -e "Download Vagrant at https://www.vagrantup.com/downloads.html and run again."
+  exit 1
 fi
 
 echo -e "\nClone VVV or CONTINUE without cloning?"
+echo -e "\n@NOTE: If it's not your first time running this script or if VVV is already cloned then navigate to VVV, re-run this script and skip this step"
 select yn in "clone" "continue"; do case $yn in
   clone ) git clone https://github.com/Varying-Vagrant-Vagrants/VVV.git && cd VVV && break;;
   continue ) break;;
-	esac
+esac
 done
 
 echo -e "\nCopy the config.yml for VVV into config/config.yml ( this will overwrite if existing ) or continue without copying?"
 select yn in "yes" "continue"; do case $yn in
-  yes ) curl -o config/config.yml https://raw.githubusercontent.com/penske-media-corp/httpatterns/master/vvv/config.yml && break;;
+  yes ) curl -o config/config.yml https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/config.yml && break;;
   continue ) break;;
-	esac
+esac
 done
 
 echo -e "\nProvision vagrant machine i.e. vagrant up --provision?"
+echo -e "\nIf you've already provisioned and/or there are no changes to config/config.yml then you can probably skip this step"
 select yn in "yes" "no"; do case $yn in
   yes )
-    vagrant up --provision
-    if [ $? -eq 0 ]; then
-        break;
-    else
-        echo "Vagrant provisioning failed or needs to run again."
-        echo "Exiting now."
-        exit 1
+  vagrant up --provision
+  if [ $? -eq 0 ]; then
+    break;
+  else
+    echo "Vagrant provisioning failed or needs to run again."
+    echo "Exiting now."
+    exit 1
     fi;;
   no ) break;;
-  esac
+esac
 done
 
 # Clone the repos
@@ -87,14 +86,14 @@ echo -e "\nBuild amp for go?"
 select yn in "yes" "no"; do case $yn in
   yes ) vagrant ssh -- -t 'cd /srv/www/pmc/vipgo/pmc-vip-go-plugins/amp && composer install && npm install && npm run build --force' && break;; #@NOTE: --force is needed so amp can actually build itself
   no ) break;;
-  esac
+esac
 done
 
 echo -e "\nBuild amp for wpcom?"
 select yn in "yes" "no"; do case $yn in
   yes ) vagrant ssh -- -t 'cd /srv/www/pmc/wpcom/vip-wpcom-mu-plugins/amp-wp && composer install && npm install && npm run build --force' && break;; #@NOTE: --force is needed so amp can actually build itself
   no ) break;;
-  esac
+esac
 done
 
 echo -e "\nInstall dev tools into vagrant?" # @NOTE: Not all of these tools are needed but are useful to have inside of the dev machine feel free to submit a PR if you think any new tools should be added/removed from this list
