@@ -11,6 +11,10 @@ To build a new PMC-VVV environment simply run `sh <(curl -s https://raw.githubus
 - When prompted for a password on git repositories enter an application password to clone repositories
 - If at any time PMC-VVV fails to build or a site doesn't provision you can re-run/skip any of the steps in the go script
 
+# Adding a New Site
+
+// todo: steps for doing this
+
 # Troubleshooting
 
 ## WordPress Errors
