@@ -1,5 +1,10 @@
 # PMC-VVV
 
+Welcome! This is the _in progress_ configuration for PMC's local WP development with VVV. This document should contain what you need to know for testing it out, but note that the following things are not yet ready to test:
+
+* PHPUnit and PHPCS in the Vagrant machine (you can still run pipelines and these commands through Docker in each theme root)
+* Setting up new WPCOM sites should be done manually - see below (adding new VIPGo sites is untested by the initial VVV testers)
+
 To build a new PMC-VVV environment simply run `sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)` in your terminal and follow the prompts. If you have any issues please refer to the [VVV documentation](https://varyingvagrantvagrants.org/) or `#engineering` for questions. Engineering owns the evolution of this project and ops offers ultimate support of tooling. If you feel the urge to change something or find a bug the please submit a PR yourself.
 
 ## Build PMC-VVV
@@ -15,7 +20,7 @@ To build a new PMC-VVV environment simply run `sh <(curl -s https://raw.githubus
 
 ### After the Build
 
-See a list of the available sites [here for WPCOM](https://github.com/penske-media-corp/pmc-vvv/blob/master/config.yml#L6). VIPGo sites are also in that config file – search the brand you are looking for and refer to the entry in the `hosts` object e.g. `pmc-rollingstone-2018.test`.
+See a list of the available sites [here for WPCOM](https://github.com/penske-media-corp/pmc-vvv/blob/master/config.yml#L6). VIPGo sites are also in that config file – search the brand you are looking for and refer to the entry in the `hosts` object e.g. `pmc-rollingstone-2018.test`. All URLs are the theme names + `.test` for VIPGo and `.wpcom.test` for VIP Classic.
 
 Log in to the WordPress admin on any site with the following credentials:
 
@@ -26,7 +31,20 @@ You may see a lot of WordPress errors. Refer to the troubleshooting notes below.
 
 ## Adding a New Site
 
-// todo: steps for doing this
+### VIP Classic (WPCOM)
+
+Using the pmc-vvv script: 
+
+* Add the site to the `wpcom` and `hosts` object in config.yml.
+* Run the pmc-vvv script, and skip all steps except "Setup WPCOM sites?"
+
+The above may not work, in which case, do the following to manually add the WPCOM site:
+
+* Clone the theme inside www/wpcom/public_html/wp-content/themes
+* Run the following scripts to add the site (where pmc-variety-2020 is the name of the theme and thus the name of the site - they should be the same):
+    * `wp site create --slug=pmc-variety-2020.wpcom.test --path=/srv/www/wpcom/public_html`
+    * `wp theme activate pmc-variety-2020 --url=pmc-variety-2020.wpcom.test --path=/srv/www/wpcom/public_html`
+* That should do it!
 
 ## Getting Local Data
 
@@ -67,3 +85,10 @@ The following steps may help to reduce initial WordPress errors:
     2. `sudo service memcached restart`
 
 \* Note: phrases like "run them in the Vagrant machine" refer to the CLI after `vagrant ssh` is run from the root of the VVV directory.
+
+### Miscellaenous
+
+#### 2/11/2020
+
+Error: ` Failed to start The PHP 7.2 FastCGI Process Manager.` during provisioning and 502 Bad Gateway error in HTTP response.
+Fix: Update VVV to latest version and `vagrant reload --provision`. See [this Github issue](https://github.com/Varying-Vagrant-Vagrants/VVV/issues/2061#issuecomment-583557584) for futher troubleshooting.
