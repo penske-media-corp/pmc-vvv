@@ -4,7 +4,7 @@ To build a new PMC-VVV environment simply run `sh <(curl -s https://raw.githubus
 # Build PMC-VVV
 - `sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)`
   - If running for the first time:
-    - Answer `1` or `yes` to all prompts
+    - Answer `1` to all prompts
   - If re-running the script:
     - You can skip the first two steps ( cloning VVV and copying the config )
     - Run from inside VVV directory
