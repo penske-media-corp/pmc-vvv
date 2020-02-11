@@ -1,6 +1,6 @@
 # PMC-VVV
 
-To build a new PMC-VVV environment simply run `sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)` in your terminal and follow the prompts. If you have any issues please refer to the VVV documentation or `#engineering` for questions. Engineering owns the evolution of this project and ops offers ultimate support of tooling. If you feel the urge to change something or find a bug the please submit a PR yourself.
+To build a new PMC-VVV environment simply run `sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)` in your terminal and follow the prompts. If you have any issues please refer to the [VVV documentation](https://varyingvagrantvagrants.org/) or `#engineering` for questions. Engineering owns the evolution of this project and ops offers ultimate support of tooling. If you feel the urge to change something or find a bug the please submit a PR yourself.
 
 ## Build PMC-VVV
 
@@ -12,6 +12,17 @@ To build a new PMC-VVV environment simply run `sh <(curl -s https://raw.githubus
     - Run from inside VVV directory
 - When prompted for a password on git repositories enter an application password to clone repositories
 - If at any time PMC-VVV fails to build or a site doesn't provision you can re-run/skip any of the steps in the go script
+
+### After the Build
+
+See a list of the available sites [here for WPCOM](https://github.com/penske-media-corp/pmc-vvv/blob/master/config.yml#L6). VIPGo sites are also in that config file – search the brand you are looking for and refer to the entry in the `hosts` object e.g. `pmc-rollingstone-2018.test`.
+
+Log in to the WordPress admin on any site with the following credentials:
+
+* WPCOM: admin / password
+* VIPGo: pmcdev / pmcdev
+
+You may see a lot of WordPress errors. Refer to the troubleshooting notes below.
 
 ## Adding a New Site
 
