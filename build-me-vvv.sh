@@ -96,7 +96,7 @@ select yn in "yes" "no"; do case $yn in
 esac
 done
 
-echo -e "\nInstall dev tools into vagrant?" # @NOTE: Not all of these tools are needed but are useful to have inside of the dev machine feel free to submit a PR if you think any new tools should be added/removed from this list
+echo -e "\nInstall dev tools into vagrant?" # @NOTE: Not all of these tools are not needed but are useful to have inside of the dev machine feel free to submit a PR if you think any new tools should be added/removed from this list
 select yn in "yes" "no"; do case $yn in
   yes ) vagrant ssh -- -t "sudo npm install -g coolaj86/yaml2json && \
     sudo apt-get update && sudo apt-get install -y \
