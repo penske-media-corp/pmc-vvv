@@ -19,6 +19,7 @@ sites:
       - pmc-tvline.wpcom.test
       - pmc-variety-2017.wpcom.test
       - pmc-wwd-2016.wpcom.test
+      - pmc-variety-2020.wpcom.test
     custom:
       wp_type: subdomain
 
