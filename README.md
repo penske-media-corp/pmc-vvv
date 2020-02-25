@@ -1,6 +1,6 @@
 # PMC-VVV
 
-Welcome! This is the _in progress_ configuration for PMC's local WP development with VVV. This document should contain what you need to know for testing it out, but note that the following things are not yet ready to test:
+Welcome! This is the new and still-in-progress-but-ready-to-use configuration for PMC's local WP development with VVV. This document should contain what you need to know for testing it out, but note that the following things are not yet ready to test:
 
 * PHPUnit and PHPCS in the Vagrant machine (you can still run pipelines and these commands through Docker in each theme root)
 * Setting up new WPCOM sites should be done manually - see below (adding new VIPGo sites is untested by the initial VVV testers)
@@ -58,6 +58,8 @@ Export content from the QA site via the WordPress exporter, and import the WXR f
 
 Importing from the admin will work for a small amount of posts, but you may get a memory limit error, so importing via WP-CLI is recommended. From inside the vagrant machine, run either of these commands:
 
+// todo
+
 * WPCOM: ``
 * VIPGO: ``
 
@@ -66,7 +68,10 @@ Importing from the admin will work for a small amount of posts, but you may get 
 // todo 
 
 * Where to get a SQL dump
-* Importing a SQL dump
+
+Once you have a SQL dump, make sure the site URL is updated in the SQL file.
+
+`wp db import --path=/srv/www/wpcom/public_html --url=pmc-variety-2020.wpcom.test /srv/www/pmc.wp_2.sql`
 
 ## Troubleshooting
 
