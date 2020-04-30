@@ -1,0 +1,3 @@
+[submodule "vvv"]
+	path = vvv
+	url = git@github.com:Varying-Vagrant-Vagrants/VVV.git
