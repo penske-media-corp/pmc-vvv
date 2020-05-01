@@ -1,0 +1,31 @@
+pmc_vvv=File.realdirpath( '..' );
+pmc_src=File.realdirpath( 'src', '..' );
+pmc_provision_dir=File.realdirpath( 'provision', '..' );
+
+config.vm.provider :virtualbox do |v|
+	v.name = "pmc-vvv_" + (Digest::SHA256.hexdigest vagrant_dir)[0..10]
+end
+
+config.vm.provision "file", before: "pmc-src", source: File.join(pmc_src, '.'), destination: "/tmp/pmc-src/"
+config.vm.provision "pmc-src", type: 'shell' do |s|
+  s.inline = "rsync -r /tmp/pmc-src/ / && rm -rf /tmp/pmc-src"
+	s.privileged = true
+end
+
+# These are added for local development testing for custom site template provision scripts
+
+if Dir.exist?(File.join(pmc_vvv, 'git', 'custom-site-template'))
+
+  $vvv_config['sites'].each do |site, args|
+    next if args['skip_provisioning']
+
+    $vvv_config['sites'][site]['repo'] = false
+
+    config.vm.provision "dev-file-#{site}",
+                        before: "site-#{site}",
+                        type: 'file',
+                        source: File.join(pmc_vvv, 'git', 'custom-site-template','provision'),
+                        destination: args['vm_dir'] + '/'
+  end
+
+end
