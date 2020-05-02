@@ -1,5 +1,14 @@
 ---
 sites:
+  pmc:
+    skip_provisioning: false
+    repo: https://github.com/hauvong/custom-site-template.git
+    hosts:
+      - pmc.test
+    custom:
+      wp_type: vipgo
+      wp_tests: true
+
   wpcom:
     skip_provisioning: false
     repo: https://github.com/hauvong/custom-site-template.git
