@@ -24,6 +24,7 @@ sites:
       wp_type: subdomain
       wp_tests: true
 
+
 # VIPGO sites:
 # @NOTE: name === theme-name && host
 #

@@ -6,8 +6,10 @@ sites:
     hosts:
       - pmc.test
     custom:
-      wp_type: vipgo
+#      share_code: true
+      wp_type: single
       wp_tests: true
+      wp_version: 5.4
 
   wpcom:
     skip_provisioning: false
@@ -30,8 +32,11 @@ sites:
       - pmc-wwd-2016.wpcom.test
       - pmc-variety-2020.wpcom.test
     custom:
-      wp_type: subdomain
+#      share_code: true
+      wp_type: single
+      wp_vip: classic
       wp_tests: true
+      wp_version: 5.4
 
   vipgo:
     skip_provisioning: false
@@ -44,17 +49,20 @@ sites:
       - sheknows.vipgo.test
       - soaps.vipgo.test
     custom:
-      wp_type: vipgo
+#      share_code: true
+      wp_type: single
+      wp_vip: vipgo
       wp_tests: true
+      wp_version: 5.4
 
 utilities:
   core:
     - memcached-admin
-    - mongodb
+#    - mongodb
     - opcache-status
-    - php74
+    - php73
     - phpmyadmin
-    - tideways
+#    - tideways
     - tls-ca
     - webgrind
 
