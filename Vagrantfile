@@ -17,11 +17,8 @@ require File.join( __dir__,'lib','functions.rb' )
 # Auto install all required plugins
 install_required_plugins()
 
-Dir.mkdir("./www") unless Dir.exist?("./www")
-Dir.mkdir("./wp-themes") unless Dir.exist?("./wp-themes")
-Dir.mkdir("./wp-themes/plugins") unless Dir.exist?("./wp-themes/plugins")
-Dir.mkdir("./wp-themes/pmc-plugins") unless Dir.exist?("./wp-themes/pmc-plugins")
-Dir.mkdir("./wp-themes/pmc-core-v2") unless Dir.exist?("./wp-themes/pmc-core-v2")
+FileUtils.mkdir_p("./src/coretech/pmc-plugins") unless Dir.exist?("./src/coretech/pmc-plugins")
+FileUtils.mkdir_p("./src/coretech/pmc-core-v2") unless Dir.exist?("./src/coretech/pmc-core-v2")
 
 # Copy our config.yml to vvv folder, currently there is no way for us to use a different config file from different location
 

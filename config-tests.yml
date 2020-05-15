@@ -1,15 +1,12 @@
 ---
+pmc:
+  share:
+    php_version: 7.3
+    wp_version: 5.4
+    coretech_dir: /srv/src/coretech
+    wp_themes_dir: /srv/src/wp-themes
+
 sites:
-  pmc:
-    skip_provisioning: false
-    repo: https://github.com/hauvong/custom-site-template.git
-    hosts:
-      - pmc.test
-    custom:
-#      share_code: true
-      wp_type: single
-      wp_tests: true
-      wp_version: 5.4
 
   wpcom:
     skip_provisioning: false
@@ -32,11 +29,13 @@ sites:
       - pmc-wwd-2016.wpcom.test
       - pmc-variety-2020.wpcom.test
     custom:
-#      share_code: true
       wp_type: single
       wp_vip: classic
       wp_tests: true
       wp_version: 5.4
+      wp_themes:
+        vip/plugins:
+          repo: https://bitbucket.org/penskemediacorp/wordpress-vip-plugins.git
 
   vipgo:
     skip_provisioning: false
@@ -49,11 +48,12 @@ sites:
       - sheknows.vipgo.test
       - soaps.vipgo.test
     custom:
-#      share_code: true
       wp_type: single
       wp_vip: vipgo
       wp_tests: true
       wp_version: 5.4
+      wp_plugins:
+        repo: git@bitbucket.org:penskemediacorp/pmc-vip-go-plugins.git
 
 utilities:
   core:
@@ -71,8 +71,8 @@ vm_config:
   memory: 4096
 
 general:
-  db_backup: true
-  db_restore: true
+#  db_backup: true
+#  db_restore: true
   db_share_type: false
 
 vagrant-plugins:

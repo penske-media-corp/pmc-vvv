@@ -3,3 +3,7 @@ VVV
 /log
 /www
 /git
+/src/coretech
+/src/wp-themes
+/config/.ssh/bitbucket-id_rsa
+/config/.ssh/github-id_rsa

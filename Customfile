@@ -1,12 +1,10 @@
 pmc_vvv=File.realdirpath( '..' );
-pmc_src=File.realdirpath( 'src', '..' );
-pmc_provision_dir=File.realdirpath( 'provision', '..' );
 
 require File.join( pmc_vvv,'lib','functions.rb' )
 
 # custom mapping for pmc specific improvement
-config.vm.synced_folder File.join(pmc_vvv, 'wp-core'), '/srv/wp-core', owner: 'vagrant', group: 'www-data', mount_options: ['dmode=775', 'fmode=774'], automount: true, SharedFoldersEnableSymlinksCreate: true
-config.vm.synced_folder File.join(pmc_vvv, 'wp-themes'), '/srv/wp-themes', owner: 'vagrant', group: 'www-data', mount_options: ['dmode=775', 'fmode=774'], automount: true, SharedFoldersEnableSymlinksCreate: true
+config.vm.synced_folder File.join(pmc_vvv, 'config/.ssh'), '/srv/.ssh', owner: 'vagrant', group: 'root', mount_options: ['dmode=775', 'fmode=600'], automount: true, SharedFoldersEnableSymlinksCreate: true
+config.vm.synced_folder File.join(pmc_vvv, 'src'), '/srv/src', owner: 'vagrant', group: 'www-data', mount_options: ['dmode=775', 'fmode=774'], automount: true, SharedFoldersEnableSymlinksCreate: true
 config.vm.synced_folder pmc_vvv, '/srv/pmc-vvv', owner: 'vagrant', group: 'www-data', mount_options: ['dmode=775', 'fmode=774'], automount: true, SharedFoldersEnableSymlinksCreate: true
 
 # we want to override some default from VVV to settings we know work properly from pmc-qs7
@@ -52,37 +50,55 @@ end
 
 # In order to add files to /etc folder, we need to access the privileged script to do the copy
 # First we need to add the source to a temporarly folder
-config.vm.provision "file",
-										before: "pmc-src",
-										source: File.join(pmc_src, '.'),
-										destination: "/tmp/pmc-src/"
+config.vm.provision "pmc-file",
+										run: 'always',
+										before: "pmc-etc",
+										type: "file",
+										source: File.join(pmc_vvv, 'config/etc/.'),
+										destination: "/tmp/pmc-etc/"
 # We then execute a shell script inside VM with admin privilege to copy the files
-config.vm.provision "pmc-src", type: 'shell' do |s|
-  s.inline = "rsync -r /tmp/pmc-src/ / && rm -rf /tmp/pmc-src"
-	s.privileged = true
+config.vm.provision "pmc-etc",
+										run: 'always',
+										after: "file",
+										type: "shell",
+										privileged: true,
+										inline: <<-SHELL
+												rsync -r /tmp/pmc-etc/ /etc/
+												rm -rf /tmp/pmc-etc
+												cp /srv/.ssh/config /root/.ssh/config
+												cp /srv/.ssh/config /home/vagrant/.ssh/config
+												cp /srv/config/config.yml /vagrant/config.yml
+												chmod 600 /root/.ssh/config /home/vagrant/.ssh/config
+												chown root:root /root/.ssh/config
+												chown vagrant:vagrant /home/vagrant/.ssh/config
+											SHELL
+
+if File.exist?(File.join(pmc_vvv, 'provision/provision-coretech.sh'))
+    config.vm.provision "coretech",
+												after: "pmc-etc",
+                        type: 'shell',
+                        keep_color: true,
+                        path: File.join(pmc_vvv, 'provision', 'provision-coretech.sh'),
+                        env: { "VVV_LOG" => "coretech" }
 end
 
 # Implementing PMC specific provision for each site that can't be done by common provision template
 $vvv_config['sites'].each do |site, args|
   next if args['skip_provisioning']
 
-	# @TODO: optionally change www folder to our pmc_vvv folder, maybe add a flag to turn on/off
-	# args['local_dir'] = File.join(pmc_vvv, 'www', site)
-	# $vvv_config['sites'][site]['local_dir'] = args['local_dir']
-
 	# In order to properly develop and test provision script directly on local,
 	# we need to override and map the custom-site-template folder
-	if Dir.exist?(File.join(pmc_vvv, 'git', 'custom-site-template'))
+	if Dir.exist?(File.join(pmc_vvv, 'git/custom-site-template'))
 
 		# override and disable remote repo since we want use our local template
     $vvv_config['sites'][site]['repo'] = false
 
 		# map the custom provision script directly into the folder so we can develop the scripts without copying between the folders
-		config.vm.synced_folder File.join(pmc_vvv, 'git', 'custom-site-template','provision'), '/srv/www/' + site + '/provision', owner: 'vagrant', group: 'www-data', mount_options: ['dmode=775', 'fmode=774'], automount: true, SharedFoldersEnableSymlinksCreate: true
+		config.vm.synced_folder File.join(pmc_vvv, 'git/custom-site-template/provision'), '/srv/www/' + site + '/provision', owner: 'vagrant', group: 'www-data', mount_options: ['dmode=775', 'fmode=774'], automount: true, SharedFoldersEnableSymlinksCreate: true
 	end
 
 	# VIP GO/Classic
-	if args['custom']['wp_vip'] && File.exist?(File.join(pmc_vvv, 'provision', 'provision-bind-mount.sh'))
+	if args['custom']['wp_vip'] && File.exist?(File.join(pmc_vvv, 'provision/provision-bind-mount.sh'))
 
 		# We could let's vagrant auto map the shared folder,
 		# however the VVV site provision script doesn't support remote git repo checkout into non-empty folder
@@ -100,24 +116,6 @@ $vvv_config['sites'].each do |site, args|
                           args['custom']['share_code'].to_s
                         ],
                         env: { "VVV_LOG" => "bind-mount-#{site}" }
-
-		# These code would be preferred if VVV site provision script support git repo checkout into non-empty folder
-		# These codes are commented out for knowledge sharing and potential future improvement
-		<<~END_COMMENT
-
-		if args['custom']['wp_vip'].include? "go"
-			# Prepare local folders mapping: wp-content/plugins/pmc-plugins -> pmc-vvv/wp-themes/pmc-plugins, wp-content/themes -> pmc-vvv/wp-themes
-			Dir.mkdir( File.join( wp_content_dir, 'plugins'  ) ) unless Dir.exist?( File.join( wp_content_dir, 'plugins'  ) )
-			Dir.mkdir( File.join( wp_content_dir, 'plugins', 'pmc-plugins'  ) ) unless Dir.exist?( File.join( wp_content_dir, 'plugins', 'pmc-plugins'  ) )
-			config.vm.synced_folder File.join( pmc_vvv, 'wp-themes'  ), '/srv/www/' + site + '/wp-content/themes', owner: 'vagrant', group: 'www-data', mount_options: ['dmode=775', 'fmode=774'], automount: true, SharedFoldersEnableSymlinksCreate: true
-			config.vm.synced_folder File.join( pmc_vvv, 'wp-themes/pmc-plugins'  ), '/srv/www/' + site + '/wp-content/plugins/pmc-plugins', owner: 'vagrant', group: 'www-data', mount_options: ['dmode=775', 'fmode=774'], automount: true, SharedFoldersEnableSymlinksCreate: true
-		elseif args['custom']['wp_vip'].include? "classic"
-			# Prepare local folders mapping: wp-content/themes/vip -> pmc-vvv/wp-themes
-			Dir.mkdir( File.join( wp_content_dir, 'themes', 'vip'  ) ) unless Dir.exist?( File.join( wp_content_dir, 'themes', 'vip'  ) )
-			config.vm.synced_folder File.join( pmc_vvv, 'wp-themes'  ), '/srv/www/' + site + '/wp-content/themes/vip', owner: 'vagrant', group: 'www-data', mount_options: ['dmode=775', 'fmode=774'], automount: true, SharedFoldersEnableSymlinksCreate: true
-		end
-
-		END_COMMENT
 
 	end
 
