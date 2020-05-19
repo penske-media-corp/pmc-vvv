@@ -20,6 +20,16 @@ class Bootstrap_Phpunit extends Bootstrap {
 
 		ifndef( 'WP_BATCACHE', false );
 
+		preg_match( '@/www/([^/]+)/@', getcwd(), $matches );
+		switch( $matches[1] ) {
+			case 'vipgo':
+				ifndef( 'IS_VIP_GO', true );
+				break;
+			case 'wpcom':
+				ifndef( 'IS_VIP_GO', false );
+				break;
+		}
+
 		if ( preg_match( '#^.*/pmc-plugins/#', getcwd(), $matches ) ) {
 			ifndef( 'IS_VIP_GO', false );
 			ifndef( 'SITE_NAME', 'pmc-plugins' );
@@ -52,29 +62,30 @@ class Bootstrap_Phpunit extends Bootstrap {
 
 		if ( empty( $phpunit_dir ) || ! file_exists( $phpunit_dir ) ) {
 
-			$phpunit_dir = getenv( 'WP_TESTS_DIR' );
-			if ( empty( $phpunit_dir ) || !file_exists( $phpunit_dir ) ) {
-				$phpunit_dir = false;
-				if ( preg_match( '#(.*)/[^/]+/wp-content/#', $theme_folder, $matches ) ) {
-					if ( file_exists( $matches[1] . '/wp-tests/phpunit' ) ) {
-						$phpunit_dir = $matches[1] . '/wp-tests/phpunit';
-					}
+			$phpunit_dir = false;
+			if ( preg_match( '#(.*)/[^/]+/wp-content/#', $theme_folder, $matches ) ) {
+				if ( file_exists( $matches[1] . '/wp-tests/phpunit' ) ) {
+					$phpunit_dir = $matches[1] . '/wp-tests/phpunit';
 				}
-				$check_dir   = $theme_folder;
-				$check_level = 10;
-				while ( $check_level > 0 && !$phpunit_dir && !empty( $check_dir ) && ! in_array( $check_dir, [ '.', '/' ], true ) ) {
-					$check_level -= 1;
-					$check_dir = dirname( $check_dir );
-					if ( in_array( $check_dir, [ '.', '/' ], true ) ) {
-						break;
-					}
-					if ( file_exists( $check_dir . '/wp-tests/phpunit' ) ) {
-						$phpunit_dir = $check_dir . '/wp-tests/phpunit';
-					}
+			}
+			$check_dir   = $theme_folder;
+			$check_level = 10;
+			while ( $check_level > 0 && !$phpunit_dir && !empty( $check_dir ) && ! in_array( $check_dir, [ '.', '/' ], true ) ) {
+				$check_level -= 1;
+				$check_dir = dirname( $check_dir );
+				if ( in_array( $check_dir, [ '.', '/' ], true ) ) {
+					break;
 				}
-
+				if ( file_exists( $check_dir . '/wp-tests/phpunit' ) ) {
+					$phpunit_dir = $check_dir . '/wp-tests/phpunit';
+				}
 			}
 
+
+		}
+
+		if ( empty( $phpunit_dir ) || ! file_exists( $phpunit_dir ) ) {
+			$phpunit_dir = getenv( 'WP_TESTS_DIR' );
 		}
 
 		if ( empty( $phpunit_dir ) || ! file_exists( $phpunit_dir ) ) {

@@ -1,5 +1,5 @@
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/srv/config/homebin
 XDEBUG_REMOTE_HOST=10.0.2.2
 PMC_PHPUNIT_BOOTSTRAP=/srv/src/wp-core/wp-config/bootstrap-phpunit.php
-WP_TESTS_DIR=/srv/src/wp-core/wp-tests/tests/phpunit/
+WP_TESTS_DIR=/srv/src/wp-core/wp-tests/phpunit/
 WP_CONFIG_BOOTSTRAP=true
