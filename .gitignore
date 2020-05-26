@@ -7,5 +7,4 @@ VVV
 /src/wp-themes
 /src/wp-core/wordpress
 /src/wp-core/wp-tests
-/config/.ssh/bitbucket-id_rsa
-/config/.ssh/github-id_rsa
+/config/.ssh
