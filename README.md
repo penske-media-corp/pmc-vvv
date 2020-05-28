@@ -33,7 +33,7 @@ You may see a lot of WordPress errors. Refer to the troubleshooting notes below.
 
 ### VIP Classic (WPCOM)
 
-Using the pmc-vvv script: 
+Using the pmc-vvv script:
 
 * Add the site to the `wpcom` and `hosts` object in config.yml.
 * Run the pmc-vvv script, and skip all steps except "Setup WPCOM sites?"
@@ -54,7 +54,7 @@ Check the theme for WP-CLI scripts (DL, AN, and VY 2020 should have them for set
 
 ### WXR
 
-Export content from the QA site via the WordPress exporter, and import the WXR file (the file format of the WP export - stands for WordPress Extended RSS) via the WP admin or WP-CLI. 
+Export content from the QA site via the WordPress exporter, and import the WXR file (the file format of the WP export - stands for WordPress Extended RSS) via the WP admin or WP-CLI.
 
 Importing from the admin will work for a small amount of posts, but you may get a memory limit error, so importing via WP-CLI is recommended. From inside the vagrant machine, run either of these commands:
 
@@ -65,7 +65,7 @@ Importing from the admin will work for a small amount of posts, but you may get 
 
 ### SQL dump
 
-// todo 
+// todo
 
 * Where to get a SQL dump
 
@@ -79,19 +79,49 @@ Things may not go perfectly as you setup your environment. This section contains
 
 ### WordPress Errors
 
-When provisioning sites for the first time, you may encounter several WordPress errors. These will most likely be from the theme, due to lack of local data, but some are mysterious errors likely to do with caching. 
+When provisioning sites for the first time, you may encounter several WordPress errors. These will most likely be from the theme, due to lack of local data, but some are mysterious errors likely to do with caching.
 
 The following steps may help to reduce initial WordPress errors:
 
 * Save theme menus
 * Save theme options
-* Inside the Vagrant command line, cycle (i.e. turn on/off) X Debug and memcache with the following: 
+* Inside the Vagrant command line, cycle (i.e. turn on/off) X Debug and memcache with the following:
     1. `xdebug_on && xdebug_off`
     2. `sudo service memcached restart`
 
 \* Note: phrases like "run them in the Vagrant machine" refer to the CLI after `vagrant ssh` is run from the root of the VVV directory.
 
-### Miscellaenous
+### FAQ
+
+#### Single posts are redirecting to the homepage. What do I do?
+
+Flush the VIP rewrite rules in VIP > Dashboard > Rewrite Rules.
+
+#### How can I enable Gutenberg on a site?
+
+```
+if ( function_exists( 'wpcom_vip_load_gutenberg' ) ) {
+	wpcom_vip_load_gutenberg( true );
+}
+```
+
+See [this doc from VIP](https://wpvip.com/documentation/vip-go/loading-gutenberg/).
+
+### Why isn't my Bitbucket password working for cloning repos?
+
+With 2 factor authentication, you will need to create an App Password in Bitbucket at https://bitbucket.org/account/settings/app-passwords/
+
+
+### Miscellaenous Issues
+
+#### 5/27/2020
+
+A fresh install resulted in many instances of this warning on VIP Go sites:
+```
+Notice: wpcom_vip_load_plugin was called incorrectly. `wpcom_vip_load_plugin( pmc-global-functions, pmc-plugins )` was called after the `plugins_loaded` hook. For best results, we recommend loading your plugins earlier from `client-mu-plugins`. Please see Debugging in WordPress for more information. in /srv/www/pmc-indiewire-2016/public_html/wp-includes/functions.php on line 5167
+```
+
+We load our plugins differently than VIP expects, and they recently added that warning. The only solution at present is to turn off WP_DEBUG. See [this message from Hau with more detail](https://penskemediacorp.slack.com/archives/C0AN3PRLP/p1590607456193000?thread_ts=1590606873.190100&cid=C0AN3PRLP).
 
 #### 2/11/2020
 
