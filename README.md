@@ -107,10 +107,15 @@ if ( function_exists( 'wpcom_vip_load_gutenberg' ) ) {
 
 See [this doc from VIP](https://wpvip.com/documentation/vip-go/loading-gutenberg/).
 
-### Why isn't my Bitbucket password working for cloning repos?
+#### Why isn't my Bitbucket password working for cloning repos?
 
 With 2 factor authentication, you will need to create an App Password in Bitbucket at https://bitbucket.org/account/settings/app-passwords/
 
+#### Load times are incredibly slow - how can I speed them up?
+
+Increase the memory alotted to the virtual machine in Virtual Box > Settings > System. This seems to reset frequently.
+
+With VVV we are signing up for a base level of slowness, but if the load times are 45 seconds or more, you might consider trashing your current environement and running the pmc-vvv script in a fresh directory.
 
 ### Miscellaenous Issues
 
