@@ -20,7 +20,12 @@ To build a new PMC-VVV environment simply run `sh <(curl -s https://raw.githubus
 
 ### After the Build
 
-See a list of the available sites [here for WPCOM](https://github.com/penske-media-corp/pmc-vvv/blob/master/config.yml#L6). VIPGo sites are also in that config file – search the brand you are looking for and refer to the entry in the `hosts` object e.g. `pmc-rollingstone-2018.test`. All URLs are the theme names + `.test` for VIPGo and `.wpcom.test` for VIP Classic.
+See [config.yml](https://github.com/penske-media-corp/pmc-vvv/blob/master/config.yml) for the VVV site configurations.
+
+* VIP Classic sites are setup as subsites under the "wpcom" multisite.
+* VIP Go sites are setup as individual sites.
+
+All URLs are the theme names + `.test` for VIPGo and `.wpcom.test` for VIP Classic.
 
 Log in to the WordPress admin on any site with the following credentials:
 
@@ -29,16 +34,22 @@ Log in to the WordPress admin on any site with the following credentials:
 
 You may see a lot of WordPress errors. Refer to the troubleshooting notes below.
 
-## Adding a New Site
+## How to add/remove sites from config.yml
 
-### VIP Classic (WPCOM)
+Note that because [config.yml](https://github.com/penske-media-corp/pmc-vvv/blob/master/config.yml) is a generated file, it should not be modified directly.
+Only modify [generate-config-yml.sh](https://github.com/penske-media-corp/pmc-vvv/blob/master/generate-config-yml.sh) or [config.json](https://github.com/penske-media-corp/pmc-vvv/blob/master/config.json).
 
-Using the pmc-vvv script:
+1. Add/remove site from [config.json](https://github.com/penske-media-corp/pmc-vvv/blob/master/config.json).
+2. Run `sh generate-config-yml.sh` to generate the new config.yml.
+3. In your VVV directory, run `sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)` and run the following 3 scripts:
+   * `Provision vagrant machine i.e. vagrant up --provision?`
+   * `Install wpcom sites?`
+   * `Install vipgo sites?`
 
-* Add the site to the `wpcom` and `hosts` object in config.yml.
-* Run the pmc-vvv script, and skip all steps except "Setup WPCOM sites?"
 
-The above may not work, in which case, do the following to manually add the WPCOM site:
+### Manually Adding VIP Classic (WPCOM) (not recommended)
+
+If adding the site to the configuration does not work and your in a hurry, you may try the following to manually add the WPCOM site:
 
 * Clone the theme inside www/wpcom/public_html/wp-content/themes
 * Run the following scripts to add the site (where pmc-variety-2020 is the name of the theme and thus the name of the site - they should be the same):

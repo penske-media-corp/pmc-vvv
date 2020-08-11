@@ -1,0 +1,20 @@
+{
+  "classic": [
+    ["deadline.com", "pmc-deadline-2019"],
+    ["hollywoodlife.com", "pmc-hollywoodlife-2017"],
+    ["tvline.com", "pmc-tvline"],
+    ["variety.com", "pmc-variety-2020"],
+    ["wwd.com", "pmc-wwd-2016"]
+  ],
+  "go": [
+    ["bgr.com", "bgr"],
+    ["events.fairchildlive.com", "pmc-summits-wwd"],
+    ["footwearnews.com", "pmc-footwearnews-2018"],
+    ["pmc.com", "pmc-corporate-2018"],
+    ["robbreport.com", "pmc-robbreport-2017-v2"],
+    ["rr1.com", "pmc-summits-rr1"],
+    ["spy.com", "pmc-spy"],
+    ["studios.wwd.com", "pmc-wwd-studios-2017"],
+    ["stylecaster.com", "sc-stylecaster-2016"]
+  ]
+}
