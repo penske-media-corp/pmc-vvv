@@ -53,6 +53,7 @@ end
 config.vm.provision "pmc-file",
 					run: 'always',
 					before: "pmc-script",
+					after: :all
 					type: "file",
 					source: File.join(pmc_vvv, 'config/etc/.'),
 					destination: "/tmp/etc/"
