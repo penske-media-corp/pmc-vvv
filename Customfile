@@ -65,6 +65,8 @@ config.vm.provision "pmc-script",
 					inline: <<-SHELL
 							rsync -r /tmp/etc/ /etc/
 							rm -rf /tmp/pmc-etc
+							mkdir -p /vagrant
+							mkdir -p /vagrant/failed_provisioners
 							cp /srv/.ssh/config /root/.ssh/config
 							cp /srv/.ssh/config /home/vagrant/.ssh/config
 							cp /srv/config/config.yml /vagrant/config.yml
