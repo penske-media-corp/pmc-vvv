@@ -38,7 +38,7 @@ SITE=$1
 SITE_ESCAPED="${SITE//./\\.}"
 VM_DIR=$2
 WP_VIP=$(get_config_value "sites.${SITE_ESCAPED}.custom.wp_vip" false)
-PMC_SHARE_CORETECH_DIR=$(get_config_value "pmc.share.coretech_dir" "/srv/src/coretech")
+PMC_SHARE_CORETECH_DIR=$(get_config_value "pmc.share.coretech_dir" "/srv/www/pmc/coretech")
 PMC_SHARE_WP_THEMES_DIR=$(get_config_value "pmc.share.wp_themes_dir" '')
 
 echo "Setup bind mount for site ${SITE}: ${WP_VIP}"
