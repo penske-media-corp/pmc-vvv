@@ -6,7 +6,7 @@ set -eo pipefail
 
 provisioner_begin "coretech"
 
-PMC_SHARE_CORETECH_DIR=$(get_config_value "pmc.share.coretech_dir" "/srv/src/coretech")
+PMC_SHARE_CORETECH_DIR=$(get_config_value "pmc.share.coretech_dir" "/srv/www/pmc/coretech")
 PMC_SHARE_PHP_VERSION=$(get_config_value "pmc.share.php_version" "7.3")
 
 function git_checkout {

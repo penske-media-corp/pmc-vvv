@@ -20,14 +20,15 @@ class Bootstrap_Phpunit extends Bootstrap {
 
 		ifndef( 'WP_BATCACHE', false );
 
-		preg_match( '@/www/([^/]+)/@', getcwd(), $matches );
-		switch( $matches[1] ) {
-			case 'vipgo':
-				ifndef( 'IS_VIP_GO', true );
-				break;
-			case 'wpcom':
-				ifndef( 'IS_VIP_GO', false );
-				break;
+		if ( preg_match( '@/www/([^/]+)/@', getcwd(), $matches ) ) {
+			switch( $matches[1] ) {
+				case 'vipgo':
+					ifndef( 'IS_VIP_GO', true );
+					break;
+				case 'wpcom':
+					ifndef( 'IS_VIP_GO', false );
+					break;
+			}
 		}
 
 		if ( preg_match( '#^.*/pmc-plugins/#', getcwd(), $matches ) ) {
