@@ -1,5 +1,7 @@
 $logger = Vagrant::UI::Colored.new
 
+#require File.join( __dir__,'functions-git.rb' )
+
 def install_required_plugins()
 
 	# vagrant-persistent-storage
@@ -72,3 +74,4 @@ def detect_max_mem( default = 1024, multiplier = 1 )
 
 	return (mem * multiplier).round
 end
+

@@ -1,4 +1,13 @@
 ---
+pmc:
+  share:
+    skip_provisioning: true
+    php_version: 7.3
+    wp_version: 5.4
+    coretech_dir: /srv/src/coretech
+    wp_core_dir: /srv/src/wp-core
+    wp_themes_dir: /srv/src/wp-themes
+
 sites:
   wpcom:
     skip_provisioning: false
@@ -372,6 +381,7 @@ utilities:
     - mongodb
     - opcache-status
     - php74
+    - php73
     - phpmyadmin
     - tideways
     - tls-ca

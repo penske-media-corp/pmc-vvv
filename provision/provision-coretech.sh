@@ -4,7 +4,9 @@ set -eo pipefail
 
 . "/srv/provision/provisioners.sh"
 
-PMC_SHARE_CORETECH_DIR=$(get_config_value "pmc.share.coretech_dir" "/srv/www/pmc/coretech")
+provisioner_begin "coretech"
+
+PMC_SHARE_CORETECH_DIR=$(get_config_value "pmc.share.coretech_dir" "/srv/src/coretech")
 PMC_SHARE_PHP_VERSION=$(get_config_value "pmc.share.php_version" "7.3")
 
 function git_checkout {
@@ -38,11 +40,13 @@ function git_checkout {
 
 }
 
-update-alternatives --set php /usr/bin/php${PMC_SHARE_PHP_VERSION}
-update-alternatives --set phar /usr/bin/phar${PMC_SHARE_PHP_VERSION}
-update-alternatives --set phar.phar /usr/bin/phar.phar${PMC_SHARE_PHP_VERSION}
-update-alternatives --set phpize /usr/bin/phpize${PMC_SHARE_PHP_VERSION}
-update-alternatives --set php-config /usr/bin/php-config${PMC_SHARE_PHP_VERSION}
+if [ -f /usr/bin/php${PMC_SHARE_PHP_VERSION} ]; then
+	update-alternatives --set php /usr/bin/php${PMC_SHARE_PHP_VERSION}
+	update-alternatives --set phar /usr/bin/phar${PMC_SHARE_PHP_VERSION}
+	update-alternatives --set phar.phar /usr/bin/phar.phar${PMC_SHARE_PHP_VERSION}
+	update-alternatives --set phpize /usr/bin/phpize${PMC_SHARE_PHP_VERSION}
+	update-alternatives --set php-config /usr/bin/php-config${PMC_SHARE_PHP_VERSION}
+fi
 
 git_checkout ${PMC_SHARE_CORETECH_DIR}/pmc-plugins git@bitbucket.org:penskemediacorp/pmc-plugins.git
 git_checkout ${PMC_SHARE_CORETECH_DIR}/pmc-core-v2 git@bitbucket.org:penskemediacorp/pmc-core-v2.git

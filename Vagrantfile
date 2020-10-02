@@ -19,6 +19,7 @@ install_required_plugins()
 
 FileUtils.mkdir_p("./src/coretech/pmc-plugins") unless Dir.exist?("./src/coretech/pmc-plugins")
 FileUtils.mkdir_p("./src/coretech/pmc-core-v2") unless Dir.exist?("./src/coretech/pmc-core-v2")
+FileUtils.cp( File.join( 'provision', 'provision-post.sh' ), File.join( 'vvv', 'provision', 'provision-post.sh' ) );
 
 # Copy our config.yml to vvv folder, currently there is no way for us to use a different config file from different location
 

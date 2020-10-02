@@ -52,8 +52,6 @@ end
 # First we need to add the source to a temporarly folder
 config.vm.provision "pmc-file",
 					run: 'always',
-					before: "pmc-script",
-					after: :all
 					type: "file",
 					source: File.join(pmc_vvv, 'config/etc/.'),
 					destination: "/tmp/etc/"
@@ -75,24 +73,6 @@ config.vm.provision "pmc-script",
 							chown root:root /root/.ssh/config
 							chown vagrant:vagrant /home/vagrant/.ssh/config
 						SHELL
-
-if File.exist?(File.join(pmc_vvv, 'provision/provision-coretech.sh'))
-		config.vm.provision "coretech",
-							after: "pmc-script",
-							type: 'shell',
-							keep_color: true,
-							path: File.join(pmc_vvv, 'provision', 'provision-coretech.sh'),
-							env: { "VVV_LOG" => "coretech" }
-end
-
-if File.exist?(File.join(pmc_vvv, 'provision/provision-pmc-share.sh')) && $vvv_config['pmc'] && $vvv_config['pmc']['share'] && ! $vvv_config['pmc']['share']['skip_provisioning']
-		config.vm.provision "pmc-share",
-							after: "pmc-script",
-							type: 'shell',
-							keep_color: true,
-							path: File.join(pmc_vvv, 'provision', 'provision-pmc-share.sh'),
-							env: { "VVV_LOG" => "wp-core" }
-end
 
 # Implementing PMC specific provision for each site that can't be done by common provision template
 $vvv_config['sites'].each do |site, args|

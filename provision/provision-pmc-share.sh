@@ -3,10 +3,11 @@
 set -eo pipefail
 
 . "/srv/provision/provisioners.sh"
+provisioner_begin "pmc-share"
 
 SKIP_PROVISION=$(get_config_value "pmc.share.skip_provisioning")
 if [[ -n "${SKIP_PROVISION}" && "true" == "${SKIP_PROVISION}" ]]; then
-	exit
+  exit
 fi
 
 PMC_SHARE_WP_CORE_DIR=$(get_config_value "pmc.share.wp_core_dir" "/srv/src/wp-core")
@@ -27,12 +28,12 @@ else
 fi
 
 if [[ ! -d ${WP_CORE_DIR} ]]; then
-	echo " * Installing Wordpress  ${WP_VERSION} ${WP_CORE_DIR}"
-	curl -sL https://wordpress.org/wordpress-${WP_VERSION}.tar.gz | noroot tar -zx --directory ${PMC_SHARE_WP_CORE_DIR}
-	if [[ "${PMC_SHARE_WP_CORE_DIR}/wordpress" != "${WP_CORE_DIR}" ]]; then
-		noroot mv ${PMC_SHARE_WP_CORE_DIR}/wordpress ${WP_CORE_DIR}
-	fi
-	echo " * Wordpress installed"
+  echo " * Installing Wordpress  ${WP_VERSION} ${WP_CORE_DIR}"
+  curl -sL https://wordpress.org/wordpress-${WP_VERSION}.tar.gz | noroot tar -zx --directory ${PMC_SHARE_WP_CORE_DIR}
+  if [[ "${PMC_SHARE_WP_CORE_DIR}/wordpress" != "${WP_CORE_DIR}" ]]; then
+    noroot mv ${PMC_SHARE_WP_CORE_DIR}/wordpress ${WP_CORE_DIR}
+  fi
+  echo " * Wordpress installed"
 fi
 
 if [[ ! -d ${WP_TESTS_DIR}/phpunit/includes ]]; then
