@@ -5,7 +5,9 @@ Welcome! This is the new and still-in-progress-but-ready-to-use configuration fo
 * PHPUnit and PHPCS in the Vagrant machine (you can still run pipelines and these commands through Docker in each theme root)
 * Setting up new WPCOM sites should be done manually - see below (adding new VIPGo sites is untested by the initial VVV testers)
 
-To build a new PMC-VVV environment simply run `sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)` in your terminal and follow the prompts. If you have any issues please refer to the [VVV documentation](https://varyingvagrantvagrants.org/) or `#engineering` for questions. Engineering owns the evolution of this project and ops offers ultimate support of tooling. If you feel the urge to change something or find a bug the please submit a PR yourself.
+To build a new PMC-VVV environment, first ensure you have the latest versions of [Vagrant](https://www.vagrantup.com/docs/installation) and [VirtualBox](https://www.virtualbox.org/) installed, then run `sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)` in your terminal in a directoty where you would like to install the environment (the script will create a directory `VVV`. Then follow the prompts.
+
+If you have any issues please refer to the [VVV documentation](https://varyingvagrantvagrants.org/) or `#engineering` for questions. Engineering owns the evolution of this project and ops offers ultimate support of tooling. If you feel the urge to change something or find a bug the please submit a PR yourself.
 
 ## Build PMC-VVV
 
@@ -77,6 +79,10 @@ Once you have a SQL dump, make sure the site URL is updated in the SQL file.
 
 Things may not go perfectly as you setup your environment. This section contains troubleshooting tips, and if your issue is not here, please contribute with what it was and how you solved it!
 
+### Installation or Provisioning Errors
+
+An example of this error is a syntax error in the Vagrantfile (outdated Vagrant) or inability to successfully provision. Make sure you are running the latest versions of Vagrant and VirtualBox. If you have outdated Vagrant plugins, you may need to manually delete them before provisioning PMC-VVV with `vagrant plugin expunge`.
+
 ### WordPress Errors
 
 When provisioning sites for the first time, you may encounter several WordPress errors. These will most likely be from the theme, due to lack of local data, but some are mysterious errors likely to do with caching.
@@ -92,6 +98,12 @@ The following steps may help to reduce initial WordPress errors:
 \* Note: phrases like "run them in the Vagrant machine" refer to the CLI after `vagrant ssh` is run from the root of the VVV directory.
 
 ### FAQ
+
+#### The default theme is showing up. What do I do?
+
+It's likely the theme did not clone correctly. Assuming you have already run the script and successfully made it through all steps, re-run the pmc-vvv script (`sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)`) and select `2` for all steps until the `Install WPCOM sites?` and `Install VIPGo sites?` questions.
+
+If re-running the script doesn't work, you can manually clone the theme into that site's WordPress install. You can also try to reload the virtual machine with `vagrant reload`.
 
 #### Single posts are redirecting to the homepage. What do I do?
 
@@ -118,6 +130,10 @@ Increase the memory alotted to the virtual machine in Virtual Box > Settings > S
 With VVV we are signing up for a base level of slowness, but if the load times are 45 seconds or more, you might consider trashing your current environement and running the pmc-vvv script in a fresh directory.
 
 ### Miscellaenous Issues
+
+#### 9/29/2020
+
+JavaScript files from pmc-plugins are 404 on WPCOM sites - [see this message thread](https://penskemediacorp.slack.com/archives/C0AN3PRLP/p1601429119002500). This is an issue with lack of symlink support in certain WordPress functions due to PHP limitations. The curent workaround is to manually clone the repo instead of symlinking, and this is planned to be addressed once all sites have been migrated to VIPGo.
 
 #### 5/27/2020
 
