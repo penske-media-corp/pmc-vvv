@@ -5,7 +5,9 @@ Welcome! This is the new and still-in-progress-but-ready-to-use configuration fo
 * PHPUnit and PHPCS in the Vagrant machine (you can still run pipelines and these commands through Docker in each theme root)
 * Setting up new WPCOM sites should be done manually - see below (adding new VIPGo sites is untested by the initial VVV testers)
 
-To build a new PMC-VVV environment simply run `sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)` in your terminal and follow the prompts. If you have any issues please refer to the [VVV documentation](https://varyingvagrantvagrants.org/) or `#engineering` for questions. Engineering owns the evolution of this project and ops offers ultimate support of tooling. If you feel the urge to change something or find a bug the please submit a PR yourself.
+To build a new PMC-VVV environment, first ensure you have the latest versions of [Vagrant](https://www.vagrantup.com/docs/installation) and [VirtualBox](https://www.virtualbox.org/) installed, then run `sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)` in your terminal in a directoty where you would like to install the environment (the script will create a directory `VVV`. Then follow the prompts.
+
+If you have any issues please refer to the [VVV documentation](https://varyingvagrantvagrants.org/) or `#engineering` for questions. Engineering owns the evolution of this project and ops offers ultimate support of tooling. If you feel the urge to change something or find a bug the please submit a PR yourself.
 
 ## Build PMC-VVV
 
@@ -76,6 +78,10 @@ Once you have a SQL dump, make sure the site URL is updated in the SQL file.
 ## Troubleshooting
 
 Things may not go perfectly as you setup your environment. This section contains troubleshooting tips, and if your issue is not here, please contribute with what it was and how you solved it!
+
+### Installation or Provisioning Errors
+
+An example of this error is a syntax error in the Vagrantfile (outdated Vagrant) or inability to successfully provision. Make sure you are running the latest versions of Vagrant and VirtualBox. If you have outdated Vagrant plugins, you may need to manually delete them before provisioning PMC-VVV with `vagrant plugin expunge`.
 
 ### WordPress Errors
 
