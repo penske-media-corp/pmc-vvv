@@ -125,6 +125,10 @@ With VVV we are signing up for a base level of slowness, but if the load times a
 
 ### Miscellaenous Issues
 
+#### 9/29/2020
+
+JavaScript files from pmc-plugins are 404 on WPCOM sites - [see this message thread](https://penskemediacorp.slack.com/archives/C0AN3PRLP/p1601429119002500). This is an issue with lack of symlink support in certain WordPress functions due to PHP limitations. The curent workaround is to manually clone the repo instead of symlinking, and this is planned to be addressed once all sites have been migrated to VIPGo.
+
 #### 5/27/2020
 
 A fresh install resulted in many instances of this warning on VIP Go sites:
