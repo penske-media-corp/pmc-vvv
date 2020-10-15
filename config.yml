@@ -51,6 +51,33 @@ sites:
     # hosts:
       # - pmc.test
 
+  # https://github.com/wpcomvip/pmc-sportico
+  # https://bitbucket.org/penskemediacorp/pmc-sportico-2020/
+  pmc-sportico-2020:
+    skip_provisioning: false
+    description: "pmc-sportico"
+    repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
+    custom:
+      delete_default_plugins: true
+      install_test_content: true
+      wpconfig_constants:
+        AUTOMATIC_UPDATER_DISABLED: true
+        DISALLOW_FILE_EDIT: true
+        DISALLOW_FILE_MODS: true
+        WP_DEBUG: false
+        WP_DEBUG_LOG: false
+        WP_DEBUG_DISPLAY: false
+        WP_DISABLE_FATAL_ERROR_HANDLER: false
+        PMC_IS_VIP_GO_SITE: true
+        VIP_GO_APP_ENVIRONMENT: true
+        VIP_GO_ENV: true
+      admin_user: admin
+      admin_password: password
+      admin_email: admin@pmc.test
+      live_url: https://sportico.com
+    hosts:
+      - pmc-sportico-2020.test
+
   # https://github.com/wpcomvip/pmc-artnews
   # https://bitbucket.com/penskemediacorp/pmc-artnews-2019
   pmc-artnews-2019:
