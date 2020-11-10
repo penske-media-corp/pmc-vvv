@@ -101,9 +101,15 @@ The following steps may help to reduce initial WordPress errors:
 
 #### The default theme is showing up. What do I do?
 
-It's likely the theme did not clone correctly. Assuming you have already run the script and successfully made it through all steps, re-run the pmc-vvv script (`sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)`) and select `2` for all steps until the `Install WPCOM sites?` and `Install VIPGo sites?` questions.
+It's likely the theme did not clone correctly. Assuming you have already run the script and successfully made it through all steps, re-run the pmc-vvv script (`sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)`) and select `2` for all steps until the `Install WPCOM sites?` and `Install VIPGo sites?` questions where you will select `1`.
 
 If re-running the script doesn't work, you can manually clone the theme into that site's WordPress install. You can also try to reload the virtual machine with `vagrant reload`.
+
+#### How do I add or update a VIPGo site?
+
+Copy/paste config from a similar site in config/config.yml and update the repo and theme paths. Run the pmc-vvv script again (`sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)`) and select `2` for all steps until the `Install VIPGo sites?` questions where you will select `1`.
+
+After that is finished, run `vagrant up --provision`.
 
 #### Single posts are redirecting to the homepage. What do I do?
 
