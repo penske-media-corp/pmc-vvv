@@ -250,10 +250,10 @@ sites:
   #     - pmc-salesmicrosite.test
 
   # https://github.com/wpcomvip/pmc-sheknows
-  # https://bitbucket.com/penskemediacorp/pmc-sheknows-2018
-  pmc-sheknows-2018:
+  # https://bitbucket.com/penskemediacorp/pmc-sheknows-2020
+  pmc-sheknows-2020:
     skip_provisioning: false
-    description: "pmc-sheknows-2018"
+    description: "pmc-sheknows-2020"
     repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
     custom:
       delete_default_plugins: true
@@ -270,7 +270,7 @@ sites:
       admin_email: admin@pmc.test
       live_url: https://sheknows.com
     hosts:
-      - pmc-sheknows-2018.test
+      - pmc-sheknows-2020.test
 
   # @TODO: how to provision?
   # https://github.com/wpcomvip/pmc-sheknowsmedia
