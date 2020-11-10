@@ -95,6 +95,23 @@ $vvv_config['sites'].each do |site, args|
 		# We could let's vagrant auto map the shared folder,
 		# however the VVV site provision script doesn't support remote git repo checkout into non-empty folder
 
+		# provision after dependencies doesn't work :(
+		# let's work some magic to bypass vvv's site provision
+		$vvv_config['sites'][site]['skip_provisioning'] = true
+		config.vm.provision "site-#{site}",
+							type: 'shell',
+							keep_color: true,
+							path: File.join('provision', 'provision-site.sh'),
+							args: [
+								site,
+								args['repo'].to_s,
+								args['branch'],
+								args['vm_dir'],
+								args['skip_provisioning'].to_s,
+								args['nginx_upstream']
+							],
+							env: { "VVV_LOG" => "site-#{site}" }
+
 		config.vm.provision "bind-mount-#{site}",
 							after: "site-#{site}",
 							run: 'always',
@@ -112,3 +129,5 @@ $vvv_config['sites'].each do |site, args|
 	end
 
 end
+
+

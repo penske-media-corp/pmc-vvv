@@ -11,7 +11,7 @@ pmc:
 sites:
 
   wpcom:
-    skip_provisioning: false
+    skip_provisioning: true
     repo: https://github.com/hauvong/custom-site-template.git
     hosts:
       - wpcom.test
