@@ -1,0 +1,133 @@
+pmc_vvv=File.realdirpath( '..' );
+
+require File.join( pmc_vvv,'lib','functions.rb' )
+
+# custom mapping for pmc specific improvement
+config.vm.synced_folder File.join(pmc_vvv, 'config/.ssh'), '/srv/.ssh', owner: 'vagrant', group: 'root', mount_options: ['dmode=775', 'fmode=600'], automount: true, SharedFoldersEnableSymlinksCreate: true
+config.vm.synced_folder File.join(pmc_vvv, 'src'), '/srv/src', owner: 'vagrant', group: 'www-data', mount_options: ['dmode=775', 'fmode=774'], automount: true, SharedFoldersEnableSymlinksCreate: true
+config.vm.synced_folder pmc_vvv, '/srv/pmc-vvv', owner: 'vagrant', group: 'www-data', mount_options: ['dmode=775', 'fmode=774'], automount: true, SharedFoldersEnableSymlinksCreate: true
+
+# we want to override some default from VVV to settings we know work properly from pmc-qs7
+config.vm.provider :virtualbox do |v|
+
+	# rename the VM since we are customized the setting to PMC specificiation
+	v.name = "pmc-vvv_" + (Digest::SHA256.hexdigest pmc_vvv)[0..10]
+
+	# Allow the VM to utilize up to 1/2 of the host cpu cores
+	v.cpus = detect_max_cpus 2, 0.5
+
+	# Allow the VM to utilize up to 3/4 of the host system memory
+	v.memory = detect_max_mem 4096, 0.75
+
+	# Only allow the VM to use up-to 50% of the host system cpu
+	# Windows OS, the server may hang if cpu allow to reach 100%
+	v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+
+	# Instruct Vagrant to utilize all the cpu cores we've provided above
+	# Without this, only 1 core will be used
+	v.customize ["modifyvm", :id, "--ioapic", "on"]
+
+	# Plug in the virtual network adapter as if it were a real cat-5 cable
+	# plugged into a real network card. This corrects an error presented with
+	# Ubuntu 16 where boot hangs on: "A start job is running for Raise network interfaces"
+	# This error occurs because Ubuntu tries to raise all the network interfaces,
+	# but the 'cable' isn't connected, so it waits until the timeout.
+	# Note, this is the same as selecting 'Cable Connect' for the network adapter
+	# in the VirtualBox app settings for this box.
+	# https://github.com/hashicorp/vagrant/issues/8056#issuecomment-267600935
+	v.customize ["modifyvm", :id, "--cableconnected1", "on"]
+
+	# Turn off un-use devices
+	v.customize ["modifyvm", :id, "--usb", "off"]
+	v.customize ["modifyvm", :id, "--usbehci", "off"]
+	v.customize ["modifyvm", :id, "--usbxhci", "off"]
+	v.customize ["modifyvm", :id, "--accelerate3d", "off"]
+	v.customize ["modifyvm", :id, "--accelerate2dvideo", "off"]
+	v.customize ["modifyvm", :id, "--audio", "none"]
+	v.customize ["modifyvm", :id, "--vrde", "off"]
+
+end
+
+# In order to add files to /etc folder, we need to access the privileged script to do the copy
+# First we need to add the source to a temporarly folder
+config.vm.provision "pmc-file",
+					run: 'always',
+					type: "file",
+					source: File.join(pmc_vvv, 'config/etc/.'),
+					destination: "/tmp/etc/"
+# We then execute a shell script inside VM with admin privilege to copy the files
+config.vm.provision "pmc-script",
+					run: 'always',
+					after: "pmc-file",
+					type: "shell",
+					privileged: true,
+					inline: <<-SHELL
+							rsync -r /tmp/etc/ /etc/
+							rm -rf /tmp/pmc-etc
+							mkdir -p /vagrant
+							mkdir -p /vagrant/failed_provisioners
+							cp /srv/.ssh/config /root/.ssh/config
+							cp /srv/.ssh/config /home/vagrant/.ssh/config
+							cp /srv/config/config.yml /vagrant/config.yml
+							chmod 600 /root/.ssh/config /home/vagrant/.ssh/config
+							chown root:root /root/.ssh/config
+							chown vagrant:vagrant /home/vagrant/.ssh/config
+						SHELL
+
+# Implementing PMC specific provision for each site that can't be done by common provision template
+$vvv_config['sites'].each do |site, args|
+	next if args['skip_provisioning']
+
+	# In order to properly develop and test provision script directly on local,
+	# we need to override and map the custom-site-template folder
+	if Dir.exist?(File.join(pmc_vvv, 'git/custom-site-template'))
+
+		# override and disable remote repo since we want use our local template
+		$vvv_config['sites'][site]['repo'] = false
+
+		# map the custom provision script directly into the folder so we can develop the scripts without copying between the folders
+		config.vm.synced_folder File.join(pmc_vvv, 'git/custom-site-template/provision'), '/srv/www/' + site + '/provision', owner: 'vagrant', group: 'www-data', mount_options: ['dmode=775', 'fmode=774'], automount: true, SharedFoldersEnableSymlinksCreate: true
+	end
+
+	# VIP GO/Classic
+	if args['custom'] && args['custom']['wp_vip'] && File.exist?(File.join(pmc_vvv, 'provision/provision-bind-mount.sh'))
+
+		# We could let's vagrant auto map the shared folder,
+		# however the VVV site provision script doesn't support remote git repo checkout into non-empty folder
+
+		# provision after dependencies doesn't work :(
+		# let's work some magic to bypass vvv's site provision
+		$vvv_config['sites'][site]['skip_provisioning'] = true
+		config.vm.provision "site-#{site}",
+							type: 'shell',
+							keep_color: true,
+							path: File.join('provision', 'provision-site.sh'),
+							args: [
+								site,
+								args['repo'].to_s,
+								args['branch'],
+								args['vm_dir'],
+								args['skip_provisioning'].to_s,
+								args['nginx_upstream']
+							],
+							env: { "VVV_LOG" => "site-#{site}" }
+
+		config.vm.provision "bind-mount-#{site}",
+							after: "site-#{site}",
+							run: 'always',
+							type: 'shell',
+							keep_color: true,
+							path: File.join(pmc_vvv, 'provision', 'provision-bind-mount.sh'),
+							args: [
+								site,
+								args['vm_dir'],
+								args['custom']['wp_vip'],
+								args['custom']['share_code'].to_s
+							],
+							env: { "VVV_LOG" => "bind-mount-#{site}" }
+
+	end
+
+end
+
+

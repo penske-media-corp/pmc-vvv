@@ -1,1 +1,10 @@
 VVV
+/.vagrant
+/log
+/www
+/git
+/src/coretech
+/src/wp-themes
+/src/wp-core/wordpress
+/src/wp-core/wp-tests
+/config/.ssh
