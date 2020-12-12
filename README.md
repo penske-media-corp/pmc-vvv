@@ -1,156 +1,124 @@
 # PMC-VVV
 
-Welcome! This is the new and still-in-progress-but-ready-to-use configuration for PMC's local WP development with VVV. This document should contain what you need to know for testing it out, but note that the following things are not yet ready to test:
+Configuration repo for PMC's use of VVV
 
-* PHPUnit and PHPCS in the Vagrant machine (you can still run pipelines and these commands through Docker in each theme root)
-* Setting up new WPCOM sites should be done manually - see below (adding new VIPGo sites is untested by the initial VVV testers)
+This repo holds both a complete `config.yml` for VVV as well as the tools to
+update it as the configuration changes or sites are added.
 
-To build a new PMC-VVV environment, first ensure you have the latest versions of [Vagrant](https://www.vagrantup.com/docs/installation) and [VirtualBox](https://www.virtualbox.org/) installed, then run `sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)` in your terminal in a directoty where you would like to install the environment (the script will create a directory `VVV`. Then follow the prompts.
+## Using with VVV
 
-If you have any issues please refer to the [VVV documentation](https://varyingvagrantvagrants.org/) or `#engineering` for questions. Engineering owns the evolution of this project and ops offers ultimate support of tooling. If you feel the urge to change something or find a bug the please submit a PR yourself.
+1. Install Vagrant plugins:
+   ```bash 
+   $ vagrant plugin install vagrant-hostupdater vagrant-disksize vagrant-scp
+   ```
+1. Copy `config.yml` to the `config` directory in your VVV install, typically
+   `~/vvv/config/`.
+1. Enable the site or sites you need by changing the site's `skip_provisioning`
+   value to `false`. By default, no sites are provisioned, allowing each 
+   developer to install only the sites they work on. Each site takes 
+   approximately 3.5 minutes to provision.
+   
+   1. Enable the `wordpress-trunk` site if you plan to run PHPUnit in VVV 
+      instead of Docker.
+      
+      **Note** that it requires manual configuration, such as installing our
+      shared plugins and any theme code to be tested. 
+1. If desired, add optional PMC utilities to the `utilities.pmc` array towards 
+   the end of the configuration.
+1. Adjust the `vm_config` and `disksize` values if needed, such as when working 
+   with databases from some of our larger sites.
+   
+Note that at any time in the future, you can change which sites are provisioned
+and run `vagrant provision` to create the new sites. VVV does not remove sites
+that were previously provisioned, but it does remove the site's hosts entry, 
+restricting access to only WP-CLI.
 
-## Build PMC-VVV
+## Updating `config.yml`
 
-- `sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)`
-  - If running for the first time:
-    - Answer `1` to all prompts
-  - If re-running the script:
-    - You can skip the first two steps ( cloning VVV and copying the config )
-    - Run from inside VVV directory
-- When prompted for a password on git repositories enter an application password to clone repositories
-- If at any time PMC-VVV fails to build or a site doesn't provision you can re-run/skip any of the steps in the go script
+This repo includes a node script that generates `config.yml`. It handles the
+boilerplate configuration while supporting the configuration options relevant
+to PMC.
 
-### After the Build
+1. Update `sites.json` as needed.
+   1. If adding a new site, its entry in the array should be keyed by the 
+      primary domain. The list is ordered alphabetically!
+      
+      Below is a configuration that illustrates the available options:
+      ```json
+      "example.com": {
+        "site_title_prefix": "Example",
+        "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-spark.git",
+        "theme_slug": "",
+        "parent_theme_slug": "pmc-core-v2",
+        "grandchild_theme_repo": "",
+        "theme_dir_uses_vip": false
+      }
+      ```
+      
+      Notes:
+        * `theme_slug` is optional. When omitted, the theme repo's slug is used;
+          in the above example, the slug would be `pmc-spark`.
+        * `grandchild_theme_repo` is optional and is used for international
+          sites, such as Robb Report UK.
+        * `theme_dir_uses_vip` defaults to `false` and can be omitted unless set
+          `true`.
+1. If necessary, run `npm install`.
+1. Run `node generate-config.js`.
+1. Commit the `sites.json` and `config.yml` changes.
 
-See a list of the available sites [here for WPCOM](https://github.com/penske-media-corp/pmc-vvv/blob/master/config.yml#L6). VIPGo sites are also in that config file – search the brand you are looking for and refer to the entry in the `hosts` object e.g. `pmc-rollingstone-2018.test`. All URLs are the theme names + `.test` for VIPGo and `.wpcom.test` for VIP Classic.
+## HTTPS (SSL)
 
-Log in to the WordPress admin on any site with the following credentials:
+To match production, all local environments are configured to use HTTPS URLs.
+Browsers will display certificate errors after you first provision VVV. 
 
-* WPCOM: admin / password
-* VIPGo: pmcdev / pmcdev
+To fix these errors, see VVV's instructions at 
+https://varyingvagrantvagrants.org/docs/en-US/references/https/trusting-ca/.
 
-You may see a lot of WordPress errors. Refer to the troubleshooting notes below.
+## Default WordPress Login
 
-## Adding a New Site
+Username: `pmcdev`
 
-### VIP Classic (WPCOM)
+Password: `pmcdev`
 
-Using the pmc-vvv script:
+## FAQ
 
-* Add the site to the `wpcom` and `hosts` object in config.yml.
-* Run the pmc-vvv script, and skip all steps except "Setup WPCOM sites?"
+### Where are the errors?
 
-The above may not work, in which case, do the following to manually add the WPCOM site:
+VVV is now configured to write the `WP_DEBUG` log to `~/wp-content/debug.log`
+rather than printing those messages to the screen.
 
-* Clone the theme inside www/wpcom/public_html/wp-content/themes
-* Run the following scripts to add the site (where pmc-variety-2020 is the name of the theme and thus the name of the site - they should be the same):
-    * `wp site create --slug=pmc-variety-2020.wpcom.test --path=/srv/www/wpcom/public_html`
-    * `wp theme activate pmc-variety-2020 --url=pmc-variety-2020.wpcom.test --path=/srv/www/wpcom/public_html`
-* That should do it!
+This can be disabled on a per-site basis by removing the `WP_DEBUG_LOG` constant
+from `wp-config.php`.
 
-## Getting Local Data
+### Single posts are redirecting to the homepage. What do I do?
 
-### Theme WP-CLI Scripts
+Flush the rewrite rules in `wp-admin` under VIP > Dashboard > Rewrite Rules.
 
-Check the theme for WP-CLI scripts (DL, AN, and VY 2020 should have them for setting up carousels) and run them in the Vagrant machine*.
+## Miscellaneous Issues
 
-### WXR
+### 2/11/2020
 
-Export content from the QA site via the WordPress exporter, and import the WXR file (the file format of the WP export - stands for WordPress Extended RSS) via the WP admin or WP-CLI.
+Error: `Failed to start The PHP 7.2 FastCGI Process Manager.` during 
+provisioning and 502 Bad Gateway error in HTTP response.
 
-Importing from the admin will work for a small amount of posts, but you may get a memory limit error, so importing via WP-CLI is recommended. From inside the vagrant machine, run either of these commands:
+Fix: Update VVV to latest version and `vagrant reload --provision`. See 
+[this Github issue](https://github.com/Varying-Vagrant-Vagrants/VVV/issues/2061#issuecomment-583557584) 
+for further troubleshooting.
 
-// todo
+## Related repos:
 
-* WPCOM: ``
-* VIPGO: ``
+This configuration builds on two additional repositories, in keeping with the
+patterns established by VVV. This should lower the maintenance burden by 
+leveraging as much of the open-source project as possible.
 
-### SQL dump
+1. Utilities: https://github.com/penske-media-corp/pmc-vvv-utilities
+   
+   This repo contains all PMC modifications to VVV, such as installing our PHPCS
+   standards and creating a local cache of shared code used during site
+   provisioning.
+1. Provisioners: https://github.com/penske-media-corp/pmc-vvv-site-provisioners
 
-// todo
-
-* Where to get a SQL dump
-
-Once you have a SQL dump, make sure the site URL is updated in the SQL file.
-
-`wp db import --path=/srv/www/wpcom/public_html --url=pmc-variety-2020.wpcom.test /srv/www/pmc.wp_2.sql`
-
-## Troubleshooting
-
-Things may not go perfectly as you setup your environment. This section contains troubleshooting tips, and if your issue is not here, please contribute with what it was and how you solved it!
-
-### Installation or Provisioning Errors
-
-An example of this error is a syntax error in the Vagrantfile (outdated Vagrant) or inability to successfully provision. Make sure you are running the latest versions of Vagrant and VirtualBox. If you have outdated Vagrant plugins, you may need to manually delete them before provisioning PMC-VVV with `vagrant plugin expunge`.
-
-### WordPress Errors
-
-When provisioning sites for the first time, you may encounter several WordPress errors. These will most likely be from the theme, due to lack of local data, but some are mysterious errors likely to do with caching.
-
-The following steps may help to reduce initial WordPress errors:
-
-* Save theme menus
-* Save theme options
-* Inside the Vagrant command line, cycle (i.e. turn on/off) X Debug and memcache with the following:
-    1. `xdebug_on && xdebug_off`
-    2. `sudo service memcached restart`
-
-\* Note: phrases like "run them in the Vagrant machine" refer to the CLI after `vagrant ssh` is run from the root of the VVV directory.
-
-### FAQ
-
-#### The default theme is showing up. What do I do?
-
-It's likely the theme did not clone correctly. Assuming you have already run the script and successfully made it through all steps, re-run the pmc-vvv script (`sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)`) and select `2` for all steps until the `Install WPCOM sites?` and `Install VIPGo sites?` questions where you will select `1`.
-
-If re-running the script doesn't work, you can manually clone the theme into that site's WordPress install. You can also try to reload the virtual machine with `vagrant reload`.
-
-#### How do I add or update a VIPGo site?
-
-Copy/paste config from a similar site in config/config.yml and update the repo and theme paths. Run the pmc-vvv script again (`sh <(curl -s https://raw.githubusercontent.com/penske-media-corp/pmc-vvv/master/build-me-vvv.sh)`) and select `2` for all steps until the `Install VIPGo sites?` questions where you will select `1`.
-
-After that is finished, run `vagrant up --provision`.
-
-#### Single posts are redirecting to the homepage. What do I do?
-
-Flush the VIP rewrite rules in VIP > Dashboard > Rewrite Rules.
-
-#### How can I enable Gutenberg on a site?
-
-```
-if ( function_exists( 'wpcom_vip_load_gutenberg' ) ) {
-	wpcom_vip_load_gutenberg( true );
-}
-```
-
-See [this doc from VIP](https://wpvip.com/documentation/vip-go/loading-gutenberg/).
-
-#### Why isn't my Bitbucket password working for cloning repos?
-
-With 2 factor authentication, you will need to create an App Password in Bitbucket at https://bitbucket.org/account/settings/app-passwords/
-
-#### Load times are incredibly slow - how can I speed them up?
-
-Increase the memory alotted to the virtual machine in Virtual Box > Settings > System. This seems to reset frequently.
-
-With VVV we are signing up for a base level of slowness, but if the load times are 45 seconds or more, you might consider trashing your current environement and running the pmc-vvv script in a fresh directory.
-
-### Miscellaenous Issues
-
-#### 9/29/2020
-
-JavaScript files from pmc-plugins are 404 on WPCOM sites - [see this message thread](https://penskemediacorp.slack.com/archives/C0AN3PRLP/p1601429119002500). This is an issue with lack of symlink support in certain WordPress functions due to PHP limitations. The curent workaround is to manually clone the repo instead of symlinking, and this is planned to be addressed once all sites have been migrated to VIPGo.
-
-#### 5/27/2020
-
-A fresh install resulted in many instances of this warning on VIP Go sites:
-```
-Notice: wpcom_vip_load_plugin was called incorrectly. `wpcom_vip_load_plugin( pmc-global-functions, pmc-plugins )` was called after the `plugins_loaded` hook. For best results, we recommend loading your plugins earlier from `client-mu-plugins`. Please see Debugging in WordPress for more information. in /srv/www/pmc-indiewire-2016/public_html/wp-includes/functions.php on line 5167
-```
-
-We load our plugins differently than VIP expects, and they recently added that warning. The only solution at present is to turn off WP_DEBUG. See [this message from Hau with more detail](https://penskemediacorp.slack.com/archives/C0AN3PRLP/p1590607456193000?thread_ts=1590606873.190100&cid=C0AN3PRLP).
-
-#### 2/11/2020
-
-Error: ` Failed to start The PHP 7.2 FastCGI Process Manager.` during provisioning and 502 Bad Gateway error in HTTP response.
-Fix: Update VVV to latest version and `vagrant reload --provision`. See [this Github issue](https://github.com/Varying-Vagrant-Vagrants/VVV/issues/2061#issuecomment-583557584) for futher troubleshooting.
+   This repo contains PMC's extensions of VVV's site provisioners. These 
+   leverage features added by our custom utilities and take the place of the
+   build script that previously handled tasks like installing `pmc-plugins` and
+   a site's theme(s).
