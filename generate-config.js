@@ -28,7 +28,7 @@ const vvvConfig = {
       'phpcs',
     ],
   },
-  'utilities-sources': {
+  'utility-sources': {
     pmc: {
       repo: 'git@github.com:penske-media-corp/pmc-vvv-utilities.git',
       branch: 'main',
