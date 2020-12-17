@@ -1,415 +1,504 @@
----
 sites:
-  wpcom:
-    skip_provisioning: false
-    repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
+  artnews-com:
+    skip_provisioning: true
+    description: artnews.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
     hosts:
-      - wpcom.test
-      - bgr.wpcom.test
-      - pmc-corporate-2018.wpcom.test
-      - pmc-deadline-2019.wpcom.test
-      - pmc-footwearnews-2018.wpcom.test
-      - pmc-hollywoodlife-2017.wpcom.test
-      - pmc-spy.wpcom.test
-      - pmc-summits.wpcom.test
-      - pmc-summits-rr1.wpcom.test
-      - pmc-summits-variety.wpcom.test
-      - pmc-summits-wwd.wpcom.test
-      - pmc-summits.wpcom.test
-      - pmc-tvline.wpcom.test
-      - pmc-variety-2017.wpcom.test
-      - pmc-wwd-2016.wpcom.test
-      - pmc-variety-2020.wpcom.test
+      - artnews-com.test
     custom:
-      wp_type: subdomain
-
-# VIPGO sites:
-# @NOTE: name === theme-name && host
-#
-  # @TODO: what is this site?
-  # @TODO: how to explain use?
-  # https://github.com/wpcomvip/pmc
-  # https://bitbucket.com/penskemediacorp/pmc-corporate-2018
-  # pmc-vipgo-staging:
-    # skip_provisioning: false
-    # description: "pmc"
-    # repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
-    # custom:
-      # delete_default_plugins: true
-      # install_test_content: true
-      # wpconfig_constants:
-        # AUTOMATIC_UPDATER_DISABLED: true
-        # DISALLOW_FILE_EDIT: true
-        # DISALLOW_FILE_MODS: true
-        # WP_DEBUG: true
-        # WP_DEBUG_LOG: true
-        # WP_DISABLE_FATAL_ERROR_HANDLER: true
-      # admin_user: admin
-      # admin_password: password
-      # admin_email: admin@pmc.test
-      # live_url: https://pmc.com
-    # hosts:
-      # - pmc.test
-
-  # https://github.com/wpcomvip/pmc-sportico
-  # https://bitbucket.org/penskemediacorp/pmc-sportico-2020/
-  pmc-sportico-2020:
-    skip_provisioning: false
-    description: "pmc-sportico"
-    repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
-    custom:
-      delete_default_plugins: true
-      install_test_content: true
-      wpconfig_constants:
-        AUTOMATIC_UPDATER_DISABLED: true
-        DISALLOW_FILE_EDIT: true
-        DISALLOW_FILE_MODS: true
-        WP_DEBUG: false
-        WP_DEBUG_LOG: false
-        WP_DEBUG_DISPLAY: false
-        WP_DISABLE_FATAL_ERROR_HANDLER: false
-        PMC_IS_VIP_GO_SITE: true
-        VIP_GO_APP_ENVIRONMENT: true
-        VIP_GO_ENV: true
-      admin_user: admin
-      admin_password: password
-      admin_email: admin@pmc.test
-      live_url: https://sportico.com
-    hosts:
-      - pmc-sportico-2020.test
-
-  # https://github.com/wpcomvip/pmc-artnews
-  # https://bitbucket.com/penskemediacorp/pmc-artnews-2019
-  pmc-artnews-2019:
-    skip_provisioning: false
-    description: "pmc-artnews-2019"
-    repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
-    custom:
-      delete_default_plugins: true
-      install_test_content: true
-      wpconfig_constants:
-        AUTOMATIC_UPDATER_DISABLED: true
-        DISALLOW_FILE_EDIT: true
-        DISALLOW_FILE_MODS: true
-        WP_DEBUG: true
-        WP_DEBUG_LOG: true
-        WP_DISABLE_FATAL_ERROR_HANDLER: true
-      admin_user: admin
-      admin_password: password
-      admin_email: admin@pmc.test
       live_url: https://artnews.com
+      site_title: Artnews (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-artnews-2019.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
+  bgr-com:
+    skip_provisioning: true
+    description: bgr.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
     hosts:
-      - pmc-artnews-2019.test
-
-  # @TODO: how to provision?
-  # https://github.com/wpcomvip/pmc-dirt
-  # https://bitbucket.com/penskemediacorp/felt # <- @TODO: Theme will not work it needs to be prefixed with pmc-
-  # dirt/felt
-  # felt:
-    # skip_provisioning: false
-    # description: "felt/dirt"
-    # repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
-    # custom:
-      # delete_default_plugins: true
-      # install_test_content: true
-      # wpconfig_constants:
-        # AUTOMATIC_UPDATER_DISABLED: true
-        # DISALLOW_FILE_EDIT: true
-        # DISALLOW_FILE_MODS: true
-        # WP_DEBUG: true
-        # WP_DEBUG_LOG: true
-        # WP_DISABLE_FATAL_ERROR_HANDLER: true
-      # admin_user: admin
-      # admin_password: password
-      # admin_email: admin@pmc.test
-      # live_url: https://dirt.com
-    # hosts:
-      # - dirt.test
-
-  # https://github.com/wpcomvip/pmc-goldderby
-  # https://bitbucket.com/penskemediacorp/pmc-goldderby
-  pmc-goldderby:
-    skip_provisioning: false
-    description: "pmc-goldderby"
-    repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
+      - bgr-com.test
     custom:
-      delete_default_plugins: true
-      install_test_content: true
-      #@TODO: May need to automate plugin activation before theme
-      install_plugins:
-        - bbpress
-        - buddypress
-        - buddypress-messages-spam-blocker
-        - buddypress-vip-go
-      wpconfig_constants:
-        AUTOMATIC_UPDATER_DISABLED: true
-        DISALLOW_FILE_EDIT: true
-        DISALLOW_FILE_MODS: true
-        WP_DEBUG: true
-        WP_DEBUG_LOG: true
-        WP_DISABLE_FATAL_ERROR_HANDLER: true
-      admin_user: admin
-      admin_password: password
-      admin_email: admin@pmc.test
+      live_url: https://bgr.com
+      site_title: BGR (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/bgr.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  blogher-com:
+    skip_provisioning: true
+    description: blogher.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - blogher-com.test
+    custom:
+      live_url: https://blogher.com
+      site_title: BlogHer (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-blogher-2020.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
+  deadline-com:
+    skip_provisioning: true
+    description: deadline.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - deadline-com.test
+    custom:
+      live_url: https://deadline.com
+      site_title: Deadline (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-deadline-2019.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  dirt-com:
+    skip_provisioning: true
+    description: dirt.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - dirt-com.test
+    custom:
+      live_url: https://dirt.com
+      site_title: Dirt (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-dirt-2020.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
+  events-fairchildlive-com:
+    skip_provisioning: true
+    description: events.fairchildlive.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - events-fairchildlive-com.test
+    custom:
+      live_url: https://events.fairchildlive.com
+      site_title: Fairchild Live Events (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-summits-wwd.git
+        theme_slug: ""
+        parent_theme_slug: pmc-summits
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  footwearnews-com:
+    skip_provisioning: true
+    description: footwearnews.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - footwearnews-com.test
+    custom:
+      live_url: https://footwearnews.com
+      site_title: Footwearnews (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-footwearnews-2018.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  goldderby-com:
+    skip_provisioning: true
+    description: goldderby.com
+    repo: git@github.com:Varying-Vagrant-Vagrants/custom-site-template.git
+    branch: master
+    hosts:
+      - goldderby-com.test
+    custom:
       live_url: https://goldderby.com
+      site_title: Gold Derby (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-goldderby.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  hollywoodlife-com:
+    skip_provisioning: true
+    description: hollywoodlife.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
     hosts:
-      - pmc-goldderby.test
-
-  # https://github.com/wpcomvip/pmc-indiewire
-  # https://bitbucket.com/penskemediacorp/pmc-indiewire-2016
-  pmc-indiewire-2016:
-    skip_provisioning: false
-    description: "pmc-indiewire-2016"
-    repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
+      - hollywoodlife-com.test
     custom:
-      delete_default_plugins: true
-      install_test_content: true
-      wpconfig_constants:
-        AUTOMATIC_UPDATER_DISABLED: true
-        DISALLOW_FILE_EDIT: true
-        DISALLOW_FILE_MODS: true
-        WP_DEBUG: true
-        WP_DEBUG_LOG: true
-        WP_DISABLE_FATAL_ERROR_HANDLER: true
-      admin_user: admin
-      admin_password: password
-      admin_email: admin@pmc.test
+      live_url: https://hollywoodlife.com
+      site_title: Hollywoodlife (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-hollywoodlife-2017.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-2017
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  indiewire-com:
+    skip_provisioning: true
+    description: indiewire.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - indiewire-com.test
+    custom:
       live_url: https://indiewire.com
+      site_title: Indiewire (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-indiewire-2016.git
+        theme_slug: indiewire
+        parent_theme_slug: ""
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  pmc-com:
+    skip_provisioning: true
+    description: pmc.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
     hosts:
-      - pmc-indiewire-2016.test
-
-  # @TODO: what to do with this site?
-  # https://github.com/wpcomvip/pmc-artnews
-  # https://bitbucket.com/penskemediacorp/pmc-robbreport-uk
-  # pmc-robbreport-uk:
-    # skip_provisioning: false
-    # description: "pmc-robbreport-uk"
-    # repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
-    # custom:
-      # delete_default_plugins: true
-      # install_test_content: true
-      # wpconfig_constants:
-        # AUTOMATIC_UPDATER_DISABLED: true
-        # DISALLOW_FILE_EDIT: true
-        # DISALLOW_FILE_MODS: true
-        # WP_DEBUG: true
-        # WP_DEBUG_LOG: true
-        # WP_DISABLE_FATAL_ERROR_HANDLER: true
-      # admin_user: admin
-      # admin_password: password
-      # admin_email: admin@pmc.test
-      # live_url: https://robbreport.co.uk
-    # hosts:
-      # - pmc-robbreport-uk.test
-
-  # https://github.com/wpcomvip/pmc-rollingstone
-  # https://bitbucket.com/penskemediacorp/pmc-rollingstone-2018
-  pmc-rollingstone-2018:
-    skip_provisioning: false
-    description: "pmc-rollingstone"
-    repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
+      - pmc-com.test
     custom:
-      delete_default_plugins: true
-      install_test_content: true
-      wpconfig_constants:
-        AUTOMATIC_UPDATER_DISABLED: true
-        DISALLOW_FILE_EDIT: true
-        DISALLOW_FILE_MODS: true
-        WP_DEBUG: true
-        WP_DEBUG_LOG: true
-        WP_DISABLE_FATAL_ERROR_HANDLER: true
-      admin_user: admin
-      admin_password: password
-      admin_email: admin@pmc.test
+      live_url: https://pmc.com
+      site_title: PMC Corp (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-corporate-2018.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  robbreport-com:
+    skip_provisioning: true
+    description: robbreport.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - robbreport-com.test
+    custom:
+      live_url: https://robbreport.com
+      site_title: Robb Report (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-robbreport-2017-v2.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  robbreport-co-uk:
+    skip_provisioning: true
+    description: robbreport.co.uk
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - robbreport-co-uk.test
+    custom:
+      live_url: https://robbreport.co.uk
+      site_title: Robb Report UK (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-robbreport-2017-v2.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: git@bitbucket.org:penskemediacorp/pmc-robbreport-uk.git
+        theme_dir_uses_vip: true
+  rollingstone-com:
+    skip_provisioning: true
+    description: rollingstone.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - rollingstone-com.test
+    custom:
       live_url: https://rollingstone.com
+      site_title: Rolling Stone (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-rollingstone-2018.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
+  rr1-com:
+    skip_provisioning: true
+    description: rr1.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
     hosts:
-      - pmc-rollingstone-2018.test
-
-  # @TODO: what is this site?
-  # https://github.com/wpcomvip/pmc-salesmicrosite
-  # https://bitbucket.com/penskemediacorp/pmc-salesmicrosite
-  # pmc-salesmicrosite:
-  #   skip_provisioning: false
-  #   description: "pmc-salesmicrosite"
-  #   repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
-  #   custom:
-  #     delete_default_plugins: true
-  #     install_test_content: true
-  #     wpconfig_constants:
-  #       AUTOMATIC_UPDATER_DISABLED: true
-  #       DISALLOW_FILE_EDIT: true
-  #       DISALLOW_FILE_MODS: true
-  #       WP_DEBUG: true
-  #       WP_DEBUG_LOG: true
-  #       WP_DISABLE_FATAL_ERROR_HANDLER: true
-  #     admin_user: admin
-  #     admin_password: password
-  #     admin_email: admin@pmc.test
-  #     #@TODO: what's the live url? live_url: https://pmc.com
-  #   hosts:
-  #     - pmc-salesmicrosite.test
-
-  # https://github.com/wpcomvip/pmc-sheknows
-  # https://bitbucket.com/penskemediacorp/pmc-sheknows-2020
-  pmc-sheknows-2020:
-    skip_provisioning: false
-    description: "pmc-sheknows-2020"
-    repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
+      - rr1-com.test
     custom:
-      delete_default_plugins: true
-      install_test_content: true
-      wpconfig_constants:
-        AUTOMATIC_UPDATER_DISABLED: true
-        DISALLOW_FILE_EDIT: true
-        DISALLOW_FILE_MODS: true
-        WP_DEBUG: true
-        WP_DEBUG_LOG: true
-        WP_DISABLE_FATAL_ERROR_HANDLER: true
-      admin_user: admin
-      admin_password: password
-      admin_email: admin@pmc.test
+      live_url: https://rr1.com
+      site_title: RR1 (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-summits-rr1.git
+        theme_slug: ""
+        parent_theme_slug: pmc-summits
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  sales-pmcdev-io:
+    skip_provisioning: true
+    description: sales.pmcdev.io
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - sales-pmcdev-io.test
+    custom:
+      live_url: https://sales.pmcdev.io
+      site_title: Sales Microsites (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-salesmicrosite.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
+  sheknows-com:
+    skip_provisioning: true
+    description: sheknows.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - sheknows-com.test
+    custom:
       live_url: https://sheknows.com
+      site_title: Sheknows (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-sheknows-2020.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
+  soaps-com:
+    skip_provisioning: true
+    description: soaps.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
     hosts:
-      - pmc-sheknows-2020.test
-
-  # @TODO: how to provision?
-  # https://github.com/wpcomvip/pmc-sheknowsmedia
-  # https://github.com/sheknows/sheknowsmedia.com
-  # pmc-sheknowsmedia.com:
-  #   skip_provisioning: false
-  #   description: "pmc"
-  #   repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
-  #   custom:
-  #     delete_default_plugins: true
-  #     install_test_content: true
-  #     wpconfig_constants:
-  #       AUTOMATIC_UPDATER_DISABLED: true
-  #       DISALLOW_FILE_EDIT: true
-  #       DISALLOW_FILE_MODS: true
-  #       WP_DEBUG: true
-  #       WP_DEBUG_LOG: true
-  #       WP_DISABLE_FATAL_ERROR_HANDLER: true
-  #     admin_user: admin
-  #     admin_password: password
-  #     admin_email: admin@pmc.test
-  #     live_url: https://sheknowsmedia.com
-  #   hosts:
-  #     - sheknowsmedia.com.test
-
-  # https://github.com/wpcomvip/pmc-soaps
-  # https://bitbucket.com/penskemediacorp/pmc-soaps-2018
-  pmc-soaps-2018:
-    skip_provisioning: false
-    description: "pmc"
-    repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
+      - soaps-com.test
     custom:
-      delete_default_plugins: true
-      install_test_content: true
-      wpconfig_constants:
-        AUTOMATIC_UPDATER_DISABLED: true
-        DISALLOW_FILE_EDIT: true
-        DISALLOW_FILE_MODS: true
-        WP_DEBUG: true
-        WP_DEBUG_LOG: true
-        WP_DISABLE_FATAL_ERROR_HANDLER: true
-      admin_user: admin
-      admin_password: password
-      admin_email: admin@pmc.test
       live_url: https://soaps.com
+      site_title: Soaps (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-soaps-2018.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
+  sportico-com:
+    skip_provisioning: true
+    description: sportico.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
     hosts:
-      - pmc-soaps-2018.test
-
-  # @TODO: how to provision?
-  # https://github.com/wpcomvip/pmc-stylecaster-com
-  # https://github.com/sheknows/sc-stylecaster-2016
-  # sc-stylecaster-2016:
-  #   skip_provisioning: false
-  #   description: "sc-stylecaster-2016"
-  #   repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
-  #   custom:
-  #     delete_default_plugins: true
-  #     install_test_content: true
-  #     wpconfig_constants:
-  #       AUTOMATIC_UPDATER_DISABLED: true
-  #       DISALLOW_FILE_EDIT: true
-  #       DISALLOW_FILE_MODS: true
-  #       WP_DEBUG: true
-  #       WP_DEBUG_LOG: true
-  #       WP_DISABLE_FATAL_ERROR_HANDLER: true
-  #     admin_user: admin
-  #     admin_password: password
-  #     admin_email: admin@pmc.test
-  #     live_url: https://stylecaster.com
-  #   hosts:
-  #     - sc-stylecaster-2016.test
-
-  # @TODO: what is this site?
-  # https://github.com/wpcomvip/pmc
-  # https://bitbucket.com/penskemediacorp/pmc-corporate-2018
-  # pmc-variety-com:
-  #   skip_provisioning: false
-  #   description: "pmc-variety-com"
-  #   repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
-  #   custom:
-  #     delete_default_plugins: true
-  #     install_test_content: true
-  #     wpconfig_constants:
-  #       AUTOMATIC_UPDATER_DISABLED: true
-  #       DISALLOW_FILE_EDIT: true
-  #       DISALLOW_FILE_MODS: true
-  #       WP_DEBUG: true
-  #       WP_DEBUG_LOG: true
-  #       WP_DISABLE_FATAL_ERROR_HANDLER: true
-  #     admin_user: admin
-  #     admin_password: password
-  #     admin_email: admin@pmc.test
-  #     live_url: https://pmc-variety-com.com
-  #   hosts:
-  #     - pmc-variety-com.test
-
-  # #@TODO: what is this site?
-  # https://github.com/wpcomvip/pmc-variety-com
-  # https://bitbucket.com/penskemediacorp/pmc-variety-com
-  # pmc-variety-com:
-  #   skip_provisioning: false
-  #   description: "pmc-variety-com"
-  #   repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template.git
-  #   custom:
-  #     delete_default_plugins: true
-  #     install_test_content: true
-  #     wpconfig_constants:
-  #       AUTOMATIC_UPDATER_DISABLED: true
-  #       DISALLOW_FILE_EDIT: true
-  #       DISALLOW_FILE_MODS: true
-  #       WP_DEBUG: true
-  #       WP_DEBUG_LOG: true
-  #       WP_DISABLE_FATAL_ERROR_HANDLER: true
-  #     admin_user: admin
-  #     admin_password: password
-  #     admin_email: admin@pmc.test
-  #     live_url: https://pmc-variety-com.com
-  #   hosts:
-  #     - pmc-variety-com.test
-
+      - sportico-com.test
+    custom:
+      live_url: https://sportico.com
+      site_title: Sportico (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-sportico-2020.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
+  sourcingjournal-com:
+    skip_provisioning: true
+    description: sourcingjournal.com
+    repo: git@github.com:Varying-Vagrant-Vagrants/custom-site-template.git
+    branch: master
+    hosts:
+      - sourcingjournal-com.test
+    custom:
+      live_url: https://sourcingjournal.com
+      site_title: Sourcing Journal (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-sourcingjournal-2018.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
+  spy-com:
+    skip_provisioning: true
+    description: spy.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - spy-com.test
+    custom:
+      live_url: https://spy.com
+      site_title: Spy (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-spy.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  stylecaster-com:
+    skip_provisioning: true
+    description: stylecaster.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - stylecaster-com.test
+    custom:
+      live_url: https://stylecaster.com
+      site_title: Stylecaster (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@github.com:penske-media-corp/sc-stylecaster-2016.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  tvline-com:
+    skip_provisioning: true
+    description: tvline.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - tvline-com.test
+    custom:
+      live_url: https://tvline.com
+      site_title: TV Line (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-tvline-2014.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  variety-com:
+    skip_provisioning: true
+    description: variety.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - variety-com.test
+    custom:
+      live_url: https://variety.com
+      site_title: Variety (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-variety-2020.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  wwd-com:
+    skip_provisioning: true
+    description: wwd.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - wwd-com.test
+    custom:
+      live_url: https://wwd.com
+      site_title: WWD (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-wwd-2016.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  studios-wwd-com:
+    skip_provisioning: true
+    description: studios.wwd.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - studios-wwd-com.test
+    custom:
+      live_url: https://studios.wwd.com
+      site_title: WWD Studios (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-wwd-studios-2017.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  wordpress-trunk:
+    skip_provisioning: true
+    description: An svn based WP Core trunk dev setup, useful for contributor days,
+      Trac tickets, patches
+    repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop.git
+    hosts:
+      - trunk.wordpress.test
 utilities:
   core:
-    - memcached-admin
-    - mongodb
-    - opcache-status
-    - php74
-    - phpmyadmin
-    - tideways
     - tls-ca
+    - phpmyadmin
+    - memcached-admin
+    - opcache-status
+    - tideways
     - webgrind
-
+    - mongodb
+    - php73
+    - php74
+  pmc:
+    - coretech
+    - http-concat
+    - phpcs
+utilities-sources:
+  pmc:
+    repo: git@github.com:penske-media-corp/pmc-vvv-utilities.git
+    branch: main
 vm_config:
-  cores: 2
-  memory: 2048
-
+  memory: 4096
+  cores: 3
 general:
   db_backup: true
   db_restore: true
-  db_share_type: false
-
+  db_share: false
 vagrant-plugins:
-  disksize: 10GB
+  disksize: 65GB
