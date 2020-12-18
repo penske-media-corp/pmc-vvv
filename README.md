@@ -5,6 +5,28 @@ Configuration repo for PMC's use of VVV
 This repo holds both a complete `config.yml` for VVV as well as the tools to
 update it as the configuration changes or sites are added.
 
+## Prerequisites
+
+1. [Virtualbox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/)
+1. A checkout of [VVV](https://github.com/Varying-Vagrant-Vagrants/vvv)
+1. SSH key forwarding via `ssh-agent` (see [below](#ssh-agent))
+
+### `ssh-agent`
+
+Provisioning requires SSH access to both Bitbucket and GitHub; neither username
+and password nor applications passwords are supported.
+
+It is not, however, necessary to add your private key to VVV. Instead, your host
+machine must share it with VVV using `ssh-agent` (aka key forwarding).
+
+To do so:
+
+1. Add your public SSH key to your Bitbucket and GitHub accounts.
+1. Add your private SSH key to the `ssh-agent` **on your host machine**:
+   ```bash
+   ssh-add -K [PATH TO YOUR PRIVATE KEY]
+   ```
+
 ## Using with VVV
 
 1. Install Vagrant plugins:
@@ -84,11 +106,11 @@ Password: `pmcdev`
 
 ### Where are the errors?
 
-VVV is now configured to write the `WP_DEBUG` log to `~/wp-content/debug.log`
-rather than printing those messages to the screen.
+VVV is configured to write the `WP_DEBUG` log to `~/wp-content/debug.log` rather
+than printing those messages to the screen.
 
-This can be disabled on a per-site basis by removing the `WP_DEBUG_LOG` constant
-from `wp-config.php`.
+This can be disabled on a per-site basis by changing the `WP_DEBUG_LOG` constant
+to `false`.
 
 ### Single posts are redirecting to the homepage. What do I do?
 
