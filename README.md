@@ -55,39 +55,6 @@ and run `vagrant provision` to create the new sites. VVV does not remove sites
 that were previously provisioned, but it does remove the site's hosts entry, 
 restricting access to only WP-CLI.
 
-## Updating `config.yml`
-
-This repo includes a node script that generates `config.yml`. It handles the
-boilerplate configuration while supporting the configuration options relevant
-to PMC.
-
-1. Update `sites.json` as needed.
-   1. If adding a new site, its entry in the array should be keyed by the 
-      primary domain. The list is ordered alphabetically!
-      
-      Below is a configuration that illustrates the available options:
-      ```json
-      "example.com": {
-        "site_title_prefix": "Example",
-        "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-spark.git",
-        "theme_slug": "",
-        "parent_theme_slug": "pmc-core-v2",
-        "grandchild_theme_repo": "",
-        "theme_dir_uses_vip": false
-      }
-      ```
-      
-      Notes:
-        * `theme_slug` is optional. When omitted, the theme repo's slug is used;
-          in the above example, the slug would be `pmc-spark`.
-        * `grandchild_theme_repo` is optional and is used for international
-          sites, such as Robb Report UK.
-        * `theme_dir_uses_vip` defaults to `false` and can be omitted unless set
-          `true`.
-1. If necessary, run `npm install`.
-1. Run `node generate-config.js`.
-1. Commit the `sites.json` and `config.yml` changes.
-
 ## HTTPS (SSL)
 
 To match production, all local environments are configured to use HTTPS URLs.
@@ -115,6 +82,37 @@ to `false`.
 ### Single posts are redirecting to the homepage. What do I do?
 
 Flush the rewrite rules in `wp-admin` under VIP > Dashboard > Rewrite Rules.
+
+### I'm already using `pmc-vvv`. What's next?
+
+There are several options for adopting the latest VVV configuration. 
+
+1. Start fresh: 
+   1. Run `vagrant destroy` 
+   1. Delete the VVV directory
+   1. Check out VVV, drop in the new configuration, and provision
+1. Migrate to a fresh instance: 
+   1. Run `vagrant destroy`
+   1. Copy the database backups to a safe location (from `database/sql/backups`)
+   1. Delete the VVV install and start anew
+   1. Import the database backup and update URLs
+      1. Copy the database backup to the new site's VVV folder
+      1. Run `vagrant ssh` and change to the new site's directory
+      1. Run `wp db import [FILE]`
+      1. Run `wp search-replace [OLD URL] [NEW URL]`
+      1. Flush the cache: `wp cache flush`
+1. Set up a new VVV instance alongside your existing one. As long as both aren't
+   running at the same time, they can coexist. 
+1. Retain sites set up using `build-me-vvv.sh` (**NOT RECOMMENDED**):
+   1. Modify the generated config so that the site slug and host matches what's
+      currently in use.
+   1. Set the site to use the default VVV provisioner rather than our custom one
+   1. Run `vagrant destroy` and `vagrant provision`
+      
+      The existing sites will remain, including the unused `wpcom.test` network,
+      and you'll need to reconcile your updates with any future changes to the
+      generated config, but this will retain all of your existing sites in case
+      you have something set up that you cannot part with.
 
 ## Miscellaneous Issues
 
@@ -144,3 +142,36 @@ leveraging as much of the open-source project as possible.
    leverage features added by our custom utilities and take the place of the
    build script that previously handled tasks like installing `pmc-plugins` and
    a site's theme(s).
+
+## Updating `config.yml`
+
+This repo includes a node script that generates `config.yml`. It handles the
+boilerplate configuration while supporting the configuration options relevant
+to PMC.
+
+1. Update `sites.json` as needed.
+   1. If adding a new site, its entry in the array should be keyed by the
+      primary domain. The list is ordered alphabetically!
+
+      Below is a configuration that illustrates the available options:
+      ```json
+      "example.com": {
+        "site_title_prefix": "Example",
+        "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-spark.git",
+        "theme_slug": "",
+        "parent_theme_slug": "pmc-core-v2",
+        "grandchild_theme_repo": "",
+        "theme_dir_uses_vip": false
+      }
+      ```
+
+      Notes:
+      * `theme_slug` is optional. When omitted, the theme repo's slug is used;
+        in the above example, the slug would be `pmc-spark`.
+      * `grandchild_theme_repo` is optional and is used for international
+        sites, such as Robb Report UK.
+      * `theme_dir_uses_vip` defaults to `false` and can be omitted unless set
+        `true`.
+1. If necessary, run `npm install`.
+1. Run `node generate-config.js`.
+1. Commit the `sites.json` and `config.yml` changes.
