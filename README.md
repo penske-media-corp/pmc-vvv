@@ -106,7 +106,9 @@ There are several options for adopting the latest VVV configuration.
 1. Retain sites set up using `build-me-vvv.sh` (**NOT RECOMMENDED**):
    1. Modify the generated config so that the site slug and host matches what's
       currently in use.
-   1. Set the site to use the default VVV provisioner rather than our custom one
+   1. Set the site to use the 
+      [default VVV provisioner](https://github.com/Varying-Vagrant-Vagrants/custom-site-template)
+      rather than our custom one, pulling from the `master` branch
    1. Run `vagrant destroy` and `vagrant provision`
       
       The existing sites will remain, including the unused `wpcom.test` network,
