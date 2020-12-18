@@ -117,7 +117,10 @@ There are several options for adopting the latest VVV configuration.
       you have something set up that you cannot part with.
 
 ## Miscellaneous Issues
+### 12/17/2020
+Error: `git@github.com: Permission denied (publickey).fatal: Could not read from remote repository.` during provision pmc utilities (found in provisioner-utility-soucre-pmc.log)
 
+Fix: Add key to ssh-agent using: `ssh-add -K [PATH_TO_PRIVATE_KEY]`
 ### 2/11/2020
 
 Error: `Failed to start The PHP 7.2 FastCGI Process Manager.` during 
