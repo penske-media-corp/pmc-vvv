@@ -61,13 +61,6 @@
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-robbreport-2017-v2.git",
     "parent_theme_slug": "pmc-core-v2"
   },
-  "robbreport.co.uk": {
-    "site_title_prefix": "Robb Report UK",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-robbreport-2017-v2.git",
-    "parent_theme_slug": "pmc-core-v2",
-    "grandchild_theme_repo": "git@bitbucket.org:penskemediacorp/pmc-robbreport-uk.git",
-    "theme_dir_uses_vip": true
-  },
   "rollingstone.com": {
     "site_title_prefix": "Rolling Stone",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-rollingstone-2018.git",
