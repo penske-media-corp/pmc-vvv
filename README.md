@@ -1,6 +1,8 @@
 # PMC-VVV
 
-Configuration repo for PMC's use of VVV
+Configuration repo for PMC's use of VVV.
+
+VVV is an open source local development environment designed for WordPress developers, and is used for both working on WordPress sites and contributing to WordPress Core.
 
 This repo holds both a complete `config.yml` for VVV as well as the tools to
 update it as the configuration changes or sites are added.
@@ -8,7 +10,7 @@ update it as the configuration changes or sites are added.
 ## Prerequisites
 
 1. [Virtualbox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/)
-1. A checkout of [VVV](https://github.com/Varying-Vagrant-Vagrants/vvv)
+1. A checkout (i.e. clone) of the [VVV](https://github.com/Varying-Vagrant-Vagrants/vvv) repo
 1. SSH key forwarding via `ssh-agent` (see [below](#ssh-agent))
 
 ### `ssh-agent`
@@ -29,11 +31,11 @@ To do so:
 
 ## Using with VVV
 
-1. Install Vagrant plugins:
+1. Install Vagrant plugins (run this command from inside directory of the VVV clone from the #2 prerequisite):
    ```bash
    $ vagrant plugin install vagrant-hostsupdater vagrant-disksize vagrant-scp
    ```
-1. Copy `config.yml` to the `config` directory in your VVV install, typically
+1. Copy `config.yml` from this repo to the `config` directory in your VVV install, typically
    `~/vvv/config/`.
 1. Enable the site or sites you need by changing the site's `skip_provisioning`
    value to `false`. By default, no sites are provisioned, allowing each
@@ -49,6 +51,10 @@ To do so:
    the end of the configuration.
 1. Adjust the `vm_config` and `disksize` values if needed, such as when working
    with databases from some of our larger sites.
+1. Provision Vagrant (i.e. install dependencies for the first time) as usual:
+   ```bash
+      $ vagrant up --provision
+   ```
 
 Note that at any time in the future, you can change which sites are provisioned
 and run `vagrant provision` to create the new sites. VVV does not remove sites
