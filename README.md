@@ -33,24 +33,25 @@ To do so:
 
 1. Install Vagrant plugins (run this command from inside directory of the VVV clone from the #2 prerequisite):
    ```bash
-   $ vagrant plugin install vagrant-hostsupdater vagrant-disksize vagrant-scp
+   $ vagrant plugin install vagrant-goodhosts vagrant-disksize vagrant-scp
    ```
 1. Copy `config.yml` from this repo to the `config` directory in your VVV install, typically
-   `~/vvv/config/`.
-1. Enable the site or sites you need by changing the site's `skip_provisioning`
-   value to `false`. By default, no sites are provisioned, allowing each
-   developer to install only the sites they work on. Each site takes
-   approximately 3.5 minutes to provision.
-
-   1. Enable the `wordpress-trunk` site if you plan to run PHPUnit in VVV
-      instead of Docker.
-
-      **Note** that it requires manual configuration, such as installing our
-      shared plugins and any theme code to be tested.
-1. If desired, add optional PMC utilities to the `utilities.pmc` array towards
-   the end of the configuration.
-1. Adjust the `vm_config` and `disksize` values if needed, such as when working
-   with databases from some of our larger sites.
+   `~/VVV/config/`.
+    1. Within the copied `config.yml`, Enable the site or sites you need by changing the site's `skip_provisioning`
+       value to `false`. By default, no sites are provisioned, allowing each
+       developer to install only the sites they work on. Each site takes
+       approximately 3.5 minutes to provision.
+    
+       1. Enable the `wordpress-trunk` site if you plan to run PHPUnit in VVV
+          instead of Docker.
+    
+          **Note** that it requires manual configuration, such as installing our
+          shared plugins and any theme code to be tested.
+    1. If desired, add optional PMC utilities to the `utilities.pmc` array towards
+       the end of the copied `config.yml`.
+    1. Towards the bottom of the copied `config.yml`, 
+        you may adjust the `vm_config` and `disksize` values if needed, 
+        such as when working with databases from some of our larger sites.
 1. Provision Vagrant (i.e. install dependencies for the first time) as usual:
    ```bash
       $ vagrant up --provision
@@ -123,6 +124,11 @@ There are several options for adopting the latest VVV configuration.
       you have something set up that you cannot part with.
 
 ## Miscellaneous Issues
+### 03/11/2021
+Error: During `vagrant up --provision` encountered `default: sudo: unable to execute /usr/local/bin/wp: Permission denied`. Upon SSHing into Vagrant (`vagrant ssh`) noted with `ls -al /usr/local/bin/wp` that this wp-cli script was owned by `root` and within the group `root`. 
+
+Fix: While SSH'd into Vagrant, delete wp-cli with `rm /usr/local/bin/wp` then provision again. Afterwards, wp-cli was properly owned by `vagrant` user and within the `www-data` group.
+
 ### 12/17/2020
 Error: `git@github.com: Permission denied (publickey).fatal: Could not read from remote repository.` during provision pmc utilities (found in provisioner-utility-soucre-pmc.log)
 
