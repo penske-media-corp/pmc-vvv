@@ -431,6 +431,24 @@ sites:
         parent_theme_slug: ""
         grandchild_theme_repo: ""
         theme_dir_uses_vip: false
+  wwd-2021-com:
+    skip_provisioning: false
+    description: wwd-2021.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - wwd-2021-com.test
+    custom:
+      live_url: https://wwd.com
+      site_title: WWD (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-wwd-2021.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
   studios-wwd-com:
     skip_provisioning: true
     description: studios.wwd.com
