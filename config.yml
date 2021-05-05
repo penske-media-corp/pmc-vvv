@@ -35,6 +35,24 @@ sites:
         parent_theme_slug: ""
         grandchild_theme_repo: ""
         theme_dir_uses_vip: false
+  billboard-com:
+    skip_provisioning: true
+    description: billboard.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - billboard-com.test
+    custom:
+      live_url: https://billboard.com
+      site_title: Billboard (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-billboard-2021.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
   blogher-com:
     skip_provisioning: true
     description: blogher.com
@@ -161,6 +179,24 @@ sites:
         parent_theme_slug: pmc-core-2017
         grandchild_theme_repo: ""
         theme_dir_uses_vip: false
+  hollywoodreporter-com:
+    skip_provisioning: true
+    description: hollywoodreporter.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - hollywoodreporter-com.test
+    custom:
+      live_url: https://hollywoodreporter.com
+      site_title: Billboard (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-hollywoodreporter-2021.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
   indiewire-com:
     skip_provisioning: true
     description: indiewire.com
@@ -413,6 +449,24 @@ sites:
         parent_theme_slug: pmc-core-v2
         grandchild_theme_repo: ""
         theme_dir_uses_vip: false
+  vibe-com:
+    skip_provisioning: true
+    description: vibe.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - vibe-com.test
+    custom:
+      live_url: https://vibe.com
+      site_title: Billboard (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-vibe-2021.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
   wwd-com:
     skip_provisioning: true
     description: wwd.com
