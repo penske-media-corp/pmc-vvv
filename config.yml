@@ -188,7 +188,7 @@ sites:
       - hollywoodreporter-com.test
     custom:
       live_url: https://hollywoodreporter.com
-      site_title: Billboard (LOCAL)
+      site_title: Hollywoodreporter (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
@@ -458,7 +458,7 @@ sites:
       - vibe-com.test
     custom:
       live_url: https://vibe.com
-      site_title: Billboard (LOCAL)
+      site_title: Vibe (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
