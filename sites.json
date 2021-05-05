@@ -12,7 +12,8 @@
   "billboard.com": {
     "site_title_prefix": "Billboard",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-billboard-2021.git",
-    "parent_theme_slug": "pmc-core-v2"
+    "parent_theme_slug": "pmc-core-v2",
+    "theme_dir_uses_vip": true
   },
   "blogher.com": {
     "site_title_prefix": "BlogHer",
@@ -55,7 +56,8 @@
   "hollywoodreporter.com": {
     "site_title_prefix": "Hollywoodreporter",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-hollywoodreporter-2021.git",
-    "parent_theme_slug": "pmc-core-v2"
+    "parent_theme_slug": "pmc-core-v2",
+    "theme_dir_uses_vip": true
   },
   "indiewire.com": {
     "site_title_prefix": "Indiewire",
@@ -134,7 +136,8 @@
   "vibe.com": {
     "site_title_prefix": "Vibe",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-vibe-2021.git",
-    "parent_theme_slug": "pmc-core-v2"
+    "parent_theme_slug": "pmc-core-v2",
+    "theme_dir_uses_vip": true
   },
   "wwd.com": {
     "site_title_prefix": "WWD",
