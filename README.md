@@ -46,7 +46,8 @@ To do so:
           instead of Docker.
     
           **Note** that it requires manual configuration, such as installing our
-          shared plugins and any theme code to be tested.
+          shared plugins and any theme code to be tested. See [this Confluence article
+          for instructions](https://confluence.pmcdev.io/display/ENG/Getting+Started+With+PHPUnit+Tests#GettingStartedWithPHPUnitTests-RunningYourTestLocally).
     1. If desired, add optional PMC utilities to the `utilities.pmc` array towards
        the end of the copied `config.yml`.
     1. Towards the bottom of the copied `config.yml`, 
