@@ -116,6 +116,12 @@
     "parent_theme_slug": "pmc-core-v2",
     "theme_dir_uses_vip": true
   },
+  "sourcingjournal-2021.com": {
+    "site_title_prefix": "Sourcing Journal",
+    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-sourcingjournal-2021.git",
+    "parent_theme_slug": "pmc-core-v2",
+    "theme_dir_uses_vip": true
+  },
   "spy.com": {
     "site_title_prefix": "Spy",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-spy.git"
