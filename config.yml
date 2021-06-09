@@ -377,6 +377,24 @@ sites:
         parent_theme_slug: pmc-core-v2
         grandchild_theme_repo: ""
         theme_dir_uses_vip: true
+  sourcingjournal-2021-com:
+    skip_provisioning: true
+    description: sourcingjournal-2021.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - sourcingjournal-2021-com.test
+    custom:
+      live_url: https://sourcingjournal-2021.com
+      site_title: Vibe (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-sourcingjournal.com-2021.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
   spy-com:
     skip_provisioning: true
     description: spy.com
