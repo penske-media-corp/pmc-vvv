@@ -518,9 +518,9 @@ sites:
       pmc:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-wwd-2021.git
         theme_slug: ""
-        parent_theme_slug: ""
+        parent_theme_slug: pmc-core-v2
         grandchild_theme_repo: ""
-        theme_dir_uses_vip: false
+        theme_dir_uses_vip: true
   studios-wwd-com:
     skip_provisioning: true
     description: studios.wwd.com

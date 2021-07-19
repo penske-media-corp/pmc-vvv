@@ -151,7 +151,9 @@
   },
   "wwd-2021.com": {
     "site_title_prefix": "WWD 2021",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-wwd-2021.git"
+    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-wwd-2021.git",
+    "parent_theme_slug": "pmc-core-v2",
+    "theme_dir_uses_vip": true
   },
   "studios.wwd.com": {
     "site_title_prefix": "WWD Studios",
