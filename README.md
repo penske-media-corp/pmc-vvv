@@ -47,7 +47,7 @@ To do so:
     
           **Note** that it requires manual configuration, such as installing our
           shared plugins and any theme code to be tested. See [this Confluence article
-          for instructions](https://confluence.pmcdev.io/display/ENG/Getting+Started+With+PHPUnit+Tests#GettingStartedWithPHPUnitTests-RunningYourTestLocally).
+          for instructions](https://confluence.pmcdev.io/x/MAMmAg).
     1. If desired, add optional PMC utilities to the `utilities.pmc` array towards
        the end of the copied `config.yml`.
     1. Towards the bottom of the copied `config.yml`, 
@@ -142,6 +142,19 @@ provisioning and 502 Bad Gateway error in HTTP response.
 Fix: Update VVV to latest version and `vagrant reload --provision`. See
 [this Github issue](https://github.com/Varying-Vagrant-Vagrants/VVV/issues/2061#issuecomment-583557584)
 for further troubleshooting.
+
+### 2021
+An error during initial creation/provisioning on Macbook Pros.
+
+```bash
+VBoxManage: error: VBoxNetAdpCtl: Error while adding new interface: failed to open /dev/vboxnetctl: No such file or directory
+VBoxManage: error: Details: code NS_ERROR_FAILURE (0x80004005), component HostNetworkInterfaceWrap, interface IHostNetworkInterface
+```
+The solution seems to be to restart your Mac laptop in Recovery mode (cmd + R), then open a Terminal and enter:
+```bash
+spctl kext-consent add VB5E2TV963
+```
+and restart. VB5E2TV963 is the Oracle developer ID.
 
 ## Related repos:
 
