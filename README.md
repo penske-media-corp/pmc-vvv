@@ -29,7 +29,7 @@ To do so:
    ssh-add -K [PATH TO YOUR PRIVATE KEY]
    ```
 
-## Using with VVV
+## Install
 
 1. Install Vagrant plugins (run this command from inside directory of the VVV clone from the #2 prerequisite):
    ```bash
@@ -41,13 +41,6 @@ To do so:
        value to `false`. By default, no sites are provisioned, allowing each
        developer to install only the sites they work on. Each site takes
        approximately 3.5 minutes to provision.
-    
-       1. Enable the `wordpress-trunk` site if you plan to run PHPUnit in VVV
-          instead of Docker.
-    
-          **Note** that it requires manual configuration, such as installing our
-          shared plugins and any theme code to be tested. See [this Confluence article
-          for instructions](https://confluence.pmcdev.io/x/MAMmAg).
     1. If desired, add optional PMC utilities to the `utilities.pmc` array towards
        the end of the copied `config.yml`.
     1. Towards the bottom of the copied `config.yml`, 
@@ -76,6 +69,39 @@ https://varyingvagrantvagrants.org/docs/en-US/references/https/trusting-ca/.
 Username: `pmcdev`
 
 Password: `pmcdev`
+
+## Unit Tests
+
+For each site you provision, e.g. Sportico, you may run the theme and pmc-plugins unit tests by following the steps below. Steps 2+ will need to be performed per provisioned site, e.g. Sportico, WWD, etc.. The basic concept here is that we copy the testing tools from wordpress-trunk into each provisioned site, and utilize the `wordpresstrunk` database while testing.
+
+NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingvagrantvagrants.org/docs/en-US/references/xdebug/ Only enable xdebug while testing if you wish to step-through debug your tests.
+
+1. Provision the `wordpress-trunk` site as stated in step 2.1 of the "Install" section above. This brings in `phpunit`, the WP testing bootstraps, and the WP Unit Test helpers like mocking, etc.
+1. Duplicate `VVV/www/wordpress-trunk/public_html/tests` to your provisioned site, e.g. `VVV/www/sportico-com/public_html/tests`
+1. Duplicate and rename `VVV/www/wordpress-trunk/public_html/wp-tests-config-sample.php` to your provisioned site, e.g. `VVV/www/sportico-com/public_html/wp-tests-config.php`
+    1. change line 4 to `define( 'ABSPATH', dirname( __FILE__ ) . '/' );`
+    1. Configure `DB_*` named constants:
+        ```
+        define( 'DB_NAME', 'wordpresstrunk' );
+        define( 'DB_USER', 'wp' );
+        define( 'DB_PASSWORD', 'wp' );
+        define( 'DB_HOST', 'localhost' );
+        ```
+1. SSH into Vagrant `vagrant ssh`.
+1. Tell PHPUnit where our test bootstraps are located. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
+    ```
+    $ export PMC_PHPUNIT_BOOTSTRAP=/srv/www/sportico-com/public_html/wp-content/plugins/pmc-plugins/pmc-unit-test/bootstrap.php
+    $ export WP_TESTS_DIR=/srv/www/sportico-com/public_html/tests/phpunit
+    ```
+1. Navigate to a pmc-plugin or a theme where `phpunit.xml` exists. E.g.
+    ```
+    $ cd /srv/www/sportico-com/public_html/wp-content/plugins/pmc-plugins/pmc-piano/
+    ```
+1. Run `$ phpunit` to execute tests.
+
+To run tests in PHPStorm and/or Step-Through debug tests, see here: https://confluence.pmcdev.io/x/sIyzB (this replaces steps 4-7 above)
+
+![Testing in PHPStorm](./docs/Testing-in-PHPStorm.png)
 
 ## FAQ
 
