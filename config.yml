@@ -551,9 +551,7 @@ utilities:
     - phpmyadmin
     - memcached-admin
     - opcache-status
-    - tideways
     - webgrind
-    - mongodb
     - php73
     - php74
   pmc:
