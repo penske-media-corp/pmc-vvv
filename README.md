@@ -109,7 +109,7 @@ NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingv
     1. Note, we must tell PHPUnit where our test bootstraps are located. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
     ```
     $ vagrant ssh
-    
+    You can add these variables to your bash, but make sure they are at the bottom of ~/.bash_alias as not to conflict with vvv's settings.
     $ export PMC_PHPUNIT_BOOTSTRAP=/srv/www/sportico-com/public_html/wp-content/plugins/pmc-plugins/pmc-unit-test/bootstrap.php
     $ export WP_TESTS_DIR=/srv/www/sportico-com/public_html/tests/phpunit
     
