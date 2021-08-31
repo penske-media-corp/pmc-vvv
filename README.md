@@ -4,40 +4,25 @@ Configuration repo for PMC's use of VVV.
 
 VVV is an open source local development environment designed for WordPress developers, and is used for both working on WordPress sites and contributing to WordPress Core.
 
-This repo holds both a complete `config.yml` for VVV as well as the tools to
-update it as the configuration changes or sites are added.
+This repo holds both a complete `config.yml` for VVV as well as the tools to update it as the configuration changes or sites are added. For more information see: https://github.com/penske-media-corp/pmc-vvv-site-provisioners
 
 ## Prerequisites
 
-1. [Virtualbox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/)
-1. A checkout (i.e. clone) of the [VVV](https://github.com/Varying-Vagrant-Vagrants/vvv) repo
-1. SSH key forwarding via `ssh-agent` (see [below](#ssh-agent))
-
-### `ssh-agent`
-
-Provisioning requires SSH access to both Bitbucket and GitHub; neither username
-and password nor applications passwords are supported.
-
-It is not, however, necessary to add your private key to VVV. Instead, your host
-machine must share it with VVV using `ssh-agent` (aka key forwarding).
-
-To do so:
-
-1. Add your public SSH key to your Bitbucket and GitHub accounts.
-1. Add your private SSH key to the `ssh-agent` **on your host machine**:
-   ```bash
-   ssh-add -K [PATH TO YOUR PRIVATE KEY]
-   ```
+1. Install [Virtualbox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/)
+1. Install VVV (Follow the "Installing VVV" steps here: https://varyingvagrantvagrants.org/docs/en-US/installation/#installing-vvv)
 
 ## Install
-
-1. Install Vagrant plugins (run this command from inside directory of the VVV clone from the #2 prerequisite):
-   ```bash
-   $ vagrant plugin install vagrant-goodhosts vagrant-disksize vagrant-scp
-   ```
-1. Copy `config.yml` from this repo to the `config` directory in your VVV install, typically
-   `~/VVV/config/`.
-    1. Within the copied `config.yml`, Enable the site or sites you need by changing the site's `skip_provisioning`
+1. Provisioning requires SSH access to both Bitbucket and GitHub. Your host machine must share your SSH key with VVV using `ssh-agent` (aka key forwarding).
+    1. Add your public SSH key to your Bitbucket and GitHub accounts (It's easier to use the same key for both)
+       1. See https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/
+       2. See https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+    1. Add your private SSH key to the `ssh-agent` **on your host machine**:
+         ```bash
+         $ ssh-add -K [PATH TO YOUR PRIVATE KEY]
+         // e.g. ssh-add -K /Users/pmcjames/.ssh/id_rsa
+         ```
+1. Copy `config.yml` from this repo to the `config` directory in your VVV install, i.e. `~/VVV/config/config.yml`.
+    1. Within the copied `config.yml`, enable the site or sites you need by changing the site's `skip_provisioning`
        value to `false`. By default, no sites are provisioned, allowing each
        developer to install only the sites they work on. Each site takes
        approximately 3.5 minutes to provision.
@@ -48,7 +33,7 @@ To do so:
         such as when working with databases from some of our larger sites.
 1. Provision Vagrant (i.e. install dependencies for the first time) as usual:
    ```bash
-      $ vagrant up --provision
+   $ vagrant up --provision
    ```
 
 Note that at any time in the future, you can change which sites are provisioned
