@@ -57,32 +57,66 @@ Password: `pmcdev`
 
 ## Unit Tests
 
-For each site you provision, e.g. Sportico, you may run the theme and pmc-plugins unit tests by following the steps below. Steps 2+ will need to be performed per provisioned site, e.g. Sportico, WWD, etc.. The basic concept here is that we copy the testing tools from wordpress-trunk into each provisioned site, and utilize the `wordpresstrunk` database while testing.
+For each site you provision, e.g. Sportico, you may run the theme and pmc-plugins unit tests by following the steps below. Do steps 1-3 onces, and steps 4+ for each provisioned site, e.g. Sportico, WWD, etc.. The basic concept here is that we copy the testing tools from wordpress-develop into each provisioned site.
 
 NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingvagrantvagrants.org/docs/en-US/references/xdebug/ Only enable xdebug while testing if you wish to step-through debug your tests.
 
-1. Provision the `wordpress-trunk` site as stated in step 2.1 of the "Install" section above. This brings in `phpunit`, the WP testing bootstraps, and the WP Unit Test helpers like mocking, etc.
-1. Duplicate `VVV/www/wordpress-trunk/public_html/tests` to your provisioned site, e.g. `VVV/www/sportico-com/public_html/tests`
-1. Duplicate and rename `VVV/www/wordpress-trunk/public_html/wp-tests-config-sample.php` to your provisioned site, e.g. `VVV/www/sportico-com/public_html/wp-tests-config.php`
+1. Install phpunit
+    ```bash
+    $ vagrant ssh
+    $ sudo mkdir -p /usr/share/php/phpunit
+    $ cd /usr/share/php/phpunit
+    $ sudo composer require --dev phpunit/phpunit ^7 --update-with-all-dependencies
+    $ sudo ln -sf /usr/share/php/phpunit/vendor/bin/phpunit /usr/bin/phpunit 
+    ```
+1. Create a testing database
+    ```bash
+    $ vagrant ssh
+    $ mysql -u root --password=root -e "CREATE DATABASE IF NOT EXISTS pmctests"
+    $ mysql -u root --password=root -e "GRANT ALL PRIVILEGES ON pmctests.* TO wp@localhost IDENTIFIED BY 'wp';"
+    ```
+1. Clone WordPress Develop. Note, WP Develop is usually further ahead in development than our stack—using its master branch (i.e. by provisioning in `wordpress-trunk` into VVV via https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop) can lead to issues when running tests with our pmc-unit-test bootstrap.php) As such, we manually clone wp trunk and switch to a compatable branch.
+    ```bash
+    $ vagrant ssh
+    $ git clone git@github.com:WordPress/wordpress-develop.git
+    $ cd wordpress-develop
+    
+    // As of Sept 2021 pmc-unit-test is compatable with WP 5.8
+    $ git checkout 5.8
+    ```
+1. Duplicate `~/wordpress-develop/tests` to your provisioned site, e.g. `/srv/www/sportico-com/public_html/tests`
+    ```bash
+    $ vagrant ssh
+    $ cp -r ~/wordpress-develop/tests/ /srv/www/sportico-com/public_html/
+    ```
+1. Duplicate and rename `~/wordpress-develop/wp-tests-config-sample.php` to your provisioned site, e.g. `/srv/www/sportico-com/public_html/wp-tests-config.php`
+        ```bash
+        $ vagrant ssh
+        $ cp ~/wordpress-develop/wp-tests-config-sample.php /srv/www/sportico-com/public_html/wp-tests-config.php
+        ```
     1. change line 4 to `define( 'ABSPATH', dirname( __FILE__ ) . '/' );`
+    1. comment line 12 i.e. `//define( 'WP_DEFAULT_THEME', 'default' );`
     1. Configure `DB_*` named constants:
         ```
-        define( 'DB_NAME', 'wordpresstrunk' );
+        define( 'DB_NAME', 'pmctests' );
         define( 'DB_USER', 'wp' );
         define( 'DB_PASSWORD', 'wp' );
         define( 'DB_HOST', 'localhost' );
         ```
-1. SSH into Vagrant `vagrant ssh`.
-1. Tell PHPUnit where our test bootstraps are located. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
+    1. Add `define( 'PMC_IS_VIP_GO_SITE', true );`
+1. Tell PHPUnit where our test bootstraps are located and run tests. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
     ```
+    $ vagrant ssh
+    
     $ export PMC_PHPUNIT_BOOTSTRAP=/srv/www/sportico-com/public_html/wp-content/plugins/pmc-plugins/pmc-unit-test/bootstrap.php
     $ export WP_TESTS_DIR=/srv/www/sportico-com/public_html/tests/phpunit
-    ```
-1. Navigate to a pmc-plugin or a theme where `phpunit.xml` exists. E.g.
-    ```
+    
+    # Navigate to a pmc-plugin or a theme where `phpunit.xml` exists. E.g.
     $ cd /srv/www/sportico-com/public_html/wp-content/plugins/pmc-plugins/pmc-piano/
+    
+    # Run tests
+    $ phpunit
     ```
-1. Run `$ phpunit` to execute tests.
 
 To run tests in PHPStorm and/or Step-Through debug tests, see here: https://confluence.pmcdev.io/x/sIyzB (this replaces steps 4-7 above)
 
