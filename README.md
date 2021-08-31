@@ -57,7 +57,7 @@ Password: `pmcdev`
 
 ## Unit Tests
 
-For each site you provision, e.g. Sportico, you may run the theme and pmc-plugins unit tests by following the steps below. Do steps 1-3 onces, and steps 4+ for each provisioned site, e.g. Sportico, WWD, etc.. The basic concept here is that we copy the testing tools from wordpress-develop into each provisioned site.
+For each site you provision, e.g. Sportico, you may run the theme and pmc-plugins unit tests by following the steps below. Do steps 1-3 once, and steps 4+ for each provisioned site, e.g. Sportico, WWD, etc.. The basic concept here is that we copy the testing tools from wordpress-develop into each provisioned site.
 
 NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingvagrantvagrants.org/docs/en-US/references/xdebug/ Only enable xdebug while testing if you wish to step-through debug your tests.
 
@@ -105,7 +105,7 @@ NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingv
         define( 'DB_HOST', 'localhost' );
         ```
     1. Add `define( 'PMC_IS_VIP_GO_SITE', true );`
-1. Run tests
+1. Run tests 
     1. Note, we must tell PHPUnit where our test bootstraps are located. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
     ```
     $ vagrant ssh
