@@ -75,25 +75,26 @@ NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingv
     $ mysql -u root --password=root -e "CREATE DATABASE IF NOT EXISTS pmctests"
     $ mysql -u root --password=root -e "GRANT ALL PRIVILEGES ON pmctests.* TO wp@localhost IDENTIFIED BY 'wp';"
     ```
-1. Clone WordPress Develop. Note, WP Develop is usually further ahead in development than our stack—using its master branch (i.e. by provisioning in `wordpress-trunk` into VVV via https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop) can lead to issues when running tests with our pmc-unit-test bootstrap.php) As such, we manually clone wp trunk and switch to a compatable branch.
+1. Get the WP Test Suite
+    1. Note, WP Develop is usually further ahead in development than our stack—using its master branch (i.e. by provisioning in `wordpress-trunk` into VVV via https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop) can lead to issues when running tests with our pmc-unit-test bootstrap.php) As such, we manually clone wp trunk and switch to a compatable branch.
     ```bash
     $ vagrant ssh
     $ git clone git@github.com:WordPress/wordpress-develop.git
     $ cd wordpress-develop
     
-    // As of Sept 2021 pmc-unit-test is compatable with WP 5.8
+    # As of Sept 2021 pmc-unit-test is compatable with WP 5.8
     $ git checkout 5.8
     ```
-1. Duplicate `~/wordpress-develop/tests` to your provisioned site, e.g. `/srv/www/sportico-com/public_html/tests`
+1. Copy the WP Test Suite per site
     ```bash
     $ vagrant ssh
     $ cp -r ~/wordpress-develop/tests/ /srv/www/sportico-com/public_html/
     ```
-1. Duplicate and rename `~/wordpress-develop/wp-tests-config-sample.php` to your provisioned site, e.g. `/srv/www/sportico-com/public_html/wp-tests-config.php`
-        ```bash
-        $ vagrant ssh
-        $ cp ~/wordpress-develop/wp-tests-config-sample.php /srv/www/sportico-com/public_html/wp-tests-config.php
-        ```
+1. Create `wp-tests-config.php` per site
+    ```bash
+    $ vagrant ssh
+    $ cp ~/wordpress-develop/wp-tests-config-sample.php /srv/www/sportico-com/public_html/wp-tests-config.php
+    ```
     1. change line 4 to `define( 'ABSPATH', dirname( __FILE__ ) . '/' );`
     1. comment line 12 i.e. `//define( 'WP_DEFAULT_THEME', 'default' );`
     1. Configure `DB_*` named constants:
@@ -104,7 +105,8 @@ NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingv
         define( 'DB_HOST', 'localhost' );
         ```
     1. Add `define( 'PMC_IS_VIP_GO_SITE', true );`
-1. Tell PHPUnit where our test bootstraps are located and run tests. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
+1. Run tests
+    1. Note, we must tell PHPUnit where our test bootstraps are located. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
     ```
     $ vagrant ssh
     
