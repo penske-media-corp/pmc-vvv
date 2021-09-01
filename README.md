@@ -59,7 +59,7 @@ Password: `pmcdev`
 
 For each site you provision, e.g. Sportico, you may run the theme and pmc-plugins unit tests by following the steps below. Do steps 1-3 once, and steps 4+ for each provisioned site, e.g. Sportico, WWD, etc.. The basic concept here is that we copy the testing tools from wordpress-develop into each provisioned site.
 
-NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingvagrantvagrants.org/docs/en-US/references/xdebug/ Only enable xdebug while testing if you wish to step-through debug your tests.
+NOTE, Ideally, we could provision wordpress-trunk into VVV via https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop (by setting skip_provisioning: false in config.yml) as it provides phpunit, test database, and the wp test suite. However, it forces you to use the latest (unreleased) version. Using its master branch can/has lead to issues when running tests with our pmc-unit-test bootstrap.php. Due to this, we setup the test environment manually (steps 1-3 below). 
 
 1. Install phpunit
     ```bash
@@ -76,7 +76,6 @@ NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingv
     $ mysql -u root --password=root -e "GRANT ALL PRIVILEGES ON pmctests.* TO wp@localhost IDENTIFIED BY 'wp';"
     ```
 1. Get the WP Test Suite
-    1. Note, WP Develop is usually further ahead in development than our stack. Using its master branch can lead to issues when running tests with our pmc-unit-test bootstrap.php) Ideally, we could provision wordpress-trunk into VVV via https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop, however, it forces you to use the latest version.
     ```bash
     $ vagrant ssh
     $ git clone git@github.com:WordPress/wordpress-develop.git
@@ -112,6 +111,7 @@ NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingv
         ```
 1. Run tests 
     1. Note, we must tell PHPUnit where our test bootstraps are located. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
+    1. Note, if xdebug is enabled your tests will run VERY slowly. See https://varyingvagrantvagrants.org/docs/en-US/references/xdebug/ Only enable xdebug while testing if you wish to step-through debug your tests.
     ```
     $ vagrant ssh
     You can add these variables to your bash, but make sure they are at the bottom of ~/.bash_alias as not to conflict with vvv's settings.
