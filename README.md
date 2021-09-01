@@ -76,13 +76,14 @@ NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingv
     $ mysql -u root --password=root -e "GRANT ALL PRIVILEGES ON pmctests.* TO wp@localhost IDENTIFIED BY 'wp';"
     ```
 1. Get the WP Test Suite
-    1. Note, WP Develop is usually further ahead in development than our stack—using its master branch (i.e. by provisioning in `wordpress-trunk` into VVV via https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop) can lead to issues when running tests with our pmc-unit-test bootstrap.php) As such, we manually clone wp trunk and switch to a compatable branch.
+    1. Note, WP Develop is usually further ahead in development than our stack. Using its master branch can lead to issues when running tests with our pmc-unit-test bootstrap.php) Ideally, we could provision wordpress-trunk into VVV via https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop, however, it forces you to use the latest version.
     ```bash
     $ vagrant ssh
     $ git clone git@github.com:WordPress/wordpress-develop.git
     $ cd wordpress-develop
     
     # As of Sept 2021 pmc-unit-test is compatable with WP 5.8
+    # This is due to https://core.trac.wordpress.org/changeset/51559, as pmc-unit-test is not yet compatable with yoast/phpunit-polyfills
     $ git checkout 5.8
     ```
 1. Copy the WP Test Suite per site
@@ -104,7 +105,11 @@ NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingv
         define( 'DB_PASSWORD', 'wp' );
         define( 'DB_HOST', 'localhost' );
         ```
-    1. Add `define( 'PMC_IS_VIP_GO_SITE', true );`
+    1. Add the following constants
+        ```
+        define( 'PMC_IS_VIP_GO_SITE', true );
+        define( 'VIP_GO_APP_ENVIRONMENT', 'development' );
+        ```
 1. Run tests 
     1. Note, we must tell PHPUnit where our test bootstraps are located. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
     ```
