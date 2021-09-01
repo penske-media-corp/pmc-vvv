@@ -69,12 +69,6 @@ NOTE, Ideally, we could provision wordpress-trunk into VVV via https://github.co
     $ sudo composer require --dev phpunit/phpunit ^7 --update-with-all-dependencies
     $ sudo ln -sf /usr/share/php/phpunit/vendor/bin/phpunit /usr/bin/phpunit 
     ```
-1. Create a testing database
-    ```bash
-    $ vagrant ssh
-    $ mysql -u root --password=root -e "CREATE DATABASE IF NOT EXISTS pmctests"
-    $ mysql -u root --password=root -e "GRANT ALL PRIVILEGES ON pmctests.* TO wp@localhost IDENTIFIED BY 'wp';"
-    ```
 1. Get the WP Test Suite
     ```bash
     $ vagrant ssh
@@ -97,9 +91,9 @@ NOTE, Ideally, we could provision wordpress-trunk into VVV via https://github.co
     ```
     1. change line 4 to `define( 'ABSPATH', dirname( __FILE__ ) . '/' );`
     1. comment line 12 i.e. `//define( 'WP_DEFAULT_THEME', 'default' );`
-    1. Configure `DB_*` named constants:
+    1. Configure `DB_*` named constants: NOTE the DB_NAME should match your provisioned site (see wp-config.php)
         ```
-        define( 'DB_NAME', 'pmctests' );
+        define( 'DB_NAME', 'sportico-com' );
         define( 'DB_USER', 'wp' );
         define( 'DB_PASSWORD', 'wp' );
         define( 'DB_HOST', 'localhost' );
