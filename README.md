@@ -90,7 +90,6 @@ NOTE, Ideally, we could provision wordpress-trunk into VVV via https://github.co
     $ cp ~/wordpress-develop/wp-tests-config-sample.php /srv/www/sportico-com/public_html/wp-tests-config.php
     ```
     1. change line 4 to `define( 'ABSPATH', dirname( __FILE__ ) . '/' );`
-    1. comment line 12 i.e. `//define( 'WP_DEFAULT_THEME', 'default' );`
     1. Configure `DB_*` named constants: NOTE the DB_NAME should match your provisioned site (see wp-config.php)
         ```
         define( 'DB_NAME', 'sportico-com' );
