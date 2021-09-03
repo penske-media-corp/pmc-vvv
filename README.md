@@ -4,40 +4,25 @@ Configuration repo for PMC's use of VVV.
 
 VVV is an open source local development environment designed for WordPress developers, and is used for both working on WordPress sites and contributing to WordPress Core.
 
-This repo holds both a complete `config.yml` for VVV as well as the tools to
-update it as the configuration changes or sites are added.
+This repo holds both a complete `config.yml` for VVV as well as the tools to update it as the configuration changes or sites are added. For more information see: https://github.com/penske-media-corp/pmc-vvv-site-provisioners
 
 ## Prerequisites
 
-1. [Virtualbox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/)
-1. A checkout (i.e. clone) of the [VVV](https://github.com/Varying-Vagrant-Vagrants/vvv) repo
-1. SSH key forwarding via `ssh-agent` (see [below](#ssh-agent))
-
-### `ssh-agent`
-
-Provisioning requires SSH access to both Bitbucket and GitHub; neither username
-and password nor applications passwords are supported.
-
-It is not, however, necessary to add your private key to VVV. Instead, your host
-machine must share it with VVV using `ssh-agent` (aka key forwarding).
-
-To do so:
-
-1. Add your public SSH key to your Bitbucket and GitHub accounts.
-1. Add your private SSH key to the `ssh-agent` **on your host machine**:
-   ```bash
-   ssh-add -K [PATH TO YOUR PRIVATE KEY]
-   ```
+1. Install [Virtualbox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/)
+1. Install VVV (Follow the "Installing VVV" steps here: https://varyingvagrantvagrants.org/docs/en-US/installation/#installing-vvv)
 
 ## Install
-
-1. Install Vagrant plugins (run this command from inside directory of the VVV clone from the #2 prerequisite):
-   ```bash
-   $ vagrant plugin install vagrant-goodhosts vagrant-disksize vagrant-scp
-   ```
-1. Copy `config.yml` from this repo to the `config` directory in your VVV install, typically
-   `~/VVV/config/`.
-    1. Within the copied `config.yml`, Enable the site or sites you need by changing the site's `skip_provisioning`
+1. Provisioning requires SSH access to both Bitbucket and GitHub. Your host machine must share your SSH key with VVV using `ssh-agent` (aka key forwarding).
+    1. Add your public SSH key to your Bitbucket and GitHub accounts (It's easier to use the same key for both)
+       1. See https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/
+       2. See https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+    1. Add your private SSH key to the `ssh-agent` **on your host machine**:
+         ```bash
+         $ ssh-add -K [PATH TO YOUR PRIVATE KEY]
+         // e.g. ssh-add -K /Users/pmcjames/.ssh/id_rsa
+         ```
+1. Copy `config.yml` from this repo to the `config` directory in your VVV install, i.e. `~/VVV/config/config.yml`.
+    1. Within the copied `config.yml`, enable the site or sites you need by changing the site's `skip_provisioning`
        value to `false`. By default, no sites are provisioned, allowing each
        developer to install only the sites they work on. Each site takes
        approximately 3.5 minutes to provision.
@@ -48,7 +33,7 @@ To do so:
         such as when working with databases from some of our larger sites.
 1. Provision Vagrant (i.e. install dependencies for the first time) as usual:
    ```bash
-      $ vagrant up --provision
+   $ vagrant up --provision
    ```
 
 Note that at any time in the future, you can change which sites are provisioned
@@ -72,32 +57,66 @@ Password: `pmcdev`
 
 ## Unit Tests
 
-For each site you provision, e.g. Sportico, you may run the theme and pmc-plugins unit tests by following the steps below. Steps 2+ will need to be performed per provisioned site, e.g. Sportico, WWD, etc.. The basic concept here is that we copy the testing tools from wordpress-trunk into each provisioned site, and utilize the `wordpresstrunk` database while testing.
+For each site you provision, e.g. Sportico, you may run the theme and pmc-plugins unit tests by following the steps below. Do steps 1-3 once, and steps 4+ for each provisioned site, e.g. Sportico, WWD, etc.. The basic concept here is that we copy the testing tools from wordpress-develop into each provisioned site.
 
-NOTE, if xdebug is enabled your tests will run VERY slowly. See https://varyingvagrantvagrants.org/docs/en-US/references/xdebug/ Only enable xdebug while testing if you wish to step-through debug your tests.
+NOTE, Ideally, we could provision wordpress-trunk into VVV via https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop (by setting skip_provisioning: false in config.yml) as it provides phpunit, test database, and the wp test suite. However, it forces you to use the latest (unreleased) version. Using its master branch can/has lead to issues when running tests with our pmc-unit-test bootstrap.php. Due to this, we setup the test environment manually (steps 1-3 below). 
 
-1. Provision the `wordpress-trunk` site as stated in step 2.1 of the "Install" section above. This brings in `phpunit`, the WP testing bootstraps, and the WP Unit Test helpers like mocking, etc.
-1. Duplicate `VVV/www/wordpress-trunk/public_html/tests` to your provisioned site, e.g. `VVV/www/sportico-com/public_html/tests`
-1. Duplicate and rename `VVV/www/wordpress-trunk/public_html/wp-tests-config-sample.php` to your provisioned site, e.g. `VVV/www/sportico-com/public_html/wp-tests-config.php`
+1. Install phpunit
+    ```bash
+    $ vagrant ssh
+    $ sudo mkdir -p /usr/share/php/phpunit
+    $ cd /usr/share/php/phpunit
+    $ sudo composer require --dev phpunit/phpunit ^7 --update-with-all-dependencies
+    $ sudo ln -sf /usr/share/php/phpunit/vendor/bin/phpunit /usr/bin/phpunit 
+    ```
+1. Get the WP Test Suite
+    ```bash
+    $ vagrant ssh
+    $ git clone git@github.com:WordPress/wordpress-develop.git
+    $ cd wordpress-develop
+    
+    # As of Sept 2021 pmc-unit-test is compatable with WP 5.8
+    # This is due to https://core.trac.wordpress.org/changeset/51559, as pmc-unit-test is not yet compatable with yoast/phpunit-polyfills
+    $ git checkout 5.8
+    ```
+1. Copy the WP Test Suite per site
+    ```bash
+    $ vagrant ssh
+    $ cp -r ~/wordpress-develop/tests/ /srv/www/sportico-com/public_html/
+    ```
+1. Create `wp-tests-config.php` per site
+    ```bash
+    $ vagrant ssh
+    $ cp ~/wordpress-develop/wp-tests-config-sample.php /srv/www/sportico-com/public_html/wp-tests-config.php
+    ```
     1. change line 4 to `define( 'ABSPATH', dirname( __FILE__ ) . '/' );`
-    1. Configure `DB_*` named constants:
+    1. Configure `DB_*` named constants: NOTE the DB_NAME should match your provisioned site (see wp-config.php)
         ```
-        define( 'DB_NAME', 'wordpresstrunk' );
+        define( 'DB_NAME', 'sportico-com' );
         define( 'DB_USER', 'wp' );
         define( 'DB_PASSWORD', 'wp' );
         define( 'DB_HOST', 'localhost' );
         ```
-1. SSH into Vagrant `vagrant ssh`.
-1. Tell PHPUnit where our test bootstraps are located. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
+    1. Add the following constants
+        ```
+        define( 'PMC_IS_VIP_GO_SITE', true );
+        define( 'VIP_GO_APP_ENVIRONMENT', 'development' );
+        ```
+1. Run tests 
+    1. Note, we must tell PHPUnit where our test bootstraps are located. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
+    1. Note, if xdebug is enabled your tests will run VERY slowly. See https://varyingvagrantvagrants.org/docs/en-US/references/xdebug/ Only enable xdebug while testing if you wish to step-through debug your tests.
     ```
+    $ vagrant ssh
+    You can add these variables to your bash, but make sure they are at the bottom of ~/.bash_alias as not to conflict with vvv's settings.
     $ export PMC_PHPUNIT_BOOTSTRAP=/srv/www/sportico-com/public_html/wp-content/plugins/pmc-plugins/pmc-unit-test/bootstrap.php
     $ export WP_TESTS_DIR=/srv/www/sportico-com/public_html/tests/phpunit
-    ```
-1. Navigate to a pmc-plugin or a theme where `phpunit.xml` exists. E.g.
-    ```
+    
+    # Navigate to a pmc-plugin or a theme where `phpunit.xml` exists. E.g.
     $ cd /srv/www/sportico-com/public_html/wp-content/plugins/pmc-plugins/pmc-piano/
+    
+    # Run tests
+    $ phpunit
     ```
-1. Run `$ phpunit` to execute tests.
 
 To run tests in PHPStorm and/or Step-Through debug tests, see here: https://confluence.pmcdev.io/x/sIyzB (this replaces steps 4-7 above)
 
