@@ -161,24 +161,6 @@ sites:
         parent_theme_slug: ""
         grandchild_theme_repo: ""
         theme_dir_uses_vip: false
-  hollywoodlife-com:
-    skip_provisioning: true
-    description: hollywoodlife.com
-    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
-    branch: main
-    hosts:
-      - hollywoodlife-com.test
-    custom:
-      live_url: https://hollywoodlife.com
-      site_title: Hollywoodlife (LOCAL)
-      admin_user: pmcdev
-      admin_password: pmcdev
-      pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-hollywoodlife-2017.git
-        theme_slug: ""
-        parent_theme_slug: pmc-core-2017
-        grandchild_theme_repo: ""
-        theme_dir_uses_vip: false
   hollywoodreporter-com:
     skip_provisioning: true
     description: hollywoodreporter.com

@@ -48,11 +48,6 @@
     "provisioner_branch": "master",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-goldderby.git"
   },
-  "hollywoodlife.com": {
-    "site_title_prefix": "Hollywoodlife",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-hollywoodlife-2017.git",
-    "parent_theme_slug": "pmc-core-2017"
-  },
   "hollywoodreporter.com": {
     "site_title_prefix": "Hollywoodreporter",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-hollywoodreporter-2021.git",
