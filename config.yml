@@ -107,6 +107,24 @@ sites:
         parent_theme_slug: pmc-core-v2
         grandchild_theme_repo: ""
         theme_dir_uses_vip: true
+  engineering-pmc-com:
+    skip_provisioning: true
+    description: engineering.pmc.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - engineering-pmc-com.test
+    custom:
+      live_url: https://engineering.pmc.com
+      site_title: PMC Engineering (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@github.com:wpcomvip/pmc-engineering.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
   events-fairchildlive-com:
     skip_provisioning: true
     description: events.fairchildlive.com
