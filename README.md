@@ -8,7 +8,17 @@ This repo holds both a complete `config.yml` for VVV as well as the tools to upd
 
 ## Prerequisites
 
-1. Install [Virtualbox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/)
+1. Install [VirtualBox](https://www.virtualbox.org/) 
+	1. **Note for macOS 10.14 and above:** Due to updated security controls in macOS, VirtualBox will not install correctly unless you add Oracle's Developer ID to `spctl`. 
+		1. `spctl` is a command-line interface to the same security assessment policy subsystem that Gatekeeper uses. Like Gatekeeper, `spctl` will only accept Developer ID-signed apps and apps downloaded from the Mac App Store by default. It will reject apps signed with Mac App Store development or distribution certificates.
+	1. The next step involved rebooting your computer and typing commands in the terminal when you can't access the internet or filesystem. Print or write down the following instructions. 
+	1. Reboot into recovery mode (reboot and hold `Command` and `R` when the Apple logo appears, then release). Then open the Terminal (Utilities menu > Terminal) and type:
+	```bash
+	$ spctl kext-consent add VB5E2TV963
+	$ reboot
+	```
+	1. After reboot, install VirtualBox as normal and follow the instructions for enabling it via the Security & Privacy settings tab. 
+1. Install [Vagrant](https://www.vagrantup.com/)
 1. Install VVV (Follow the "Installing VVV" steps here: https://varyingvagrantvagrants.org/docs/en-US/installation/#installing-vvv)
 
 ## Install
@@ -19,7 +29,7 @@ This repo holds both a complete `config.yml` for VVV as well as the tools to upd
     1. Add your private SSH key to the `ssh-agent` **on your host machine**:
          ```bash
          $ ssh-add -K [PATH TO YOUR PRIVATE KEY]
-         // e.g. ssh-add -K /Users/pmcjames/.ssh/id_rsa
+         # e.g. ssh-add -K /Users/pmcjames/.ssh/id_rsa
          ```
 1. Copy `config.yml` from this repo to the `config` directory in your VVV install, i.e. `~/VVV/config/config.yml`.
     1. Within the copied `config.yml`, enable the site or sites you need by changing the site's `skip_provisioning`
