@@ -32,6 +32,12 @@
     "parent_theme_slug": "pmc-core-v2",
     "theme_dir_uses_vip": true
   },
+  "engineering.pmc.com": {
+    "site_title_prefix": "PMC Engineering",
+    "theme_repo": "git@github.com:wpcomvip/pmc-engineering.git",
+    "parent_theme_slug": "pmc-core-v2",
+    "theme_dir_uses_vip": true
+  },
   "events.fairchildlive.com": {
     "site_title_prefix": "Fairchild Live Events",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-summits-wwd.git",
@@ -47,11 +53,6 @@
     "provisioner_url": "git@github.com:Varying-Vagrant-Vagrants/custom-site-template.git",
     "provisioner_branch": "master",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-goldderby.git"
-  },
-  "hollywoodlife.com": {
-    "site_title_prefix": "Hollywoodlife",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-hollywoodlife-2017.git",
-    "parent_theme_slug": "pmc-core-2017"
   },
   "hollywoodreporter.com": {
     "site_title_prefix": "Hollywoodreporter",
