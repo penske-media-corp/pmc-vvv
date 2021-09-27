@@ -82,12 +82,9 @@ NOTE, Ideally, we could provision wordpress-trunk into VVV via https://github.co
 1. Get the WP Test Suite
     ```bash
     $ vagrant ssh
-    $ git clone git@github.com:WordPress/wordpress-develop.git
-    $ cd wordpress-develop
-    
     # As of Sept 2021 pmc-unit-test is compatable with WP 5.8
     # This is due to https://core.trac.wordpress.org/changeset/51559, as pmc-unit-test is not yet compatable with yoast/phpunit-polyfills
-    $ git checkout 5.8
+    $ git clone --depth 1 --branch 5.8 git@github.com:WordPress/wordpress-develop.git
     ```
 1. Copy the WP Test Suite per site
     ```bash
