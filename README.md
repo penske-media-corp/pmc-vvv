@@ -84,7 +84,7 @@ NOTE, Ideally, we could provision wordpress-trunk into VVV via https://github.co
     $ vagrant ssh
     # As of Sept 2021 pmc-unit-test is compatable with WP 5.8
     # This is due to https://core.trac.wordpress.org/changeset/51559, as pmc-unit-test is not yet compatable with yoast/phpunit-polyfills
-    $ git clone --depth 1 --branch 5.8 git@github.com:WordPress/wordpress-develop.git
+    $ git clone --depth 1 --branch 5.8.1 git@github.com:WordPress/wordpress-develop.git
     ```
 1. Copy the WP Test Suite per site
     ```bash
@@ -114,7 +114,7 @@ NOTE, Ideally, we could provision wordpress-trunk into VVV via https://github.co
     1. Note, if xdebug is enabled your tests will run VERY slowly. See https://varyingvagrantvagrants.org/docs/en-US/references/xdebug/ Only enable xdebug while testing if you wish to step-through debug your tests.
     ```
     $ vagrant ssh
-    You can add these variables to your bash, but make sure they are at the bottom of ~/.bash_alias as not to conflict with vvv's settings.
+    You can add these variables to your bash, but make sure they are at the bottom of ~/.bash_profile as not to conflict with vvv's settings.
     $ export PMC_PHPUNIT_BOOTSTRAP=/srv/www/sportico-com/public_html/wp-content/plugins/pmc-plugins/pmc-unit-test/bootstrap.php
     $ export WP_TESTS_DIR=/srv/www/sportico-com/public_html/tests/phpunit
     
