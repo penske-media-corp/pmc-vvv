@@ -182,6 +182,12 @@ spctl kext-consent add VB5E2TV963
 ```
 and restart. VB5E2TV963 is the Oracle developer ID.
 
+### 10/11/2021
+Updating the vagrant-goodhosts plugin to 1.0.18 causes the error `check_hostnames_to_add': undefined method each` during provisioning.
+Goodhosts has acknowledged the error in this [this Github issue](https://github.com/goodhosts/vagrant/issues/40#issuecomment-940871327).
+Rolling back to 1.0.17 or a later version with the fix should fix the issue.
+
+
 ## Related repos:
 
 This configuration builds on two additional repositories, in keeping with the
