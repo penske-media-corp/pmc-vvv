@@ -65,6 +65,15 @@ Username: `pmcdev`
 
 Password: `pmcdev`
 
+## Import Data
+
+This outlines to process of exporting data from QA and importing into local. First thing you required is to have VPN access and a login to PMC QA server. If you need help getting setup, please ask in #engineering channel in Slack. Once you have access, you can use WP CLI commands to export a QA site database.
+
+1. SSH into PMC QA server, navigate to WordPress install of the site you wish to export database, and run the following command.
+    `wp db export ~/SITENAME.sql --url=SITENAME.pmcqa.com`
+2. This will place the file in your user directory at `/home/USERNAME/SITENAME.sql. You'll then want to copy this file to your local machine.
+    `scp -i key_file.pem username@hostname:/home/USERNAME/SITENAME.sql /path/to/local/file`
+
 ## Unit Tests
 
 For each site you provision, e.g. Sportico, you may run the theme and pmc-plugins unit tests by following the steps below. Do steps 1-3 once, and steps 4+ for each provisioned site, e.g. Sportico, WWD, etc.. The basic concept here is that we copy the testing tools from wordpress-develop into each provisioned site.
