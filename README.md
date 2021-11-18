@@ -129,7 +129,7 @@ NOTE, Ideally, we could provision wordpress-trunk into VVV via https://github.co
         ```
 1. Run tests 
     1. Note, we must tell PHPUnit where our test bootstraps are located. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
-    2. Note, if xdebug is enabled your tests will run VERY slowly. See https://varyingvagrantvagrants.org/docs/en-US/references/xdebug/ Only enable xdebug while testing if you wish to step-through debug your tests.
+    2. Note, if xdebug is enabled your tests will run VERY slowly. See https://varyingvagrantvagrants.org/docs/en-US/references/xdebug/ Only enable xdebug while testing if you wish to step-through debug your tests or generate a code coverage report.
     ```bash
     # If not in shell...
     $ vagrant ssh
