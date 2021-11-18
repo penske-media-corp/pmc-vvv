@@ -112,17 +112,17 @@ NOTE, Ideally, we could provision wordpress-trunk into VVV via https://github.co
     In shell...
     ```bash
     $ cp ~/wordpress-develop/wp-tests-config-sample.php /srv/www/sportico-com/public_html/wp-tests-config.php
-    $ vim /srv/www/sportico-com/public_html/wp-tests-config.php 
     ```
-    1. change line 4 to `define( 'ABSPATH', dirname( __FILE__ ) . '/' );`
-    1. Configure `DB_*` named constants: NOTE the DB_NAME should match your provisioned site (see wp-config.php)
+    1. open the file you copied `wp-tests-config.php` in your editor / IDE of choice.
+    2. change line 4 to `define( 'ABSPATH', dirname( __FILE__ ) . '/' );`
+    3. Configure `DB_*` named constants: NOTE the DB_NAME should match your provisioned site (see wp-config.php)
         ```
         define( 'DB_NAME', 'sportico-com' );
         define( 'DB_USER', 'wp' );
         define( 'DB_PASSWORD', 'wp' );
         define( 'DB_HOST', 'localhost' );
         ```
-    1. Add the following constants
+    4. Add the following constants
         ```
         define( 'PMC_IS_VIP_GO_SITE', true );
         define( 'VIP_GO_APP_ENVIRONMENT', 'development' );
