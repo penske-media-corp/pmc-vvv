@@ -269,6 +269,24 @@ sites:
         parent_theme_slug: pmc-core-v2
         grandchild_theme_repo: ""
         theme_dir_uses_vip: true
+  rollingstone-2022-com:
+    skip_provisioning: true
+    description: rollingstone-2022.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - rollingstone-2022-com.test
+    custom:
+      live_url: https://rollingstone-2022.com
+      site_title: Rolling Stone (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-rollingstone-2022.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        grandchild_theme_repo: ""
+        theme_dir_uses_vip: true
   rr1-com:
     skip_provisioning: true
     description: rr1.com
