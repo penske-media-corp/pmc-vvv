@@ -7,44 +7,90 @@ VVV is an open source local development environment designed for WordPress devel
 This repo holds both a complete `config.yml` for VVV as well as the tools to update it as the configuration changes or sites are added. For more information see: https://github.com/penske-media-corp/pmc-vvv-site-provisioners
 
 ## Prerequisites
+If you're the proud recipient of an M1, M1 Pro, or M1 Max machine follow [M1 Prerequisites](#m1-prerequisites) below.
 
 1. Install [VirtualBox](https://www.virtualbox.org/)
-	1. **Note for macOS 10.14 and above:** Due to updated security controls in macOS, VirtualBox will not install correctly unless you add Oracle's Developer ID to `spctl`.
-		1. `spctl` is a command-line interface to the same security assessment policy subsystem that Gatekeeper uses. Like Gatekeeper, `spctl` will only accept Developer ID-signed apps and apps downloaded from the Mac App Store by default. It will reject apps signed with Mac App Store development or distribution certificates.
-	1. The next step involved rebooting your computer and typing commands in the terminal when you can't access the internet or filesystem. Print or write down the following instructions.
-	1. Reboot into recovery mode (reboot and hold `Command` and `R` until the Apple logo appears, then release). Then open the Terminal (Utilities menu > Terminal) and type:
+	- **Note for macOS 10.14 and above:** Due to updated security controls in macOS, VirtualBox will not install correctly unless you add Oracle's Developer ID to `spctl`.
+	  -  `spctl` is a command-line interface to the same security assessment policy subsystem that Gatekeeper uses. Like Gatekeeper, `spctl` will only accept Developer ID-signed apps and apps downloaded from the Mac App Store by default. It will reject apps signed with Mac App Store development or distribution certificates.
+	- The next step involved rebooting your computer and typing commands in the terminal when you can't access the internet or filesystem. Print or write down the following instructions.
+	- Reboot into recovery mode (reboot and hold `Command` and `R` until the Apple logo appears, then release). Then open the Terminal (Utilities menu > Terminal) and type:
 	```bash
-	$ spctl kext-consent add VB5E2TV963
-	$ reboot
+	   $ spctl kext-consent add VB5E2TV963
+	   $ reboot
 	```
-	1. After reboot, install VirtualBox as normal and follow the instructions for enabling it via the Security & Privacy settings tab.
-1. Install [Vagrant](https://www.vagrantup.com/)
-1. Install VVV (Follow the "Installing VVV" steps here: https://varyingvagrantvagrants.org/docs/en-US/installation/#installing-vvv)
+	- After reboot, install VirtualBox as normal and follow the instructions for enabling it via the Security & Privacy settings tab.
+2. Install [Vagrant](https://www.vagrantup.com/)
+3. Install VVV (Follow the "Installing VVV" steps here: https://varyingvagrantvagrants.org/docs/en-US/installation/#installing-vvv)
+
+## M1 Prerequisites
+These are prerequisites for Apple Sicilon/Arm Chips.
+
+1. Install [Parallels Pro](https://www.parallels.com/products/desktop/pro/) or the [Parallels Business Edition](https://www.parallels.com/products/business/). You can leverage the free trial to confirm everything is working, but it does require that you sign up and log into parallels on your machine to "activate" Pro features that are required to use Vagrant/VVV.
+2. Install [Vagrant](https://www.vagrantup.com/)
+3. Install VVV (Follow the "Installing VVV" steps here: https://varyingvagrantvagrants.org/docs/en-US/installation/#installing-vvv).
+
+NOTE: For M1 Machines, makes sure to checkout to the `develop` branch rather than the main brach in VVV. Parallels support is currently in beta (as of 4/7/2022).
+
 
 ## Install
-1. Provisioning requires SSH access to both Bitbucket and GitHub. Your host machine must share your SSH key with VVV using `ssh-agent` (aka key forwarding).
-    1. Add your public SSH key to your Bitbucket and GitHub accounts (It's easier to use the same key for both)
-       1. See https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/
-       2. See https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
-    1. Add your private SSH key to the `ssh-agent` **on your host machine**:
-         ```bash
-         $ ssh-add -K [PATH TO YOUR PRIVATE KEY]
-         # e.g. ssh-add -K /Users/pmcjames/.ssh/id_rsa
-         ```
-1. Copy `config.yml` from this repo to the `config` directory in your VVV install, i.e. `~/VVV/config/config.yml`.
-    1. Within the copied `config.yml`, enable the site or sites you need by changing the site's `skip_provisioning`
+Setup is easy for M1 and non-M1 computers, authenticaion prep, config, and provision.
+
+### Use Parallels
+If you do not have an M1/Arm machine, skip to the next step.
+
+In order to leverage parallels we must install the open source [Vagrant Parallels Provider](https://github.com/Parallels/vagrant-parallels).
+
+``` bash
+$ vagrant plugin install vagrant-parallels
+```
+
+You can confirm the install by running
+
+``` bash
+$ vagrant plugin list
+```
+
+### Authentication Prep
+Provisioning requires SSH access to both Bitbucket and GitHub. Your host machine must share your SSH key with VVV using `ssh-agent` (aka key forwarding).
+
+``` bash
+$ ssh-keygen
+```
+
+Hit enter to each question. For both Bitbucket and Github add your SSH keys to their respective sit options.
+ - [Bitbucket SSH Docs](https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/)
+ - [Github SSH Docs](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+
+Add your private SSH key to the `ssh-agent` **on your host machine**:
+```bash
+$ ssh-add -K [PATH TO YOUR PRIVATE KEY]
+# e.g. ssh-add -K /Users/pmcjames/.ssh/id_rsa
+```
+
+For newer macOS version:
+```bash
+$ ssh-add --apple-use-keychain [PATH TO YOUR PRIVATE KEY]
+# e.g. ssh-add --apple-use-keychain /Users/pmcjames/.ssh/id_rsa
+```
+
+### Configs
+- Copy `config.yml` from this repo to the `config` directory in your VVV install, i.e. `~/VVV/config/config.yml`.
+  - Within the copied `config.yml`, enable the site or sites you need by changing the site's `skip_provisioning`
        value to `false`. By default, no sites are provisioned, allowing each
        developer to install only the sites they work on. Each site takes
        approximately 3.5 minutes to provision.
-    1. If desired, add optional PMC utilities to the `utilities.pmc` array towards
+  - If desired, add optional PMC utilities to the `utilities.pmc` array towards
        the end of the copied `config.yml`.
-    1. Towards the bottom of the copied `config.yml`,
+  - Towards the bottom of the copied `config.yml`,
         you may adjust the `vm_config` and `disksize` values if needed,
         such as when working with databases from some of our larger sites.
-1. Provision Vagrant (i.e. install dependencies for the first time) as usual:
-   ```bash
-   $ vagrant up --provision
-   ```
+
+### Provision
+Provision Vagrant (i.e. install dependencies for the first time) as usual:
+
+```bash
+$ vagrant up --provision
+```
 
 Note that at any time in the future, you can change which sites are provisioned
 and run `vagrant provision` to create the new sites. VVV does not remove sites
@@ -56,8 +102,7 @@ restricting access to only WP-CLI.
 To match production, all local environments are configured to use HTTPS URLs.
 Browsers will display certificate errors after you first provision VVV.
 
-To fix these errors, see VVV's instructions at
-https://varyingvagrantvagrants.org/docs/en-US/references/https/trusting-ca/.
+To fix these errors, see VVV's instructions [here](https://varyingvagrantvagrants.org/docs/en-US/references/https/trusting-ca/).
 
 ## Default WordPress Login
 
@@ -69,7 +114,7 @@ Password: `pmcdev`
 
 For each site you provision, e.g. Sportico, you may run the theme and pmc-plugins unit tests by following the steps below. Do steps 1-3 once, and steps 4+ for each provisioned site, e.g. Sportico, WWD, etc.. The basic concept here is that we copy the testing tools from wordpress-develop into each provisioned site.
 
-NOTE, Ideally, we could provision wordpress-trunk into VVV via https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop (by setting skip_provisioning: false in config.yml) as it provides phpunit, test database, and the wp test suite. However, it forces you to use the latest (unreleased) version. Using its master branch can/has lead to issues when running tests with our pmc-unit-test bootstrap.php. Due to this, we setup the test environment manually (steps 1-3 below).
+NOTE, Ideally, we could provision wordpress-trunk into VVV via [custom-site-template-develop](https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop) (by setting skip_provisioning: false in config.yml) as it provides phpunit, test database, and the wp test suite. However, it forces you to use the latest (unreleased) version. Using its master branch can/has lead to issues when running tests with our pmc-unit-test bootstrap.php. Due to this, we setup the test environment manually (steps 1-3 below).
 
 1. Install phpunit
     ```bash
@@ -129,11 +174,14 @@ NOTE, Ideally, we could provision wordpress-trunk into VVV via https://github.co
         ```
 1. Run tests
     1. Note, we must tell PHPUnit where our test bootstraps are located. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
-    2. Note, if xdebug is enabled your tests will run VERY slowly. See https://varyingvagrantvagrants.org/docs/en-US/references/xdebug/ Only enable xdebug while testing if you wish to step-through debug your tests or generate a code coverage report.
+    2. Note, if xdebug is enabled your tests will run VERY slowly. See [xDebug documentation](https://varyingvagrantvagrants.org/docs/en-US/references/xdebug/ ). Only enable xdebug while testing if you wish to step-through debug your tests or generate a code coverage report.
+
+
     ```bash
     # If not in VM...
     $ vagrant ssh
     ```
+    
     In VM...
     ```bash
     You can add these variables to your bash, but make sure they are at the bottom of ~/.bash_profile as not to conflict with vvv's settings.
@@ -202,6 +250,11 @@ There are several options for adopting the latest VVV configuration.
       you have something set up that you cannot part with.
 
 ## Miscellaneous Issues
+### 04/07/2022
+Error: While running `vagrant up` the box will warn that `vagrant-goodhosts` plugin is not installed and will suggest `vagrant plugin install --local` will fix the issue. It does not.
+
+Fix: Install the `vagrant-goodhosts` plugin manually. `vagrant plugin install vagrant-goodhosts` followed by `vagrant reload --provision` to ensure that all dependencies are in sync.
+
 ### 03/11/2021
 Error: During `vagrant up --provision` encountered `default: sudo: unable to execute /usr/local/bin/wp: Permission denied`. Upon SSHing into Vagrant (`vagrant ssh`) noted with `ls -al /usr/local/bin/wp` that this wp-cli script was owned by `root` and within the group `root`.
 
