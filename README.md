@@ -23,7 +23,7 @@ If you're the proud recipient of an M1, M1 Pro, or M1 Max machine follow [M1 Pre
 3. Install VVV (Follow the "Installing VVV" steps here: https://varyingvagrantvagrants.org/docs/en-US/installation/#installing-vvv)
 
 ## M1 Prerequisites
-These are prerequisites for Apple Sicilon/Arm Chips.
+These are prerequisites for Apple Silicon/Arm Chips.
 
 1. Install [Parallels Pro](https://www.parallels.com/products/desktop/pro/) or the [Parallels Business Edition](https://www.parallels.com/products/business/). You can leverage the free trial to confirm everything is working, but it does require that you sign up and log into parallels on your machine to "activate" Pro features that are required to use Vagrant/VVV.
 2. Install [Vagrant](https://www.vagrantup.com/)
