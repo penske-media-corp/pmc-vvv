@@ -250,6 +250,12 @@ There are several options for adopting the latest VVV configuration.
       you have something set up that you cannot part with.
 
 ## Miscellaneous Issues
+
+### 04/12/2022
+Error: Unable to launch xdebug with Parallels.
+
+Fix: Ensure that the pathMappings for your IDE are as follows: `"/srv/www/": "/Users/USERNAME/vvv-local/www/",`. And confirm that there are not two instances of `define( 'WP_DEBUG', true|false );` in the `wp-config.php` file for the site you're attempting to run xdebug for. In the `vvv-local/config/php-config/xdebug.ini` find or add the `xdebug.discover_client_host=` value and set it to `1` instead of `0`. Run `vagrant provision` to reprovision your local.
+
 ### 04/07/2022
 Error: While running `vagrant up` the box will warn that `vagrant-goodhosts` plugin is not installed and will suggest `vagrant plugin install --local` will fix the issue. It does not.
 
