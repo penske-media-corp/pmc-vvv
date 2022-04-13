@@ -250,7 +250,25 @@ There are several options for adopting the latest VVV configuration.
       you have something set up that you cannot part with.
 
 ## Miscellaneous Issues
+### 04/13/2022
+Error:
+```bash
+The following SSH command responded with a non-zero exit status.
+Vagrant assumes that this means the command failed!
 
+echo; printf $SSH_AUTH_SOCK
+
+Stdout from the command:
+
+
+
+
+Stderr from the command:
+
+printf: usage: printf [-v var] format [arguments]
+```
+
+Fix: Comment out the lines `config.ssh.forward_agent = true` in the `Vagrantfile` after the initial `vagrant up`.
 ### 04/12/2022
 Error: Unable to launch xdebug with Parallels.
 
