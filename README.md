@@ -255,27 +255,10 @@ There are several options for adopting the latest VVV configuration.
 
 Error: Provisioning fails with the message `fatal: unsafe repository ('/srv/provision/utilities/pmc' is owned by someone else)`. It is not resolved by re-adding the SSH key nor by running the suggested command `git config --global --add safe.directory`.
 
-Fix: Find provision.sh in your VVV directory, e.g. VVV/provision/provision.sh. Before the conditional around like 36, add the following:
+Fix: Run the following
 
 ```
-git config --global --add safe.directory /srv/provision/utilities/pmc
-git config --global --add safe.directory /srv/provision/utilities/core
-git config --global --add safe.directory /srv/provision/extensions/pmc
-git config --global --add safe.directory /srv/provision/extensions/core
-git config --global --add safe.directory /srv/www/wordpress-trunk
-```
-
-Then, for each site enabled in config.yml, add the following:
-
-```
-git config --global --add safe.directory /srv/www/deadline-com
-git config --global --add safe.directory /srv/www/indiewire-com
-git config --global --add safe.directory /srv/www/robbreport-com
-git config --global --add safe.directory /srv/www/rollingstone-2022-com
-git config --global --add safe.directory /srv/www/sportico-com
-git config --global --add safe.directory /srv/www/rollingstone-com
-git config --global --add safe.directory /srv/www/variety-com
-git config --global --add safe.directory /srv/www/vibe-com
+git config --global --add safe.directory *
 ```
 
 Note: You might need to update Git to the latest version (at the time of this writing, version 2.36.0 works). The steps for updating Git will vary depending on your operating system, so search for instructions as needed. [Here is a Mac-specific guide](https://git-scm.com/download/mac) maintained by Git community members.
