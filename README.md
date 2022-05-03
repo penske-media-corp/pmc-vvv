@@ -255,13 +255,13 @@ There are several options for adopting the latest VVV configuration.
 
 Error: Provisioning fails with the message `fatal: unsafe repository ('/srv/provision/utilities/pmc' is owned by someone else)`. It is not resolved by re-adding the SSH key nor by running the suggested command `git config --global --add safe.directory`.
 
-Fix: Run the following
+Fix: Confirm you are using Git v2.35.3+ and run the following command before running the command to provision:
 
 ```
 git config --global --add safe.directory *
 ```
 
-Note: You might need to update Git to the latest version (at the time of this writing, version 2.36.0 works). The steps for updating Git will vary depending on your operating system, so search for instructions as needed. [Here is a Mac-specific guide](https://git-scm.com/download/mac) maintained by Git community members.
+Note: You might need to update Git to the latest version. The steps for updating Git will vary depending on your operating system, so search for instructions as needed. [Here is a Mac-specific guide](https://git-scm.com/download/mac) maintained by Git community members.
 
 ### 04/12/2022
 Error: Unable to launch xdebug with Parallels.
