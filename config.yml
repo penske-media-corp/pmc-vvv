@@ -237,6 +237,23 @@ sites:
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
         theme_dir_uses_vip: false
+  robbreport-uk-co:
+    skip_provisioning: true
+    description: robbreport.uk.co
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - robbreport-uk-co.test
+    custom:
+      live_url: https://robbreport.uk.co
+      site_title: Robb Report UK (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-robbreport-2017-v2.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        theme_dir_uses_vip: false
   rollingstone-com:
     skip_provisioning: true
     description: rollingstone.com
