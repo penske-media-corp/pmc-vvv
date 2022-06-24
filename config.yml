@@ -15,7 +15,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-artnews-2019.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   bgr-com:
     skip_provisioning: true
@@ -33,7 +32,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/bgr.git
         theme_slug: ""
         parent_theme_slug: ""
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   billboard-com:
     skip_provisioning: true
@@ -51,7 +49,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-billboard-2021.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   blogher-com:
     skip_provisioning: true
@@ -69,7 +66,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-blogher-2020.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   deadline-com:
     skip_provisioning: true
@@ -87,7 +83,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-deadline-2019.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   dirt-com:
     skip_provisioning: true
@@ -105,7 +100,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-dirt-2020.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   engineering-pmc-com:
     skip_provisioning: true
@@ -123,7 +117,6 @@ sites:
         theme_repo: git@github.com:wpcomvip/pmc-engineering.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   events-fairchildlive-com:
     skip_provisioning: true
@@ -141,7 +134,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-summits-wwd.git
         theme_slug: ""
         parent_theme_slug: pmc-summits
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   footwearnews-com:
     skip_provisioning: true
@@ -159,7 +151,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-footwearnews-2018.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   goldderby-com:
     skip_provisioning: true
@@ -177,7 +168,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-goldderby.git
         theme_slug: ""
         parent_theme_slug: ""
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   hollywoodreporter-com:
     skip_provisioning: true
@@ -195,7 +185,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-hollywoodreporter-2021.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   indiewire-com:
     skip_provisioning: true
@@ -213,7 +202,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-indiewire-2016.git
         theme_slug: indiewire
         parent_theme_slug: ""
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   pmc-com:
     skip_provisioning: true
@@ -231,7 +219,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-corporate-2018.git
         theme_slug: ""
         parent_theme_slug: ""
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   robbreport-com:
     skip_provisioning: true
@@ -249,7 +236,23 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-robbreport-2017-v2.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
+        theme_dir_uses_vip: false
+  robbreport-uk-co:
+    skip_provisioning: true
+    description: robbreport.uk.co
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - robbreport-uk-co.test
+    custom:
+      live_url: https://robbreport.uk.co
+      site_title: Robb Report UK (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-robbreport-2017-v2.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
         theme_dir_uses_vip: false
   rollingstone-com:
     skip_provisioning: true
@@ -267,7 +270,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-rollingstone-2018.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   rollingstone-2022-com:
     skip_provisioning: true
@@ -285,7 +287,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-rollingstone-2022.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   rr1-com:
     skip_provisioning: true
@@ -303,7 +304,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-summits-rr1.git
         theme_slug: ""
         parent_theme_slug: pmc-summits
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   sales-pmcdev-io:
     skip_provisioning: true
@@ -321,7 +321,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-salesmicrosite.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   sheknows-com:
     skip_provisioning: true
@@ -339,7 +338,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-sheknows-2020.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   soaps-com:
     skip_provisioning: true
@@ -357,7 +355,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-soaps-2018.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   sportico-com:
     skip_provisioning: true
@@ -375,7 +372,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-sportico-2020.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   sourcingjournal-com:
     skip_provisioning: true
@@ -393,7 +389,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-sourcingjournal-2018.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   sourcingjournal-2021-com:
     skip_provisioning: true
@@ -411,7 +406,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-sourcingjournal-2021.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   spy-com:
     skip_provisioning: true
@@ -429,7 +423,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-spy.git
         theme_slug: ""
         parent_theme_slug: ""
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   stylecaster-com:
     skip_provisioning: true
@@ -447,7 +440,6 @@ sites:
         theme_repo: git@github.com:penske-media-corp/sc-stylecaster-2016.git
         theme_slug: ""
         parent_theme_slug: ""
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   tvline-com:
     skip_provisioning: true
@@ -465,7 +457,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-tvline-2014.git
         theme_slug: ""
         parent_theme_slug: ""
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   variety-com:
     skip_provisioning: true
@@ -483,7 +474,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-variety-2020.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   vibe-com:
     skip_provisioning: true
@@ -501,7 +491,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-vibe-2021.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   wwd-com:
     skip_provisioning: true
@@ -519,7 +508,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-wwd-2016.git
         theme_slug: ""
         parent_theme_slug: ""
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   wwd-2021-com:
     skip_provisioning: true
@@ -537,7 +525,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-wwd-2021.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: true
   studios-wwd-com:
     skip_provisioning: true
@@ -555,7 +542,6 @@ sites:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-wwd-studios-2017.git
         theme_slug: ""
         parent_theme_slug: ""
-        grandchild_theme_repo: ""
         theme_dir_uses_vip: false
   wordpress-trunk:
     skip_provisioning: true

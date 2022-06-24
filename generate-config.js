@@ -72,10 +72,6 @@ Object.entries(sitesConfig).forEach(
       config.parent_theme_slug = '';
     }
 
-    if (! config.grandchild_theme_repo) {
-      config.grandchild_theme_repo = '';
-    }
-
     if (! config.theme_dir_uses_vip) {
       config.theme_dir_uses_vip = false;
     }
@@ -99,7 +95,6 @@ Object.entries(sitesConfig).forEach(
           theme_repo: config.theme_repo,
           theme_slug: config.theme_slug,
           parent_theme_slug: config.parent_theme_slug,
-          grandchild_theme_repo: config.grandchild_theme_repo,
           theme_dir_uses_vip: config.theme_dir_uses_vip,
         }
       }

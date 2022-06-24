@@ -338,7 +338,6 @@ to PMC.
         "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-spark.git",
         "theme_slug": "",
         "parent_theme_slug": "pmc-core-v2",
-        "grandchild_theme_repo": "",
         "theme_dir_uses_vip": false
       }
       ```
@@ -346,9 +345,7 @@ to PMC.
       Notes:
       * `theme_slug` is optional. When omitted, the theme repo's slug is used;
         in the above example, the slug would be `pmc-spark`.
-      * `grandchild_theme_repo` is optional and is used for international
-        sites, such as Robb Report UK.
-      * `theme_dir_uses_vip` defaults to `false` and can be omitted unless set
+       * `theme_dir_uses_vip` defaults to `false` and can be omitted unless set
         `true`.
 1. If necessary, run `npm install`.
 1. Run `node generate-config.js`.
