@@ -96,8 +96,9 @@ vvvConfig.sites['wordpress-trunk'] = {
   ],
 };
 
-YAML.scalarOptions.str.fold.lineWidth = 0;
-
-fs.writeFileSync(configFileName, YAML.stringify(vvvConfig));
+fs.writeFileSync(
+  configFileName,
+  YAML.stringify(vvvConfig, null, { lineWidth: 0 })
+);
 
 console.info('Done!');
