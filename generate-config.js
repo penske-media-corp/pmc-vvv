@@ -2,6 +2,7 @@ const fs = require('fs');
 const YAML = require('yaml');
 
 const configFileName = 'config.yml';
+const defaultPhpVersion = 7.4;
 
 console.info(`Generating ${configFileName}...`);
 
@@ -18,6 +19,7 @@ const vvvConfig = {
       'webgrind',
       'php73',
       'php74',
+      'php80',
     ],
     pmc: [
       'coretech',
@@ -48,44 +50,27 @@ const vvvConfig = {
 
 Object.entries(sitesConfig).forEach(
   (entry) => {
-    const liveUrl = entry[0];
-    const config = entry[1];
+    const [ liveUrl, config ] = entry;
 
     if (! config.theme_repo) {
       console.warn(` - Skipping ${liveUrl} due to misconfiguration`);
       return;
     }
 
-    if (! config.theme_slug) {
-      config.theme_slug = '';
-    }
-
-    if (! config.provisioner_url) {
-      config.provisioner_url = 'git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git';
-    }
-
-    if (! config.provisioner_branch) {
-      config.provisioner_branch = 'main';
-    }
-
-    if (! config.parent_theme_slug) {
-      config.parent_theme_slug = '';
-    }
-
-    if (! config.theme_dir_uses_vip) {
-      config.theme_dir_uses_vip = false;
-    }
-
     const slugifiedUrl = liveUrl.replace(/\./g,'-');
+
+    const phpVersion = parseFloat(config.php_version ?? defaultPhpVersion).toFixed(1);
+    const nginxUpstream = `php${phpVersion}`.replace('.', '');
 
     vvvConfig.sites[slugifiedUrl] = {
       skip_provisioning: true,
       description: liveUrl,
-      repo: config.provisioner_url,
-      branch: config.provisioner_branch,
+      repo: config.provisioner_url ?? 'git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git',
+      branch: config.provisioner_branch ?? 'main',
       hosts: [
         `${slugifiedUrl}.test`,
       ],
+      nginx_upstream: nginxUpstream,
       custom: {
         live_url: `https://${liveUrl}`,
         site_title: `${config.site_title_prefix} (LOCAL)`,
@@ -93,9 +78,9 @@ Object.entries(sitesConfig).forEach(
         admin_password: 'pmcdev',
         pmc: {
           theme_repo: config.theme_repo,
-          theme_slug: config.theme_slug,
-          parent_theme_slug: config.parent_theme_slug,
-          theme_dir_uses_vip: config.theme_dir_uses_vip,
+          theme_slug: config.theme_slug ?? '',
+          parent_theme_slug: config.parent_theme_slug ?? '',
+          theme_dir_uses_vip: config.theme_dir_uses_vip ?? false,
         }
       }
     };

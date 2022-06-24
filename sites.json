@@ -126,7 +126,8 @@
     "provisioner_branch": "master",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-sourcingjournal-2018.git",
     "parent_theme_slug": "pmc-core-v2",
-    "theme_dir_uses_vip": true
+    "theme_dir_uses_vip": true,
+    "php_version": 7.3
   },
   "sourcingjournal-2021.com": {
     "site_title_prefix": "Sourcing Journal",
