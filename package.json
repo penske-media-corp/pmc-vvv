@@ -1,8 +1,27 @@
 {
-  "dependencies": {
-    "yaml": "^2.1.1"
+  "name": "pmc-vvv",
+  "description": "Configuration repo for PMC's use of VVV.",
+  "version": "1.0.0",
+  "main": "generate-config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/penske-media-corp/pmc-vvv.git"
   },
+  "keywords": [
+    "VVV"
+  ],
+  "author": "Penske Media Corporation, LLC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/penske-media-corp/pmc-vvv/issues"
+  },
+  "homepage": "https://github.com/penske-media-corp/pmc-vvv#readme",
   "scripts": {
-    "build": "node generate-config.js"
+    "build": "node generate-config.js",
+    "format": "prettier --write generate-config.js"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "yaml": "^2.1.1"
   }
 }

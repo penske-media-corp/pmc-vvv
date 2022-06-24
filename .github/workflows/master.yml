@@ -23,6 +23,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build config.yml
-        run: npm run build
+        run: |
+          npm run format
+          npm run build
       - name: Confirm committed config.yml matches built version
         run: git diff --exit-code

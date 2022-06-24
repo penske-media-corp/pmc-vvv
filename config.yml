@@ -604,7 +604,7 @@ vm_config:
   cores: 3
 general:
   db_backup: true
-  db_restore: true
+  db_restore: false
   db_share: false
 vagrant-plugins:
   disksize: 65GB
