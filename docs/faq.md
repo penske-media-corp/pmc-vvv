@@ -59,15 +59,15 @@ There are several options for adopting the latest VVV configuration.
 
 #### Via `vagrant provision`:
 
-1. Update the `nginx_upstream` in the site's configuration to match the 
-   desired version, eg `php80`.
+1. Update the `nginx_upstream` in the site's section of `config.yml` to match 
+   the desired version, eg `php80`.
 1. Run `vagrant provision`.
 
 #### Without re-provisioning:
 
 1. `vagrant ssh` and change to the `/etc/nginx/custom-sites` directory.
 1. Run `ls -la` and find the filename of the site you wish to update. It 
-   will be in the format of `vvv-pmc-com-[HASH].conf`.
+   will be in the format of `vvv-[SITE_SLUG]-[HASH].conf`.
 1. Use the `sudo` command to edit the file identified in the previous step, 
    eg `sudo vim` or `sudo nano`.
 1. Find the line that's preceded by the comment `# This is needed to set the 
@@ -89,7 +89,8 @@ There are several options for adopting the latest VVV configuration.
 
 Note that switching an individual site's PHP version applies only to the web 
 server, but does not affect the PHP version used by WP-CLI. Additionally, 
-the `WP_CLI_PHP` environment variable has no effect on the PHP version used.
+the `WP_CLI_PHP` environment variable has no effect on the PHP version used 
+by the copy of WP-CLI installed in the VM.
 
 To run WP-CLI with a different PHP version, such as PHP 8.0:
 
