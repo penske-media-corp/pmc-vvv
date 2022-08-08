@@ -613,8 +613,7 @@ sites:
         theme_dir_uses_vip: false
   wordpress-trunk:
     skip_provisioning: true
-    description: An svn based WP Core trunk dev setup, useful for contributor days,
-      Trac tickets, patches
+    description: An svn based WP Core trunk dev setup, useful for contributor days, Trac tickets, patches
     repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop.git
     hosts:
       - trunk.wordpress.test
