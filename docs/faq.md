@@ -111,3 +111,35 @@ To confirm which PHP version is used by WP-CLI, run:
 
 Confirm that the `PHP version` and `php.ini used` lines reference the 
 expected version.
+
+
+### PHPUNIT with PHP 8:
+
+The steps to install are similar to the [existing docs](../docs/unit-tests.md). Until we switch completely to PHP8, I recommend making a parallel installation. PHP8 allows/requires us to use PHPUnit 9, which requires us to use WordPress 6 test suite and add yoast/phpunit-polyfills  
+
+```bash
+   * sudo mkdir -p /usr/share/php/phpunit9
+   * cd /usr/share/php/phpunit9
+   * sudo php8.0 composer require --dev phpunit/phpunit ^9 --update-with-all-dependencies
+   * sudo ln -sf /usr/share/php/phpunit9/vendor/bin/phpunit /usr/bin/phpunit9
+   * cd
+   * git clone --depth 1 --branch 6.0.1 git@github.com:WordPress/wordpress-develop.git  wordpress-6
+   * cp -r wordpress-6/tests /srv/www/variety-com/public_html/ // This should be the site you're going to be testing against
+```
+
+CD into the pmc-plugins directory of the site you're migrating.
+```bash
+   * php8.0 /usr/local/bin/composer require --dev yoast/phpunit-polyfills
+```
+
+In the unit tests bootstrap file, add ```require_once '../vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';``` pointing at the vendor directory where you installed yoast/phpunit-polyfills
+
+You will need to export the PMC_PHPUNIT_BOOTSTRAP and the WP_TESTS_DIR. 
+
+CD into the directory you need to run tests in and run: 
+```bash
+phpunit9 --migrate-configuration
+```
+
+You will likely run into many new Fatal Errors that need fixing before you're able to successfully run a test.
+
