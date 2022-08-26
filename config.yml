@@ -467,6 +467,24 @@ sites:
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
+  spy-2022-com:
+    skip_provisioning: true
+    description: spy-2022.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - spy-2022-com.test
+    nginx_upstream: php74
+    custom:
+      live_url: https://spy-2022.com
+      site_title: Spy (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@bitbucket.org:penskemediacorp/pmc-spy-2022.git
+        theme_slug: ""
+        parent_theme_slug: pmc-core-v2
+        theme_dir_uses_vip: false
   stylecaster-com:
     skip_provisioning: true
     description: stylecaster.com
