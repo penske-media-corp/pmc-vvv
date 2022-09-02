@@ -48,11 +48,6 @@
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-footwearnews-2018.git",
     "parent_theme_slug": "pmc-core-v2"
   },
-  "foundation": {
-    "site_title_prefix": "Fab4 Foundation",
-    "theme_repo": "git@github.com:penske-media-corp/foundation-theme.git",
-    "php_version": 8.0
-  },
   "goldderby.com": {
     "site_title_prefix": "Gold Derby",
     "provisioner_url": "git@github.com:Varying-Vagrant-Vagrants/custom-site-template.git",
@@ -69,6 +64,11 @@
     "site_title_prefix": "Indiewire",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-indiewire-2016.git",
     "theme_slug": "indiewire"
+  },
+  "nova": {
+    "site_title_prefix": "Nova",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-nova-theme.git",
+    "php_version": 8.0
   },
   "pmc.com": {
     "site_title_prefix": "PMC Corp",
