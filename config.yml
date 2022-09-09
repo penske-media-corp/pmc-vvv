@@ -301,24 +301,6 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-rollingstone-2018.git
-        theme_slug: ""
-        parent_theme_slug: pmc-core-v2
-        theme_dir_uses_vip: true
-  rollingstone-2022-com:
-    skip_provisioning: true
-    description: rollingstone-2022.com
-    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
-    branch: main
-    hosts:
-      - rollingstone-2022-com.test
-    nginx_upstream: php74
-    custom:
-      live_url: https://rollingstone-2022.com
-      site_title: Rolling Stone (LOCAL)
-      admin_user: pmcdev
-      admin_password: pmcdev
-      pmc:
         theme_repo: git@bitbucket.org:penskemediacorp/pmc-rollingstone-2022.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
@@ -416,31 +398,13 @@ sites:
   sourcingjournal-com:
     skip_provisioning: true
     description: sourcingjournal.com
-    repo: git@github.com:Varying-Vagrant-Vagrants/custom-site-template.git
-    branch: master
-    hosts:
-      - sourcingjournal-com.test
-    nginx_upstream: php73
-    custom:
-      live_url: https://sourcingjournal.com
-      site_title: Sourcing Journal (LOCAL)
-      admin_user: pmcdev
-      admin_password: pmcdev
-      pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-sourcingjournal-2018.git
-        theme_slug: ""
-        parent_theme_slug: pmc-core-v2
-        theme_dir_uses_vip: true
-  sourcingjournal-2021-com:
-    skip_provisioning: true
-    description: sourcingjournal-2021.com
     repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
     branch: main
     hosts:
-      - sourcingjournal-2021-com.test
+      - sourcingjournal-com.test
     nginx_upstream: php74
     custom:
-      live_url: https://sourcingjournal-2021.com
+      live_url: https://sourcingjournal.com
       site_title: Sourcing Journal (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
@@ -568,24 +532,6 @@ sites:
     custom:
       live_url: https://wwd.com
       site_title: WWD (LOCAL)
-      admin_user: pmcdev
-      admin_password: pmcdev
-      pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-wwd-2016.git
-        theme_slug: ""
-        parent_theme_slug: ""
-        theme_dir_uses_vip: false
-  wwd-2021-com:
-    skip_provisioning: true
-    description: wwd-2021.com
-    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
-    branch: main
-    hosts:
-      - wwd-2021-com.test
-    nginx_upstream: php74
-    custom:
-      live_url: https://wwd-2021.com
-      site_title: WWD 2021 (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
