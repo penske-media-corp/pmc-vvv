@@ -49,31 +49,25 @@ There are several options for adopting the latest VVV configuration.
 
 ### If your `config.yml` does not include the desired PHP version in the `utilities.core` section:
 
-1. Add it there, eg `php80` or `php81`.
+1. Add it there, e.g. `php80` or `php81`.
 1. For sites you wish to switch to the new version, update the 
-   `nginx_upstream` in the site's configuration to match the desired version,
-   eg `php80`.
+   `nginx_upstream` in the site's configuration to match the desired version, e.g. `php80`.
 1. Run `vagrant provision`.
 
 ### If you've already provisioned the new PHP version:
 
 #### Via `vagrant provision`:
 
-1. Update the `nginx_upstream` in the site's section of `config.yml` to match 
-   the desired version, eg `php80`.
+1. Update the `nginx_upstream` in the site's section of `config.yml` to match  the desired version, e.g. `php80`.
 1. Run `vagrant provision`.
 
 #### Without re-provisioning:
 
 1. `vagrant ssh` and change to the `/etc/nginx/custom-sites` directory.
-1. Run `ls -la` and find the filename of the site you wish to update. It 
-   will be in the format of `vvv-[SITE_SLUG]-[HASH].conf`.
-1. Use the `sudo` command to edit the file identified in the previous step, 
-   eg `sudo vim` or `sudo nano`.
-1. Find the line that's preceded by the comment `# This is needed to set the 
-   PHP being used`.
-1. At the end of the following line, change the specified PHP version to the 
-   desired version.
+1. Run `ls -la` and find the filename of the site you wish to update. It  will be in the format of `vvv-[SITE_SLUG]-[HASH].conf`.
+1. Use the `sudo` command to edit the file identified in the previous step, e.g. `sudo vim` or `sudo nano`.
+1. Find the line that's preceded by the comment `# This is needed to set the PHP being used`.
+1. At the end of the following line, change the specified PHP version to the  desired version.
 
    For example, if the line was:
 
@@ -87,10 +81,7 @@ There are several options for adopting the latest VVV configuration.
 
 ### Using a different PHP version with WP-CLI:
 
-Note that switching an individual site's PHP version applies only to the web 
-server, but does not affect the PHP version used by WP-CLI. Additionally, 
-the `WP_CLI_PHP` environment variable has no effect on the PHP version used 
-by the copy of WP-CLI installed in the VM.
+Note that switching an individual site's PHP version applies only to the web server, but does not affect the PHP version used by WP-CLI. Additionally, the `WP_CLI_PHP` environment variable has no effect on the PHP version used by the copy of WP-CLI installed in the VM.
 
 To run WP-CLI with a different PHP version, such as PHP 8.0:
 
@@ -115,7 +106,7 @@ expected version.
 
 ### PHPUNIT with PHP 8:
 
-The steps to install are similar to the [existing docs](../docs/unit-tests.md). Until we switch completely to PHP8, I recommend making a parallel installation. PHP8 allows/requires us to use PHPUnit 9, which requires us to use WordPress 6 test suite and add yoast/phpunit-polyfills  
+The steps to install are similar to the [existing docs](../docs/unit-tests.md). Until we switch completely to PHP8, I recommend making a parallel installation. PHP8 requires us to use PHPUnit 9, which requires us to use the WordPress 6 test suite and add the yoast/phpunit-polyfills  
 
 ```bash
    * sudo mkdir -p /usr/share/php/phpunit9
@@ -127,19 +118,22 @@ The steps to install are similar to the [existing docs](../docs/unit-tests.md). 
    * cp -r wordpress-6/tests /srv/www/variety-com/public_html/ // This should be the site you're going to be testing against
 ```
 
-CD into the pmc-plugins directory of the site you're migrating.
+CD into the pmc-plugins/pmc-unit-test directory of the site you're migrating.
 ```bash
    * php8.0 /usr/local/bin/composer require --dev yoast/phpunit-polyfills
 ```
 
-In the unit tests bootstrap file, add ```require_once '../vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';``` pointing at the vendor directory where you installed yoast/phpunit-polyfills
+In the unit tests bootstrap file, add ```require_once './vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';``` pointing at the vendor directory where you installed yoast/phpunit-polyfills
 
 You will need to export the PMC_PHPUNIT_BOOTSTRAP and the WP_TESTS_DIR. 
 
-CD into the directory you need to run tests in and run: 
+CD into the pmc-plugins directory and run tests by passing the necessary configuration file: 
 ```bash
-phpunit9 --migrate-configuration
+php8.0  /usr/bin/phpunit9 --configuration=pmc-global-functions
 ```
+Don't forget the php8.0 executable and the full path to phpunit9. 
 
-You will likely run into many new Fatal Errors that need fixing before you're able to successfully run a test.
+You will be prompted to migrate the phpunit.xml, but hold off until we've migrated everything to php8 environments.
+
+You will likely run into many new Fatal Errors that need fixing before you're able to successfully run a test until we have merged in a bunch of phpunit tests in pmc-plugins.
 

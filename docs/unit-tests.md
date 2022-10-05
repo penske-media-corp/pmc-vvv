@@ -4,6 +4,8 @@ For each site you provision, e.g. Sportico, you may run the theme and pmc-plugin
 
 NOTE, Ideally, we could provision wordpress-trunk into VVV via [custom-site-template-develop](https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop) (by setting skip_provisioning: false in config.yml) as it provides phpunit, test database, and the wp test suite. However, it forces you to use the latest (unreleased) version. Using its master branch can/has lead to issues when running tests with our pmc-unit-test bootstrap.php. Due to this, we setup the test environment manually (steps 1-3 below).
 
+NOTE the Second. If you're using php8 and phpunit9, you can install a parallel phpunit9 installation. Please [see the faq](../docs/faq.md#phpunit-with-php-8).
+
 1. Install phpunit
     ```bash
     # If not in VM...
