@@ -108,10 +108,12 @@ expected version.
 
 The steps to install are similar to the [existing docs](../docs/unit-tests.md). Until we switch completely to PHP8, I recommend making a parallel installation. PHP8 requires us to use PHPUnit 9, which requires us to use the WordPress 6 test suite and add the yoast/phpunit-polyfills  
 
+Any time you are using a specific version of php to run a command, you need the full path, i.e. `php8.0 /usr/local/bin/composer ...` instead of just `php8.0 composer ...`.
+
 ```bash
    * sudo mkdir -p /usr/share/php/phpunit9
    * cd /usr/share/php/phpunit9
-   * sudo php8.0 composer require --dev phpunit/phpunit ^9 --update-with-all-dependencies
+   * sudo php8.0 /usr/local/bin/composer require --dev phpunit/phpunit ^9 --update-with-all-dependencies
    * sudo ln -sf /usr/share/php/phpunit9/vendor/bin/phpunit /usr/bin/phpunit9
    * cd
    * git clone --depth 1 --branch 6.0.1 git@github.com:WordPress/wordpress-develop.git  wordpress-6
