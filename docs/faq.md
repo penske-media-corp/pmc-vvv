@@ -106,6 +106,8 @@ expected version.
 
 ### PHPUNIT with PHP 8:
 
+First, make sure you have php 8 installed ([see above in the FAQ](#if-your-configyml-does-not-include-the-desired-php-version-in-the-utilitiescore-section)).
+
 The steps to install are similar to the [existing docs](../docs/unit-tests.md). Until we switch completely to PHP8, I recommend making a parallel installation. PHP8 requires us to use PHPUnit 9, which requires us to use the WordPress 6 test suite and add the yoast/phpunit-polyfills  
 
 Any time you are using a specific version of php to run a command, you need the full path, i.e. `php8.0 /usr/local/bin/composer ...` instead of just `php8.0 composer ...`.
@@ -120,12 +122,12 @@ Any time you are using a specific version of php to run a command, you need the 
    * cp -r wordpress-6/tests /srv/www/variety-com/public_html/ // This should be the site you're going to be testing against
 ```
 
-CD into the pmc-plugins/pmc-unit-test directory of the site you're migrating.
+CD into the pmc-plugins directory of the site you're migrating.
 ```bash
    * php8.0 /usr/local/bin/composer require --dev yoast/phpunit-polyfills
 ```
 
-In the unit tests bootstrap file, add ```require_once './vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';``` pointing at the vendor directory where you installed yoast/phpunit-polyfills
+In the unit tests bootstrap file (`pmc-unit-test/bootstrap.php`), add ```require_once '/FULL/PATH/TO/vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';``` pointing at the vendor directory where you installed yoast/phpunit-polyfills. (You can install the polyfills package in pmc-unit-test, but composer doesn't like the composer.json in that directory, so you would need to modify it first.)
 
 You will need to export the PMC_PHPUNIT_BOOTSTRAP and the WP_TESTS_DIR. 
 
@@ -139,3 +141,18 @@ You will be prompted to migrate the phpunit.xml, but hold off until we've migrat
 
 You will likely run into many new Fatal Errors that need fixing before you're able to successfully run a test until we have merged in a bunch of phpunit tests in pmc-plugins.
 
+Until the [php8 compatibility PRs](https://github.com/penske-media-corp/pmc-unit-test/pulls) are merged in the pmc-unit-test package and updated in pmc-plugins/pmc-unit-test, you need to update them yourself. I find the easiest was it to pull down the pmc-unit-test git repo and merge without committing, then copying these files :
+
+  * pmc-unit-test/autoload.php
+  * pmc-unit-test/src/classes/bootstrap.php
+  * pmc-unit-test/src/mocks/factory.php
+  * pmc-unit-test/src/traits/base.php
+
+into:
+
+  * pmc-plugins/pmc-unit-test/vendor/pmc/unit-test/autoload.php
+  * pmc-plugins/pmc-unit-test/vendor/pmc/unit-test/src/classes/bootstrap.php
+  * pmc-plugins/pmc-unit-test/vendor/pmc/unit-test/src/mocks/factory.php
+  * pmc-plugins/pmc-unit-test/vendor/pmc/unit-test/src/traits/base.php
+
+  
