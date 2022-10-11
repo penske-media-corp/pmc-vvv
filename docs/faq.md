@@ -90,9 +90,9 @@ To run WP-CLI with a different PHP version, such as PHP 8.0:
 ```
 
 The three available PHP versions, and their paths, are:
-* 7.3: `/usr/bin/php7.3`
 * 7.4: `/usr/bin/php7.4`
 * 8.0: `/usr/bin/php8.0`
+* 8.1: `/usr/bin/php8.1`
 
 To confirm which PHP version is used by WP-CLI, run:
 
@@ -112,27 +112,28 @@ The steps to install are similar to the [existing docs](../docs/unit-tests.md). 
 
 Any time you are using a specific version of php to run a command, you need the full path, i.e. `php8.0 /usr/local/bin/composer ...` instead of just `php8.0 composer ...`.
 
+
 ```bash
-   * sudo mkdir -p /usr/share/php/phpunit9
-   * cd /usr/share/php/phpunit9
-   * sudo php8.0 /usr/local/bin/composer require --dev phpunit/phpunit ^9 --update-with-all-dependencies
-   * sudo ln -sf /usr/share/php/phpunit9/vendor/bin/phpunit /usr/bin/phpunit9
-   * cd
-   * git clone --depth 1 --branch 6.0.1 git@github.com:WordPress/wordpress-develop.git  wordpress-6
-   * cp -r wordpress-6/tests /srv/www/variety-com/public_html/ // This should be the site you're going to be testing against
+sudo mkdir -p /usr/share/php/phpunit9
+cd /usr/share/php/phpunit9
+sudo php8.0 /usr/local/bin/composer require --dev phpunit/phpunit ^9 --update-with-all-dependencies
+sudo ln -sf /usr/share/php/phpunit9/vendor/bin/phpunit /usr/bin/phpunit9
+cd
+git clone --depth 1 --branch 6.0.1 git@github.com:WordPress/wordpress-develop.git  wordpress-6
+cp -r wordpress-6/tests /srv/www/variety-com/public_html/  
 ```
 
-CD into the pmc-plugins directory of the site you're migrating.
+Change into the pmc-plugins/pmc-unit-test directory of the site you're migrating.
 ```bash
-   * php8.0 /usr/local/bin/composer require --dev yoast/phpunit-polyfills
+cd pmc-plugins/pmc-unit-test
+php8.0 /usr/local/bin/composer require --dev yoast/phpunit-polyfills
 ```
-
-In the unit tests bootstrap file (`pmc-unit-test/bootstrap.php`), add ```require_once '/FULL/PATH/TO/vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';``` pointing at the vendor directory where you installed yoast/phpunit-polyfills. (You can install the polyfills package in pmc-unit-test, but composer doesn't like the composer.json in that directory, so you would need to modify it first.)
 
 You will need to export the PMC_PHPUNIT_BOOTSTRAP and the WP_TESTS_DIR. 
 
-CD into the pmc-plugins directory and run tests by passing the necessary configuration file: 
+Change into the pmc-plugins directory and run tests by passing the necessary configuration file. For instance, if you wanted to run the tests for pmc-global-functions: 
 ```bash
+cd ../pmc-plugins
 php8.0  /usr/bin/phpunit9 --configuration=pmc-global-functions
 ```
 Don't forget the php8.0 executable and the full path to phpunit9. 
@@ -140,19 +141,3 @@ Don't forget the php8.0 executable and the full path to phpunit9.
 You will be prompted to migrate the phpunit.xml, but hold off until we've migrated everything to php8 environments.
 
 You will likely run into many new Fatal Errors that need fixing before you're able to successfully run a test until we have merged in a bunch of phpunit tests in pmc-plugins.
-
-Until the [php8 compatibility PRs](https://github.com/penske-media-corp/pmc-unit-test/pulls) are merged in the pmc-unit-test package and updated in pmc-plugins/pmc-unit-test, you need to update them yourself. I find the easiest was it to pull down the pmc-unit-test git repo and merge without committing, then copying these files :
-
-  * pmc-unit-test/autoload.php
-  * pmc-unit-test/src/classes/bootstrap.php
-  * pmc-unit-test/src/mocks/factory.php
-  * pmc-unit-test/src/traits/base.php
-
-into:
-
-  * pmc-plugins/pmc-unit-test/vendor/pmc/unit-test/autoload.php
-  * pmc-plugins/pmc-unit-test/vendor/pmc/unit-test/src/classes/bootstrap.php
-  * pmc-plugins/pmc-unit-test/vendor/pmc/unit-test/src/mocks/factory.php
-  * pmc-plugins/pmc-unit-test/vendor/pmc/unit-test/src/traits/base.php
-
-  
