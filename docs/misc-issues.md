@@ -1,4 +1,26 @@
 # Miscellaneous Issues
+
+## 10/27/22
+Error: In PluginManager.php line 769:
+
+  dealerdirect/phpcodesniffer-composer-installer contains a Composer plugin w
+  hich is blocked by your allow-plugins config. You may add it to the list if
+
+Fix: If provisioning fails, there’s a high chance it has already been fixed. Update your VVV to the newest version.
+
+If updating to the latest version does not help, try the develop branch:
+
+Switch to develop:
+
+git checkout develop
+Then make sure it’s the latest develop:
+
+git pull
+And reprovision:
+
+vagrant up --provision
+
+
 ## 04/12/2022
 Error: Unable to launch xdebug with Parallels.
 
