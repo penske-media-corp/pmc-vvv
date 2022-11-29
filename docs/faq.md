@@ -50,7 +50,7 @@ There are several options for adopting the latest VVV configuration.
 ### If your `config.yml` does not include the desired PHP version in the `utilities.core` section:
 
 1. Add it there, e.g. `php80` or `php81`.
-1. For sites you wish to switch to the new version, update the 
+1. For sites you wish to switch to the new version, update the
    `nginx_upstream` in the site's configuration to match the desired version, e.g. `php80`.
 1. Run `vagrant provision`.
 
@@ -71,11 +71,11 @@ There are several options for adopting the latest VVV configuration.
 
    For example, if the line was:
 
-   ```set          $upstream php74;``` 
+   ```set          $upstream php74;```
 
    And you want to set the site to PHP 8.0, change it to:
 
-   ```set          $upstream php80;``` 
+   ```set          $upstream php80;```
 1. Save the file and exit the editor.
 1. Restart nginx by running `sudo /etc/init.d/nginx restart`.
 
@@ -89,8 +89,7 @@ To run WP-CLI with a different PHP version, such as PHP 8.0:
 /usr/bin/php8.0 /usr/local/bin/wp [COMMAND]
 ```
 
-The three available PHP versions, and their paths, are:
-* 7.4: `/usr/bin/php7.4`
+The two available PHP versions, and their paths, are:
 * 8.0: `/usr/bin/php8.0`
 * 8.1: `/usr/bin/php8.1`
 
@@ -100,7 +99,7 @@ To confirm which PHP version is used by WP-CLI, run:
 /usr/bin/php8.0 /usr/local/bin/wp cli info
 ```
 
-Confirm that the `PHP version` and `php.ini used` lines reference the 
+Confirm that the `PHP version` and `php.ini used` lines reference the
 expected version.
 
 
@@ -108,36 +107,8 @@ expected version.
 
 First, make sure you have php 8 installed ([see above in the FAQ](#if-your-configyml-does-not-include-the-desired-php-version-in-the-utilitiescore-section)).
 
-The steps to install are similar to the [existing docs](../docs/unit-tests.md). Until we switch completely to PHP8, I recommend making a parallel installation. PHP8 requires us to use PHPUnit 9, which requires us to use the WordPress 6 test suite and add the yoast/phpunit-polyfills  
+The steps to install are in the [unit testing docs](../docs/unit-tests.md). PHP8 requires us to use PHPUnit 9, which requires us to use the WordPress 6 test suite and add the yoast/phpunit-polyfills. They are very similar to how phpunit7 was installed, but you should still follow them from the beginning as you are installing new versions of phpunit and the wordpress test suite, as well as a new composer package.
 
 Any time you are using a specific version of php to run a command, you need the full path, i.e. `php8.0 /usr/local/bin/composer ...` instead of just `php8.0 composer ...`.
 
-
-```bash
-sudo mkdir -p /usr/share/php/phpunit9
-cd /usr/share/php/phpunit9
-sudo php8.0 /usr/local/bin/composer require --dev phpunit/phpunit ^9 --update-with-all-dependencies
-sudo ln -sf /usr/share/php/phpunit9/vendor/bin/phpunit /usr/bin/phpunit9
-cd
-git clone --depth 1 --branch 6.0.1 git@github.com:WordPress/wordpress-develop.git  wordpress-6
-cp -r wordpress-6/tests /srv/www/variety-com/public_html/  
-```
-
-Change into the pmc-plugins/pmc-unit-test directory of the site you're migrating.
-```bash
-cd pmc-plugins/pmc-unit-test
-php8.0 /usr/local/bin/composer require --dev yoast/phpunit-polyfills
-```
-
-You will need to export the PMC_PHPUNIT_BOOTSTRAP and the WP_TESTS_DIR. 
-
-Change into the pmc-plugins directory and run tests by passing the necessary configuration file. For instance, if you wanted to run the tests for pmc-global-functions: 
-```bash
-cd ../pmc-plugins
-php8.0  /usr/bin/phpunit9 --configuration=pmc-global-functions
-```
-Don't forget the php8.0 executable and the full path to phpunit9. 
-
-You will be prompted to migrate the phpunit.xml, but hold off until we've migrated everything to php8 environments.
-
-You will likely run into many new Fatal Errors that need fixing before you're able to successfully run a test until we have merged in a bunch of phpunit tests in pmc-plugins.
+You can keep your existing theme wp-tests-config.php, but you will need to add a new constant: `define('WP_TESTS_PHPUNIT_POLYFILLS_PATH', '/home/vagrant/vendor/yoast/phpunit-polyfills/');`

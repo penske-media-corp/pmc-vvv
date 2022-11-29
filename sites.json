@@ -67,8 +67,7 @@
   },
   "nova": {
     "site_title_prefix": "Nova",
-    "theme_repo": "git@github.com:penske-media-corp/pmc-nova-theme.git",
-    "php_version": 8.0
+    "theme_repo": "git@github.com:penske-media-corp/pmc-nova-theme.git"
   },
   "pmc.com": {
     "site_title_prefix": "PMC Corp",
@@ -85,12 +84,6 @@
     "parent_theme_slug": "pmc-core-v2"
   },
   "rollingstone.com": {
-    "site_title_prefix": "Rolling Stone",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-rollingstone-2018.git",
-    "parent_theme_slug": "pmc-core-v2",
-    "theme_dir_uses_vip": true
-  },
-  "rollingstone-2022.com": {
     "site_title_prefix": "Rolling Stone",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-rollingstone-2022.git",
     "parent_theme_slug": "pmc-core-v2",
@@ -127,24 +120,11 @@
   },
   "sourcingjournal.com": {
     "site_title_prefix": "Sourcing Journal",
-    "provisioner_url": "git@github.com:Varying-Vagrant-Vagrants/custom-site-template.git",
-    "provisioner_branch": "master",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-sourcingjournal-2018.git",
-    "parent_theme_slug": "pmc-core-v2",
-    "theme_dir_uses_vip": true,
-    "php_version": 7.3
-  },
-  "sourcingjournal-2021.com": {
-    "site_title_prefix": "Sourcing Journal",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-sourcingjournal-2021.git",
     "parent_theme_slug": "pmc-core-v2",
     "theme_dir_uses_vip": true
   },
   "spy.com": {
-    "site_title_prefix": "Spy",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-spy.git"
-  },
-  "spy-2022.com": {
     "site_title_prefix": "Spy",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-spy-2022.git",
     "parent_theme_slug": "pmc-core-v2",
@@ -171,10 +151,6 @@
   },
   "wwd.com": {
     "site_title_prefix": "WWD",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-wwd-2016.git"
-  },
-  "wwd-2021.com": {
-    "site_title_prefix": "WWD 2021",
     "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-wwd-2021.git",
     "parent_theme_slug": "pmc-core-v2",
     "theme_dir_uses_vip": true
