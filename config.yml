@@ -13,7 +13,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-artnews-2019.git
+        theme_repo: git@github.com:penske-media-corp/pmc-artnews-2019.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
         theme_dir_uses_vip: true
@@ -139,7 +139,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-summits-wwd.git
+        theme_repo: git@github.com:penske-media-corp/pmc-summits-wwd.git
         theme_slug: ""
         parent_theme_slug: pmc-summits
         theme_dir_uses_vip: false
@@ -157,7 +157,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-footwearnews-2018.git
+        theme_repo: git@github.com:penske-media-corp/pmc-footwearnews-2018.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
         theme_dir_uses_vip: false
@@ -391,7 +391,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-sportico-2020.git
+        theme_repo: git@github.com:penske-media-corp/pmc-sportico-2020.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
         theme_dir_uses_vip: true
