@@ -319,7 +319,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-summits-rr1.git
+        theme_repo: git@github.com:penske-media-corp/pmc-summits-rr1.git
         theme_slug: ""
         parent_theme_slug: pmc-summits
         theme_dir_uses_vip: false
