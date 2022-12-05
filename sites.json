@@ -71,7 +71,7 @@
   },
   "pmc.com": {
     "site_title_prefix": "PMC Corp",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-corporate-2018.git"
+    "theme_repo": "git@github.com:penske-media-corp/pmc-corporate-2018.git"
   },
   "robbreport.com": {
     "site_title_prefix": "Robb Report",
