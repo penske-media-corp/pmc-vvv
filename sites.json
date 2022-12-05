@@ -120,7 +120,7 @@
   },
   "sourcingjournal.com": {
     "site_title_prefix": "Sourcing Journal",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-sourcingjournal-2021.git",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-sourcingjournal-2021.git",
     "parent_theme_slug": "pmc-core-v2",
     "theme_dir_uses_vip": true
   },
