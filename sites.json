@@ -75,12 +75,12 @@
   },
   "robbreport.com": {
     "site_title_prefix": "Robb Report",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-robbreport-2017-v2.git",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-robbreport-2017-v2.git",
     "parent_theme_slug": "pmc-core-v2"
   },
   "robbreport.uk.co": {
     "site_title_prefix": "Robb Report UK",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-robbreport-2017-v2.git",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-robbreport-2017-v2.git",
     "parent_theme_slug": "pmc-core-v2"
   },
   "rollingstone.com": {
