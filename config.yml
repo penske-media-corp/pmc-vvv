@@ -427,7 +427,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-spy-2022.git
+        theme_repo: git@github.com:penske-media-corp/pmc-spy-2022.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
         theme_dir_uses_vip: false
