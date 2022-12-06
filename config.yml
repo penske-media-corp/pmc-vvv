@@ -211,7 +211,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-indiewire-2016.git
+        theme_repo: git@github.com:penske-media-corp/pmc-indiewire-2016.git
         theme_slug: indiewire
         parent_theme_slug: ""
         theme_dir_uses_vip: false
