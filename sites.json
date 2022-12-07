@@ -140,7 +140,7 @@
   },
   "variety.com": {
     "site_title_prefix": "Variety",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-variety-2020.git",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-variety-2020.git",
     "parent_theme_slug": "pmc-core-v2"
   },
   "vibe.com": {
