@@ -121,7 +121,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@github.com:wpcomvip/pmc-engineering.git
+        theme_repo: git@github.com:penske-media-corp/pmc-engineering-2021.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
         theme_dir_uses_vip: true
@@ -499,7 +499,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-vibe-2021.git
+        theme_repo: git@github.com:penske-media-corp/pmc-vibe-2021.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
         theme_dir_uses_vip: true
