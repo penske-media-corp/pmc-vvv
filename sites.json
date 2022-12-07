@@ -28,7 +28,7 @@
   },
   "dirt.com": {
     "site_title_prefix": "Dirt",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-dirt-2020.git",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-dirt-2020.git",
     "parent_theme_slug": "pmc-core-v2",
     "theme_dir_uses_vip": true
   },
