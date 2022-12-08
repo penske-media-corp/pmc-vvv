@@ -23,7 +23,7 @@
   },
   "deadline.com": {
     "site_title_prefix": "Deadline",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-deadline-2019.git",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-deadline-2019.git",
     "parent_theme_slug": "pmc-core-v2"
   },
   "dirt.com": {
@@ -52,7 +52,7 @@
     "site_title_prefix": "Gold Derby",
     "provisioner_url": "git@github.com:Varying-Vagrant-Vagrants/custom-site-template.git",
     "provisioner_branch": "master",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-goldderby.git"
+    "theme_repo": "git@github.com:penske-media-corp/pmc-goldderby.git"
   },
   "hollywoodreporter.com": {
     "site_title_prefix": "Hollywoodreporter",
@@ -96,7 +96,7 @@
   },
   "sales.pmcdev.io": {
     "site_title_prefix": "Sales Microsites",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-salesmicrosite.git",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-salesmicrosite.git",
     "parent_theme_slug": "pmc-core-v2",
     "theme_dir_uses_vip": true
   },

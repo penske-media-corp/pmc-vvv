@@ -85,7 +85,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-deadline-2019.git
+        theme_repo: git@github.com:penske-media-corp/pmc-deadline-2019.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
         theme_dir_uses_vip: false
@@ -175,7 +175,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-goldderby.git
+        theme_repo: git@github.com:penske-media-corp/pmc-goldderby.git
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
@@ -337,7 +337,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-salesmicrosite.git
+        theme_repo: git@github.com:penske-media-corp/pmc-salesmicrosite.git
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
         theme_dir_uses_vip: true
