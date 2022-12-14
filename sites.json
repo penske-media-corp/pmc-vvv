@@ -157,6 +157,6 @@
   },
   "studios.wwd.com": {
     "site_title_prefix": "WWD Studios",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-wwd-studios-2017.git"
+    "theme_repo": "git@github.com:penske-media-corp/pmc-wwd-studios-2017.git"
   }
 }
