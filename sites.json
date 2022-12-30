@@ -108,7 +108,7 @@
   },
   "soaps.com": {
     "site_title_prefix": "Soaps",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-soaps-2018.git",
+    "theme_repo": "git@github.com:penskemediacorp/pmc-soaps-2018.git",
     "parent_theme_slug": "pmc-core-v2",
     "theme_dir_uses_vip": true
   },
