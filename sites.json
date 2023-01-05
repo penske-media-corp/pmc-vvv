@@ -136,7 +136,7 @@
   },
   "tvline.com": {
     "site_title_prefix": "TV Line",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-tvline-2014.git"
+    "theme_repo": "git@github.com:penske-media-corp/pmc-tvline-2014.git"
   },
   "variety.com": {
     "site_title_prefix": "Variety",

@@ -463,7 +463,7 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-tvline-2014.git
+        theme_repo: git@github.com:penske-media-corp/pmc-tvline-2014.git
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
