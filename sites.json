@@ -108,7 +108,7 @@
   },
   "soaps.com": {
     "site_title_prefix": "Soaps",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-soaps-2018.git",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-soaps-2018.git",
     "parent_theme_slug": "pmc-core-v2",
     "theme_dir_uses_vip": true
   },
@@ -151,7 +151,7 @@
   },
   "wwd.com": {
     "site_title_prefix": "WWD",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-wwd-2021.git",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-wwd-2021.git",
     "parent_theme_slug": "pmc-core-v2",
     "theme_dir_uses_vip": true
   },
