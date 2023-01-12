@@ -85,8 +85,7 @@
   },
   "rollingstone.com": {
     "site_title_prefix": "Rolling Stone",
-    "theme_repo": "git@bitbucket.org:penskemediacorp/pmc-rollingstone-2022.git",
-    "parent_theme_slug": "pmc-core-v2",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-rollingstone-2022.git",
     "theme_dir_uses_vip": true
   },
   "rr1.com": {
