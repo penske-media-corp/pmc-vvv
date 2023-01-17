@@ -301,9 +301,9 @@ sites:
       admin_user: pmcdev
       admin_password: pmcdev
       pmc:
-        theme_repo: git@bitbucket.org:penskemediacorp/pmc-rollingstone-2022.git
+        theme_repo: git@github.com:penske-media-corp/pmc-rollingstone-2022.git
         theme_slug: ""
-        parent_theme_slug: pmc-core-v2
+        parent_theme_slug: ""
         theme_dir_uses_vip: true
   rr1-com:
     skip_provisioning: true
