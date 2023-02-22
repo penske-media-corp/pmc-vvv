@@ -65,6 +65,10 @@
     "theme_repo": "git@github.com:penske-media-corp/pmc-indiewire-2016.git",
     "theme_slug": "indiewire"
   },
+  "indiewire-2023.com": {
+    "site_title_prefix": "Indiewire",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-indiewire-2023.git"
+  },
   "nova": {
     "site_title_prefix": "Nova",
     "theme_repo": "git@github.com:penske-media-corp/pmc-nova-theme.git"
@@ -136,6 +140,10 @@
   "tvline.com": {
     "site_title_prefix": "TV Line",
     "theme_repo": "git@github.com:penske-media-corp/pmc-tvline-2014.git"
+  },
+  "tvline-2023.com": {
+    "site_title_prefix": "TV Line",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-tvline-2023.git"
   },
   "variety.com": {
     "site_title_prefix": "Variety",
