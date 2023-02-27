@@ -95,7 +95,7 @@ NOTE, Ideally, we could provision wordpress-trunk into VVV via [custom-site-temp
 
 You can copy all the PMC_PHPUNIT_BOOTSTRAP and WP_TESTS_DIR settings into your local [from here](../docs/test-exports.md)
 
-To run tests in PHPStorm and/or Step-Through debug tests, see here: https://confluence.pmcdev.io/x/sIyzB (this replaces steps 4-7 above)
+To run tests in PHPStorm and/or Step-Through debug tests, see here: https://penskemedia.atlassian.net/l/cp/1xy0PFae (this replaces steps 4-7 above)
 
 ![Testing in PHPStorm](./Testing-in-PHPStorm.png)
 
