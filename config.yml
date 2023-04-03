@@ -1,4 +1,22 @@
 sites:
+  artforum-com:
+    skip_provisioning: true
+    description: artforum.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - artforum-com.test
+    nginx_upstream: php80
+    custom:
+      live_url: https://artforum.com
+      site_title: Art Forum (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@github.com:penske-media-corp/pmc-artforum-2023.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        theme_dir_uses_vip: true
   artnews-com:
     skip_provisioning: true
     description: artnews.com
@@ -577,7 +595,8 @@ sites:
         theme_dir_uses_vip: false
   wordpress-trunk:
     skip_provisioning: true
-    description: An svn based WP Core trunk dev setup, useful for contributor days, Trac tickets, patches
+    description: An svn based WP Core trunk dev setup, useful for contributor days,
+      Trac tickets, patches
     repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop.git
     hosts:
       - trunk.wordpress.test
