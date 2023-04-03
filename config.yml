@@ -1,4 +1,22 @@
 sites:
+  artforum-com:
+    skip_provisioning: true
+    description: artforum.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - artforum-com.test
+    nginx_upstream: php80
+    custom:
+      live_url: https://artforum.com
+      site_title: Art Forum (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@github.com:penske-media-corp/pmc-artforum-2023.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        theme_dir_uses_vip: true
   artnews-com:
     skip_provisioning: true
     description: artnews.com
