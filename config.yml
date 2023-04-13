@@ -485,6 +485,24 @@ sites:
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
+  stylecaster-2023-com:
+    skip_provisioning: true
+    description: stylecaster-2023.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - stylecaster-2023-com.test
+    nginx_upstream: php80
+    custom:
+      live_url: https://stylecaster-2023.com
+      site_title: Stylecaster (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@github.com:penske-media-corp/pmc-stylecaster-2023.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        theme_dir_uses_vip: false
   tvline-com:
     skip_provisioning: true
     description: tvline.com

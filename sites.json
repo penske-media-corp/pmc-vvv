@@ -141,6 +141,10 @@
     "site_title_prefix": "Stylecaster",
     "theme_repo": "git@github.com:penske-media-corp/sc-stylecaster-2016.git"
   },
+  "stylecaster-2023.com": {
+    "site_title_prefix": "Stylecaster",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-stylecaster-2023.git"
+  },
   "tvline.com": {
     "site_title_prefix": "TV Line",
     "theme_repo": "git@github.com:penske-media-corp/pmc-tvline-2014.git"
