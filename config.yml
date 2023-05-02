@@ -179,7 +179,7 @@ sites:
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
         theme_dir_uses_vip: false
- footwearnews-2023-com:
+  footwearnews-2023-com:
     skip_provisioning: true
     description: footwearnews-2023.com
     repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
