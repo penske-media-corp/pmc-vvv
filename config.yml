@@ -179,6 +179,24 @@ sites:
         theme_slug: ""
         parent_theme_slug: pmc-core-v2
         theme_dir_uses_vip: false
+  footwearnews-2023-com:
+    skip_provisioning: true
+    description: footwearnews-2023.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - footwearnews-2023-com.test
+    nginx_upstream: php80
+    custom:
+      live_url: https://footwearnews-2023.com
+      site_title: Footwearnews (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@github.com:penske-media-corp/pmc-footwearnews-2023.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        theme_dir_uses_vip: false
   goldderby-com:
     skip_provisioning: true
     description: goldderby.com

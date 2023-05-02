@@ -52,6 +52,10 @@
     "theme_repo": "git@github.com:penske-media-corp/pmc-footwearnews-2018.git",
     "parent_theme_slug": "pmc-core-v2"
   },
+  "footwearnews-2023.com": {
+    "site_title_prefix": "Footwearnews",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-footwearnews-2023.git"
+  },
   "goldderby.com": {
     "site_title_prefix": "Gold Derby",
     "provisioner_url": "git@github.com:Varying-Vagrant-Vagrants/custom-site-template.git",
