@@ -1,9 +1,10 @@
 # Unit Tests
 
-For each site you provision, e.g. Sportico, you may run the theme and pmc-plugins unit tests by following the steps below. Do steps 1-3 once, and steps 4+ for each provisioned site, e.g. Sportico, WWD, etc.. The basic concept here is that we copy the testing tools from wordpress-develop into each provisioned site.
+For each site you provision, e.g. Sportico, you may run the theme and pmc-plugins unit tests by following the steps below. Do steps 1-3 once, and steps 4+ for each provisioned site, e.g. Sportico, WWD, etc. The basic concept here is that we copy the testing tools from wordpress-develop into each provisioned site.
 
 NOTE, Ideally, we could provision wordpress-trunk into VVV via [custom-site-template-develop](https://github.com/Varying-Vagrant-Vagrants/custom-site-template-develop) (by setting skip_provisioning: false in config.yml) as it provides phpunit, test database, and the wp test suite. However, it forces you to use the latest (unreleased) version. Using its master branch can/has lead to issues when running tests with our pmc-unit-test bootstrap.php. Due to this, we setup the test environment manually (steps 1-3 below).
 
+> :information_source: **Shortcut available:** Instead of following the steps below, you can use the [setup-phpunit-wp.sh](https://github.com/penske-media-corp/pmc-vvv-utilities/blob/main/bin/setup-phpunit-wp.sh) shell script within Vagrant to automate the process. Make sure you have the appropriate permissions and have reviewed the script before executing it.
 
 1. Install phpunit
     ```bash
@@ -64,7 +65,7 @@ NOTE, Ideally, we could provision wordpress-trunk into VVV via [custom-site-temp
         ```
         define( 'PMC_IS_VIP_GO_SITE', true );
         define( 'VIP_GO_APP_ENVIRONMENT', 'development' );
-        define('WP_TESTS_PHPUNIT_POLYFILLS_PATH', '/home/vagrant/vendor/yoast/phpunit-polyfills/');
+        define( 'WP_TESTS_PHPUNIT_POLYFILLS_PATH', '/home/vagrant/vendor/yoast/phpunit-polyfills/' );
         ```
 1. Run tests
     1. Note, we must tell PHPUnit where our test bootstraps are located. Note, this must be done each time you SSH into vagrant (See below PHPStorm docs to automate this). Note, change `sportico-com` to the site you're testing within.
