@@ -69,12 +69,7 @@
     "theme_dir_uses_vip": true
   },
   "indiewire.com": {
-    "site_title_prefix": "Indiewire",
-    "theme_repo": "git@github.com:penske-media-corp/pmc-indiewire-2016.git",
-    "theme_slug": "indiewire"
-  },
-  "indiewire-2023.com": {
-    "site_title_prefix": "Indiewire",
+    "site_title_prefix": "IndieWire",
     "theme_repo": "git@github.com:penske-media-corp/pmc-indiewire-2023.git"
   },
   "nova": {
