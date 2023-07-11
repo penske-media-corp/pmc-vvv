@@ -49,11 +49,6 @@
   },
   "footwearnews.com": {
     "site_title_prefix": "Footwearnews",
-    "theme_repo": "git@github.com:penske-media-corp/pmc-footwearnews-2018.git",
-    "parent_theme_slug": "pmc-core-v2"
-  },
-  "footwearnews-2023.com": {
-    "site_title_prefix": "Footwearnews",
     "theme_repo": "git@github.com:penske-media-corp/pmc-footwearnews-2023.git"
   },
   "goldderby.com": {
@@ -141,10 +136,6 @@
     "theme_repo": "git@github.com:penske-media-corp/pmc-stylecaster-2023.git"
   },
   "tvline.com": {
-    "site_title_prefix": "TV Line",
-    "theme_repo": "git@github.com:penske-media-corp/pmc-tvline-2014.git"
-  },
-  "tvline-2023.com": {
     "site_title_prefix": "TV Line",
     "theme_repo": "git@github.com:penske-media-corp/pmc-tvline-2023.git"
   },
