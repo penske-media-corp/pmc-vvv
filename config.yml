@@ -323,6 +323,24 @@ sites:
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: true
+  rr-giftguide:
+    skip_provisioning: true
+    description: ultimategiftguide.robbreport.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - rr-giftguide.test
+    nginx_upstream: php80
+    custom:
+      live_url: http://ultimategiftguide.robbreport.com
+      site_title: Robb Report Ultimate Gift Guide (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@github.com:penske-media-corp/pmc-rr-giftguide-2023.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        theme_dir_uses_vip: false
   rr1-com:
     skip_provisioning: true
     description: rr1.com
