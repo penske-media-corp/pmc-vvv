@@ -139,6 +139,10 @@
     "site_title_prefix": "TV Line",
     "theme_repo": "git@github.com:penske-media-corp/pmc-tvline-2023.git"
   },
+  "ultimategiftguide.robbreport.com": {
+    "site_title_prefix": "Ultimate Gift Guide",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-rr-giftguide-2023.git"
+  },
   "variety.com": {
     "site_title_prefix": "Variety",
     "theme_repo": "git@github.com:penske-media-corp/pmc-variety-2020.git",
