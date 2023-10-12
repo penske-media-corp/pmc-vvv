@@ -6,7 +6,7 @@ sites:
     branch: main
     hosts:
       - artforum-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://artforum.com
       site_title: Art Forum (LOCAL)
@@ -24,7 +24,7 @@ sites:
     branch: main
     hosts:
       - artnews-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://artnews.com
       site_title: Artnews (LOCAL)
@@ -42,7 +42,7 @@ sites:
     branch: main
     hosts:
       - bgr-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://bgr.com
       site_title: BGR (LOCAL)
@@ -60,7 +60,7 @@ sites:
     branch: main
     hosts:
       - billboard-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://billboard.com
       site_title: Billboard (LOCAL)
@@ -78,7 +78,7 @@ sites:
     branch: main
     hosts:
       - blogher-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://blogher.com
       site_title: BlogHer (LOCAL)
@@ -96,7 +96,7 @@ sites:
     branch: main
     hosts:
       - deadline-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://deadline.com
       site_title: Deadline (LOCAL)
@@ -114,7 +114,7 @@ sites:
     branch: main
     hosts:
       - dirt-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://dirt.com
       site_title: Dirt (LOCAL)
@@ -132,7 +132,7 @@ sites:
     branch: main
     hosts:
       - engineering-pmc-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://engineering.pmc.com
       site_title: PMC Engineering (LOCAL)
@@ -150,7 +150,7 @@ sites:
     branch: main
     hosts:
       - events-fairchildlive-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://events.fairchildlive.com
       site_title: Fairchild Live Events (LOCAL)
@@ -168,7 +168,7 @@ sites:
     branch: main
     hosts:
       - footwearnews-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://footwearnews.com
       site_title: Footwearnews (LOCAL)
@@ -186,7 +186,7 @@ sites:
     branch: master
     hosts:
       - goldderby-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://goldderby.com
       site_title: Gold Derby (LOCAL)
@@ -204,7 +204,7 @@ sites:
     branch: main
     hosts:
       - hollywoodreporter-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://hollywoodreporter.com
       site_title: Hollywoodreporter (LOCAL)
@@ -222,7 +222,7 @@ sites:
     branch: main
     hosts:
       - indiewire-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://indiewire.com
       site_title: IndieWire (LOCAL)
@@ -240,7 +240,7 @@ sites:
     branch: main
     hosts:
       - nova.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://nova
       site_title: Nova (LOCAL)
@@ -258,7 +258,7 @@ sites:
     branch: main
     hosts:
       - pmc-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://pmc.com
       site_title: PMC Corp (LOCAL)
@@ -276,7 +276,7 @@ sites:
     branch: main
     hosts:
       - robbreport-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://robbreport.com
       site_title: Robb Report (LOCAL)
@@ -294,7 +294,7 @@ sites:
     branch: main
     hosts:
       - robbreport-uk-co.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://robbreport.uk.co
       site_title: Robb Report UK (LOCAL)
@@ -312,7 +312,7 @@ sites:
     branch: main
     hosts:
       - rollingstone-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://rollingstone.com
       site_title: Rolling Stone (LOCAL)
@@ -330,7 +330,7 @@ sites:
     branch: main
     hosts:
       - rr1-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://rr1.com
       site_title: RR1 (LOCAL)
@@ -348,7 +348,7 @@ sites:
     branch: main
     hosts:
       - sales-pmcdev-io.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://sales.pmcdev.io
       site_title: Sales Microsites (LOCAL)
@@ -366,7 +366,7 @@ sites:
     branch: main
     hosts:
       - sheknows-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://sheknows.com
       site_title: Sheknows (LOCAL)
@@ -384,7 +384,7 @@ sites:
     branch: main
     hosts:
       - soaps-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://soaps.com
       site_title: Soaps (LOCAL)
@@ -402,7 +402,7 @@ sites:
     branch: main
     hosts:
       - sportico-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://sportico.com
       site_title: Sportico (LOCAL)
@@ -420,7 +420,7 @@ sites:
     branch: main
     hosts:
       - sourcingjournal-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://sourcingjournal.com
       site_title: Sourcing Journal (LOCAL)
@@ -438,7 +438,7 @@ sites:
     branch: main
     hosts:
       - spy-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://spy.com
       site_title: Spy (LOCAL)
@@ -456,7 +456,7 @@ sites:
     branch: main
     hosts:
       - stylecaster-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://stylecaster.com
       site_title: Stylecaster (LOCAL)
@@ -474,7 +474,7 @@ sites:
     branch: main
     hosts:
       - tvline-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://tvline.com
       site_title: TV Line (LOCAL)
@@ -492,7 +492,7 @@ sites:
     branch: main
     hosts:
       - ultimategiftguide-robbreport-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://ultimategiftguide.robbreport.com
       site_title: Ultimate Gift Guide (LOCAL)
@@ -510,7 +510,7 @@ sites:
     branch: main
     hosts:
       - variety-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://variety.com
       site_title: Variety (LOCAL)
@@ -528,7 +528,7 @@ sites:
     branch: main
     hosts:
       - vibe-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://vibe.com
       site_title: Vibe (LOCAL)
@@ -546,7 +546,7 @@ sites:
     branch: main
     hosts:
       - wwd-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://wwd.com
       site_title: WWD (LOCAL)
@@ -564,7 +564,7 @@ sites:
     branch: main
     hosts:
       - studios-wwd-com.test
-    nginx_upstream: php80
+    nginx_upstream: php82
     custom:
       live_url: https://studios.wwd.com
       site_title: WWD Studios (LOCAL)
@@ -589,7 +589,7 @@ utilities:
     - opcache-status
     - webgrind
     - php80
-    - php81
+    - php82
   pmc:
     - coretech
     - http-concat
