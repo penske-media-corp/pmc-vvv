@@ -2,7 +2,7 @@ const fs = require("fs");
 const YAML = require("yaml");
 
 const configFileName = "config.yml";
-const defaultPhpVersion = 8.0;
+const defaultPhpVersion = 8.2;
 
 console.info(`Generating ${configFileName}...`);
 
@@ -18,7 +18,7 @@ const vvvConfig = {
       "opcache-status",
       "webgrind",
       "php80",
-      "php81",
+      "php82",
     ],
     pmc: [
       "coretech",
