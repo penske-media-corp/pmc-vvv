@@ -3,6 +3,10 @@
     "site_title_prefix": "Art Forum",
     "theme_repo": "git@github.com:penske-media-corp/pmc-artforum-2023.git"
   },
+  "artguide": {
+    "site_title_prefix": "Art Guide",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-artguide-2023.git"
+  },
   "artnews.com": {
     "site_title_prefix": "Artnews",
     "theme_repo": "git@github.com:penske-media-corp/pmc-artnews-2019.git",

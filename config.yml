@@ -17,6 +17,24 @@ sites:
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
+  artguide:
+    skip_provisioning: true
+    description: artguide
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - artguide.test
+    nginx_upstream: php82
+    custom:
+      live_url: https://artguide
+      site_title: Art Guide (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      pmc:
+        theme_repo: git@github.com:penske-media-corp/pmc-artguide-2023.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        theme_dir_uses_vip: false
   artnews-com:
     skip_provisioning: true
     description: artnews.com
