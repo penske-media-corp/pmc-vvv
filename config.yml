@@ -12,6 +12,7 @@ sites:
       site_title: Art Forum (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-artforum-2023.git
         theme_slug: ""
@@ -30,6 +31,7 @@ sites:
       site_title: Art Guide (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-artguide-2023.git
         theme_slug: ""
@@ -48,6 +50,7 @@ sites:
       site_title: Artnews (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-artnews-2019.git
         theme_slug: ""
@@ -66,6 +69,7 @@ sites:
       site_title: BGR (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@bitbucket.org:penskemediacorp/bgr.git
         theme_slug: ""
@@ -84,6 +88,7 @@ sites:
       site_title: Billboard (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-billboard-2021.git
         theme_slug: ""
@@ -102,6 +107,7 @@ sites:
       site_title: BlogHer (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-blogher-2020.git
         theme_slug: ""
@@ -120,6 +126,7 @@ sites:
       site_title: Deadline (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-deadline-2019.git
         theme_slug: ""
@@ -138,6 +145,7 @@ sites:
       site_title: Dirt (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-dirt-2020.git
         theme_slug: ""
@@ -156,6 +164,7 @@ sites:
       site_title: PMC Engineering (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-engineering-2021.git
         theme_slug: ""
@@ -174,6 +183,7 @@ sites:
       site_title: Fairchild Live Events (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-summits-wwd.git
         theme_slug: ""
@@ -192,6 +202,7 @@ sites:
       site_title: Footwearnews (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-footwearnews-2023.git
         theme_slug: ""
@@ -210,6 +221,7 @@ sites:
       site_title: Gold Derby (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-goldderby.git
         theme_slug: ""
@@ -228,6 +240,7 @@ sites:
       site_title: Hollywoodreporter (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-hollywoodreporter-2021.git
         theme_slug: ""
@@ -246,6 +259,7 @@ sites:
       site_title: IndieWire (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-indiewire-2023.git
         theme_slug: ""
@@ -264,6 +278,7 @@ sites:
       site_title: Nova (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-nova-theme.git
         theme_slug: ""
@@ -282,6 +297,7 @@ sites:
       site_title: PMC Corp (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-corporate-2018.git
         theme_slug: ""
@@ -300,6 +316,7 @@ sites:
       site_title: Robb Report (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-robbreport-2017-v2.git
         theme_slug: ""
@@ -318,6 +335,7 @@ sites:
       site_title: Robb Report UK (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-robbreport-2017-v2.git
         theme_slug: ""
@@ -336,6 +354,7 @@ sites:
       site_title: Rolling Stone (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-rollingstone-2022.git
         theme_slug: ""
@@ -354,6 +373,7 @@ sites:
       site_title: RR1 (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-summits-rr1.git
         theme_slug: ""
@@ -372,6 +392,7 @@ sites:
       site_title: Sales Microsites (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-salesmicrosite.git
         theme_slug: ""
@@ -390,6 +411,7 @@ sites:
       site_title: Sheknows (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-sheknows-2020.git
         theme_slug: ""
@@ -408,6 +430,7 @@ sites:
       site_title: Soaps (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-soaps-2018.git
         theme_slug: ""
@@ -426,6 +449,7 @@ sites:
       site_title: Sportico (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-sportico-2020.git
         theme_slug: ""
@@ -444,6 +468,7 @@ sites:
       site_title: Sourcing Journal (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-sourcingjournal-2021.git
         theme_slug: ""
@@ -462,6 +487,7 @@ sites:
       site_title: Spy (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-spy-2022.git
         theme_slug: ""
@@ -480,6 +506,7 @@ sites:
       site_title: Stylecaster (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-stylecaster-2023.git
         theme_slug: ""
@@ -498,6 +525,7 @@ sites:
       site_title: TV Line (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-tvline-2023.git
         theme_slug: ""
@@ -516,6 +544,7 @@ sites:
       site_title: Ultimate Gift Guide (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-rr-giftguide-2023.git
         theme_slug: ""
@@ -534,6 +563,7 @@ sites:
       site_title: Variety (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-variety-2020.git
         theme_slug: ""
@@ -552,6 +582,7 @@ sites:
       site_title: Vibe (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-vibe-2021.git
         theme_slug: ""
@@ -570,6 +601,7 @@ sites:
       site_title: WWD (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-wwd-2021.git
         theme_slug: ""
@@ -588,6 +620,7 @@ sites:
       site_title: WWD Studios (LOCAL)
       admin_user: pmcdev
       admin_password: pmcdev
+      wp_version: 6.3
       pmc:
         theme_repo: git@github.com:penske-media-corp/pmc-wwd-studios-2017.git
         theme_slug: ""
@@ -606,7 +639,6 @@ utilities:
     - memcached-admin
     - opcache-status
     - webgrind
-    - php80
     - php82
   pmc:
     - coretech

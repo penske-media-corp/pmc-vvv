@@ -17,7 +17,6 @@ const vvvConfig = {
       "memcached-admin",
       "opcache-status",
       "webgrind",
-      "php80",
       "php82",
     ],
     pmc: [
@@ -76,6 +75,7 @@ Object.entries(sitesConfig).forEach((entry) => {
       site_title: `${config.site_title_prefix} (LOCAL)`,
       admin_user: "pmcdev",
       admin_password: "pmcdev",
+      wp_version: 6.3,
       pmc: {
         theme_repo: config.theme_repo,
         theme_slug: config.theme_slug ?? "",
