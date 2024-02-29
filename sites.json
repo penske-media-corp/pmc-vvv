@@ -139,6 +139,10 @@
     "site_title_prefix": "Stylecaster",
     "theme_repo": "git@github.com:penske-media-corp/pmc-stylecaster-2023.git"
   },
+  "theflowspace.com": {
+    "site_title_prefix": "Flow Space",
+    "theme_repo": "git@github.com:penske-media-corp/pmc-flow-2024.git"
+  },
   "tvline.com": {
     "site_title_prefix": "TV Line",
     "theme_repo": "git@github.com:penske-media-corp/pmc-tvline-2023.git"
