@@ -512,6 +512,25 @@ sites:
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
+  theflowspace-com:
+    skip_provisioning: true
+    description: theflowspace.com
+    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
+    branch: main
+    hosts:
+      - theflowspace-com.test
+    nginx_upstream: php82
+    custom:
+      live_url: https://theflowspace.com
+      site_title: Flow Space (LOCAL)
+      admin_user: pmcdev
+      admin_password: pmcdev
+      wp_version: 6.4
+      pmc:
+        theme_repo: git@github.com:penske-media-corp/pmc-flow-2024.git
+        theme_slug: ""
+        parent_theme_slug: ""
+        theme_dir_uses_vip: false
   tvline-com:
     skip_provisioning: true
     description: tvline.com
