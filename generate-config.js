@@ -75,7 +75,7 @@ Object.entries(sitesConfig).forEach((entry) => {
       site_title: `${config.site_title_prefix} (LOCAL)`,
       admin_user: "pmcdev",
       admin_password: "pmcdev",
-      wp_version: 6.4,
+      wp_version: 6.5,
       pmc: {
         theme_repo: config.theme_repo,
         theme_slug: config.theme_slug ?? "",
