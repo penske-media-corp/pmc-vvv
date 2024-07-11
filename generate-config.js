@@ -59,7 +59,6 @@ Object.entries(sitesConfig).forEach((entry) => {
   const phpVersion = parseFloat(
     config.php_version ?? defaultPhpVersion
   ).toFixed(1);
-  const nginxUpstream = `php${phpVersion}`.replace(".", "");
 
   vvvConfig.sites[slugifiedUrl] = {
     skip_provisioning: true,
@@ -69,7 +68,7 @@ Object.entries(sitesConfig).forEach((entry) => {
       "git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git",
     branch: config.provisioner_branch ?? "main",
     hosts: [`${slugifiedUrl}.test`],
-    nginx_upstream: nginxUpstream,
+    php: phpVersion,
     custom: {
       live_url: `https://${liveUrl}`,
       site_title: `${config.site_title_prefix} (LOCAL)`,
