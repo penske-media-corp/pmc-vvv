@@ -14,26 +14,7 @@ sites:
       admin_password: pmcdev
       wp_version: 6.5
       pmc:
-        theme_repo: git@github.com:penske-media-corp/pmc-artforum-2023.git
-        theme_slug: ""
-        parent_theme_slug: ""
-        theme_dir_uses_vip: false
-  artguide:
-    skip_provisioning: true
-    description: artguide
-    repo: git@github.com:penske-media-corp/pmc-vvv-site-provisioners.git
-    branch: main
-    hosts:
-      - artguide.test
-    nginx_upstream: php82
-    custom:
-      live_url: https://artguide
-      site_title: Art Guide (LOCAL)
-      admin_user: pmcdev
-      admin_password: pmcdev
-      wp_version: 6.5
-      pmc:
-        theme_repo: git@github.com:penske-media-corp/pmc-artguide-2023.git
+        theme_repo: git@github.com:penske-media-corp/pmc-nova-theme.git
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
@@ -204,7 +185,7 @@ sites:
       admin_password: pmcdev
       wp_version: 6.5
       pmc:
-        theme_repo: git@github.com:penske-media-corp/pmc-footwearnews-2023.git
+        theme_repo: git@github.com:penske-media-corp/pmc-nova-theme.git
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
@@ -261,7 +242,7 @@ sites:
       admin_password: pmcdev
       wp_version: 6.5
       pmc:
-        theme_repo: git@github.com:penske-media-corp/pmc-indiewire-2023.git
+        theme_repo: git@github.com:penske-media-corp/pmc-nova-theme.git
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
@@ -508,7 +489,7 @@ sites:
       admin_password: pmcdev
       wp_version: 6.5
       pmc:
-        theme_repo: git@github.com:penske-media-corp/pmc-stylecaster-2023.git
+        theme_repo: git@github.com:penske-media-corp/pmc-nova-theme.git
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
@@ -527,7 +508,7 @@ sites:
       admin_password: pmcdev
       wp_version: 6.5
       pmc:
-        theme_repo: git@github.com:penske-media-corp/pmc-flow-2024.git
+        theme_repo: git@github.com:penske-media-corp/pmc-nova-theme.git
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
@@ -546,7 +527,7 @@ sites:
       admin_password: pmcdev
       wp_version: 6.5
       pmc:
-        theme_repo: git@github.com:penske-media-corp/pmc-tvline-2023.git
+        theme_repo: git@github.com:penske-media-corp/pmc-nova-theme.git
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
@@ -565,7 +546,7 @@ sites:
       admin_password: pmcdev
       wp_version: 6.5
       pmc:
-        theme_repo: git@github.com:penske-media-corp/pmc-rr-giftguide-2023.git
+        theme_repo: git@github.com:penske-media-corp/pmc-nova-theme.git
         theme_slug: ""
         parent_theme_slug: ""
         theme_dir_uses_vip: false
