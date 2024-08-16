@@ -1,11 +1,7 @@
 {
   "artforum.com": {
     "site_title_prefix": "Art Forum",
-    "theme_repo": "git@github.com:penske-media-corp/pmc-artforum-2023.git"
-  },
-  "artguide": {
-    "site_title_prefix": "Art Guide",
-    "theme_repo": "git@github.com:penske-media-corp/pmc-artguide-2023.git"
+    "theme_repo": "git@github.com:penske-media-corp/pmc-nova-theme.git"
   },
   "artnews.com": {
     "site_title_prefix": "Artnews",
@@ -53,7 +49,7 @@
   },
   "footwearnews.com": {
     "site_title_prefix": "Footwearnews",
-    "theme_repo": "git@github.com:penske-media-corp/pmc-footwearnews-2023.git"
+    "theme_repo": "git@github.com:penske-media-corp/pmc-nova-theme.git"
   },
   "goldderby.com": {
     "site_title_prefix": "Gold Derby",
@@ -69,7 +65,7 @@
   },
   "indiewire.com": {
     "site_title_prefix": "IndieWire",
-    "theme_repo": "git@github.com:penske-media-corp/pmc-indiewire-2023.git"
+    "theme_repo": "git@github.com:penske-media-corp/pmc-nova-theme.git"
   },
   "nova": {
     "site_title_prefix": "Nova",
@@ -137,19 +133,19 @@
   },
   "stylecaster.com": {
     "site_title_prefix": "Stylecaster",
-    "theme_repo": "git@github.com:penske-media-corp/pmc-stylecaster-2023.git"
+    "theme_repo": "git@github.com:penske-media-corp/pmc-nova-theme.git"
   },
   "theflowspace.com": {
     "site_title_prefix": "Flow Space",
-    "theme_repo": "git@github.com:penske-media-corp/pmc-flow-2024.git"
+    "theme_repo": "git@github.com:penske-media-corp/pmc-nova-theme.git"
   },
   "tvline.com": {
     "site_title_prefix": "TV Line",
-    "theme_repo": "git@github.com:penske-media-corp/pmc-tvline-2023.git"
+    "theme_repo": "git@github.com:penske-media-corp/pmc-nova-theme.git"
   },
   "ultimategiftguide.robbreport.com": {
     "site_title_prefix": "Ultimate Gift Guide",
-    "theme_repo": "git@github.com:penske-media-corp/pmc-rr-giftguide-2023.git"
+    "theme_repo": "git@github.com:penske-media-corp/pmc-nova-theme.git"
   },
   "variety.com": {
     "site_title_prefix": "Variety",
