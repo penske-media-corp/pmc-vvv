@@ -15,6 +15,7 @@ information, see the [Related repos](#related-repos) section.
 * [Installing `pmc-vvv`](./docs/installing.md)
 * [FAQ](./docs/faq.md)
 * [Unit testing in individual sites](./docs/unit-tests.md)
+* [Commands](./docs/commands.md)
 * [Miscellaneous issues](./docs/misc-issues.md)
 
 ## Default WordPress Login
