@@ -1,5 +1,10 @@
 # PMC-VVV
 
+> ⚠️
+> 
+> **This repository is deprecated.** PMC no longer supports VVV, but this 
+> repository persists as a reference.
+
 Configuration repo for PMC's use of VVV.
 
 VVV is an open source local development environment designed for WordPress 
